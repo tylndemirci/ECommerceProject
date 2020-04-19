@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ECommerceProject.AdminUI.Models.Category.AddCategoryViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+<a class="btn btn-sm btn-success" asp-controller="Category" asp-action="AddCategory">Add Category</a>
+<table class="table table-striped table-sm">
+    <tr>
+        <th>Category ID</th>
+        <th>Category Name</th>
+        <th>Sub Categories</th>
+        <td>Parent Category</td>
+        <th>Settings</th>
+       
+
+    </tr>
+    @if (Model != null)
+    {
+        @foreach (var x in Model)
+        {
+
+<tr>
+
+    <td>@x.CategoryId</td>
+
+    @if (x.ParentCategoryId != null)
+    {
+        <td><b>(Sub Category)</b> @x.Title</td>
+    }
+    else
+    {
+        <td>@x.Title</td>
+    }
+    <td>@x.SubCategories</td>
+    <td>@x.ParentCategory</td>
+    <td><a class="btn btn-sm btn-success" asp-controller="Category" asp-action="AddSubCategory" asp-route-id="@x.CategoryId">Add Sub Category</a></td>
+    <td><a class="btn btn-sm btn-success" asp-controller="Category" asp-action="UpdateCategory" asp-route-id="@x.CategoryId">Update Category</a></td>
+    <td><a class="btn btn-sm btn-danger" asp-controller="Category" asp-action="DeleteCategory" asp-route-id="@x.CategoryId">Delete</a></td>
+</tr>
+
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="3" class="text-center"> <p><b>There is not any category.</b></p></td>
+        </tr>
+
+    }
+
+</table>
+

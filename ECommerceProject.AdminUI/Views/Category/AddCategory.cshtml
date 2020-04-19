@@ -1,0 +1,14 @@
+﻿@model ECommerceProject.AdminUI.Models.Category.AddCategoryViewModel
+@{
+    ViewData["Title"] = "AddCategory";
+}
+
+<form class="form-group" method="post">
+    <input asp-for="ParentCategoryId" hidden/>
+    <div class="form-control">
+        <label asp-for="Title"></label>
+        <input asp-for="Title"/>
+    </div>
+    <button type="submit" value="submit">Submit</button>
+</form>
+
