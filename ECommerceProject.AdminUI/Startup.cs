@@ -32,10 +32,10 @@ namespace ECommerceProject.AdminUI
             services.AddDbContext<ECommerceProjectContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
                 builder => builder.MigrationsAssembly("ECommerceProject.AdminUI"))
                 );
-            services.AddScoped<IProductDal, EfProductDal>();
-            services.AddScoped<IProductService, ProductManager>();
-            services.AddScoped<ICategoryDal, EfCategoryDal>();
-            services.AddScoped<ICategoryService, CategoryManager>();
+            services.AddTransient<IProductDal, EfProductDal>();
+            services.AddTransient<IProductService, ProductManager>();
+            services.AddTransient<ICategoryDal, EfCategoryDal>();
+            services.AddTransient<ICategoryService, CategoryManager>();
             
 
             services.AddControllersWithViews();

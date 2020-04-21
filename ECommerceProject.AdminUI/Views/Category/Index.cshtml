@@ -8,8 +8,10 @@
         <th>Category ID</th>
         <th>Category Name</th>
         <th>Sub Categories</th>
-        <td>Parent Category</td>
+        <th>Parent Category</th>
+        <th>Is Deleted</th>
         <th>Settings</th>
+        
        
 
     </tr>
@@ -32,6 +34,7 @@
     }
     <td>@x.SubCategories</td>
     <td>@x.ParentCategory</td>
+    <td>@x.IsDeleted</td>
     <td><a class="btn btn-sm btn-success" asp-controller="Category" asp-action="AddSubCategory" asp-route-id="@x.CategoryId">Add Sub Category</a></td>
     <td><a class="btn btn-sm btn-success" asp-controller="Category" asp-action="UpdateCategory" asp-route-id="@x.CategoryId">Update Category</a></td>
     <td><a class="btn btn-sm btn-danger" asp-controller="Category" asp-action="DeleteCategory" asp-route-id="@x.CategoryId">Delete</a></td>

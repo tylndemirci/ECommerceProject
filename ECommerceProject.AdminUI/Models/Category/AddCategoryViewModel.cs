@@ -8,6 +8,7 @@ namespace ECommerceProject.AdminUI.Models.Category
         {
             CategoryId = category.Id;
             ParentCategoryId = category.ParentCategoryId;
+            IsDeleted = false;
             Title = category.Title;
             ParentCategory = category.ParentCategory != null ? category.ParentCategory.Title : "";
             SubCategories = category.SubCategories != null ? string.Join(",", category.SubCategories.Select(x => x.Title)) : "";
@@ -22,6 +23,7 @@ namespace ECommerceProject.AdminUI.Models.Category
 
         public int CategoryId { get; set; }
         public int? ParentCategoryId { get; set; }
+        public bool IsDeleted { get; set; }
         public string Title { get; set; }
         public string SubCategories { get; set; }
         public string ParentCategory { get; set; }

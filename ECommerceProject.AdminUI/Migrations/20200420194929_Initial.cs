@@ -13,6 +13,7 @@ namespace ECommerceProject.AdminUI.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ParentCategoryId = table.Column<int>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
                     Title = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

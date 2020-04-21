@@ -8,6 +8,7 @@ namespace ECommerceProject.Entities.Concrete
     {
         public int Id { get; set; }
         public int? ParentCategoryId { get; set; }
+        public bool IsDeleted { get; set; }
         public Category ParentCategory { get; set; }
 
         public string Title { get; set; }
@@ -15,3 +16,4 @@ namespace ECommerceProject.Entities.Concrete
         public ICollection<Category> SubCategories { get; set; }
     }
 }
+    

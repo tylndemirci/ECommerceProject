@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using ECommerceProject.Entities;
+using ECommerceProject.Entities.Concrete;
 
 namespace ECommerceProject.Business.Abstract
 {
