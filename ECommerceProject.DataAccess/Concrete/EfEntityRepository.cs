@@ -23,6 +23,8 @@ namespace ECommerceProject.DataAccess.Concrete
 
         }
 
+       
+
         public T GetBy(Expression<Func<T, bool>> filter)
         {
             return _dbContext.Set<T>().SingleOrDefault(filter);
@@ -42,6 +44,13 @@ namespace ECommerceProject.DataAccess.Concrete
             _dbContext.SaveChanges();
             
 
+        }
+
+        public void UpdateWithoutSave(T entity)
+        {
+            var updatedEntity = _dbContext.Entry(entity);
+            updatedEntity.State = EntityState.Modified;
+            
         }
 
         public void Delete(T entity)

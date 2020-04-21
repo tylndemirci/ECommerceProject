@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Cryptography.X509Certificates;
 using ECommerceProject.AdminUI.Models.Category;
@@ -24,7 +25,7 @@ namespace ECommerceProject.AdminUI.Controllers
         public IActionResult Index()
         {
 
-            var returnModel = _categoryDal.GetAll().Select(x => new AddCategoryViewModel(x));
+            var returnModel = _categoryDal.GetAllWithSubNames().Where(f=>f.IsDeleted==false).Select(x => new AddCategoryViewModel(x));
             return View(returnModel);
         }
         [HttpGet]
@@ -39,7 +40,10 @@ namespace ECommerceProject.AdminUI.Controllers
             _categoryService.AddCategory(new Category()
             {
                 Id = model.CategoryId,
-                Title = model.Title
+                Title = model.Title,
+             
+                
+
             });
             return RedirectToAction("Index");
         }
@@ -58,11 +62,11 @@ namespace ECommerceProject.AdminUI.Controllers
         [HttpPost]
         public IActionResult AddSubCategory(AddCategoryViewModel model)
         {
+
             _categoryService.AddCategory(new Category()
             {
                 Title = model.Title,
-                ParentCategoryId = model.ParentCategoryId,
-
+                ParentCategoryId = model.ParentCategoryId
             });
 
             return RedirectToAction("Index");
@@ -71,28 +75,9 @@ namespace ECommerceProject.AdminUI.Controllers
         public IActionResult DeleteCategory(int id)
         {
 
-            var getCategory = _categoryDal.GetBy(x => x.Id == id);
-            var getSubCategory = _categoryDal.GetBy(p => p.ParentCategoryId == id);
-            if (getSubCategory != null)
-            {
+            _categoryService.DeleteCategoryTree(id);
 
-                _categoryService.DeleteCategoryTree(getSubCategory.Id);
-
-            }
-
-            if (getCategory != null)
-            {
-                _categoryService.DeleteCategoryTree(getCategory.Id);
-
-            }
-
-
-
-
-
-
-
-            return RedirectToAction("Index"); 
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -101,15 +86,36 @@ namespace ECommerceProject.AdminUI.Controllers
             var getCategory = _categoryDal.GetBy(x => x.Id == id);
             return View(new AddCategoryViewModel()
             {
-                CategoryId = getCategory.Id
+                CategoryId = getCategory.Id,
+                ParentCategoryId = getCategory.ParentCategoryId
             });
         }
 
         [HttpPost]
         public IActionResult UpdateCategory(Category category)
         {
+
             _categoryService.UpdateCategory(category);
+
+
+
             return RedirectToAction("Index");
         }
+
+        
+        public IActionResult StatusPage(int id)
+        {
+            var category = _categoryDal.GetBy(x => x.Id == id);
+                var yo = new AddCategoryViewModel()
+                {
+                    CategoryId = category.Id,
+                    Title = category.Title,
+                    IsDeleted = category.IsDeleted,
+                    ParentCategoryId = category.ParentCategoryId
+                };
+            return View(yo);
+        }
+
+        
     }
 }

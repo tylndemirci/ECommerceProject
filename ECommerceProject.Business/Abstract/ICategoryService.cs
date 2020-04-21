@@ -11,8 +11,10 @@ namespace ECommerceProject.Business.Abstract
     {
         void AddCategory(Category category);
         void UpdateCategory(Category category);
+      
 
         void DeleteCategoryTree(int categoryId);
+        
         
         
         IQueryable<Category> ListCategories();

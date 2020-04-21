@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using ECommerceProject.Entities.Concrete;
 
-namespace ECommerceProject.Entities
+namespace ECommerceProject.Entities.Concrete
 {
     public class Product
     {
