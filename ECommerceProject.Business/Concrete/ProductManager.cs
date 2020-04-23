@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using ECommerceProject.Business.Abstract;
 using ECommerceProject.Business.Constants;
@@ -33,7 +34,14 @@ namespace ECommerceProject.Business.Concrete
         public void DeleteProduct(int productId)
         {
             var deleteProduct = _productDal.GetBy(p => p.ProductId == productId);
-            _productDal.Delete(deleteProduct);
+            deleteProduct.IsDeleted = true;
+            _productDal.Update(deleteProduct);
         }
-    }
+
+        public IQueryable<Product> ListProduct()
+        {
+            var returnProducts = _productDal.GetAll();
+            return returnProducts;
+        }
+   }
 }
