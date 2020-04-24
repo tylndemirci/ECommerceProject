@@ -42,7 +42,7 @@ namespace ECommerceProject.AdminUI.Controllers
         {
             if (file != null)
             {
-                if (file.FileName.EndsWith("jpeg") || file.FileName.EndsWith("png"))
+                if (file.FileName.EndsWith("jpg") || file.FileName.EndsWith("png"))
                 {
                     var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot//productimages", file.FileName);
                     using (var stream = new FileStream(path, FileMode.Create))
@@ -57,8 +57,13 @@ namespace ECommerceProject.AdminUI.Controllers
             _productService.AddProduct(new Product()
             {
                 ProductId = model.ProductId,
-                ImageUrl = model.ImageUrl
-            });
+                SubCategoryId = model.SubCategoryId,
+                Price = model.Price,
+                ProductName = model.ProductName,
+                ProductColor = model.ProductColor,
+                ImageUrl = model.ImageUrl ?? "~/assets/images/productDefault.png"
+
+        });
             return RedirectToAction("Index");
         }
     }
