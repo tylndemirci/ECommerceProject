@@ -21,9 +21,6 @@ namespace ECommerceProject.Entities.Concrete
         public string ProductColor { get; set; }
         public string ImageUrl { get; set; }
 
-
-
-
-
+       
     }
 }

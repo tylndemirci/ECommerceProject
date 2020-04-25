@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using ECommerceProject.AdminUI.Models.Product;
 using ECommerceProject.Business.Abstract;
 using ECommerceProject.Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceProject.AdminUI.Controllers
 {
@@ -24,8 +26,10 @@ namespace ECommerceProject.AdminUI.Controllers
 
         public IActionResult Index()
         {
-
-            var returnModel = _productService.ListProduct().Select(x => new ListAllProductsViewModel(x));
+           
+            var returnModel = _productService.ListProduct()
+                .Include(x=>x.Category)
+                .Select(x => new ListAllProductsViewModel(x));
             return View(returnModel);
         }
 
@@ -54,7 +58,9 @@ namespace ECommerceProject.AdminUI.Controllers
                 }
             }
 
-            var categoryName = _categoryService.GetCategory(model.SubCategoryId);
+            var getCategory = _categoryService.GetCategory(model.SubCategoryId);
+
+
 
             _productService.AddProduct(new Product()
             {

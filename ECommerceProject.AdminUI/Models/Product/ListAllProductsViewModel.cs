@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using ECommerceProject.AdminUI.Models.Category;
 
 namespace ECommerceProject.AdminUI.Models.Product
 {
@@ -9,6 +10,10 @@ namespace ECommerceProject.AdminUI.Models.Product
         {
             ProductId = product.ProductId;
             SubCategoryId = product.SubCategoryId;
+            if (product.Category!=null)
+            {
+                CategoryName = product.Category.Title;
+            }
             Count = product.Count;
             Price = product.Price;
             IsStock = product.Count > 1 ? true : false;
@@ -29,7 +34,7 @@ namespace ECommerceProject.AdminUI.Models.Product
 
         public int ProductId { get; set; }
         public int SubCategoryId { get; set; }
-        public string SubCategory { get; set; }
+        public string CategoryName { get; set; }
         public int Count { get; set; }
         public double Price { get; set; }
         public bool IsStock { get; set; }

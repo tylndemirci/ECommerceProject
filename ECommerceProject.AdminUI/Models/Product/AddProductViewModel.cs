@@ -11,7 +11,7 @@ namespace ECommerceProject.AdminUI.Models.Product
         {
             ProductId = product.ProductId;
             SubCategoryId = product.SubCategoryId;
-          
+            CategoryName = product.Category.Title;
             Price = product.Price;
             ProductName = product.ProductName;
             ProductColor = product.ProductColor;
@@ -26,7 +26,7 @@ namespace ECommerceProject.AdminUI.Models.Product
 
         public int ProductId { get; set; }
         public int SubCategoryId { get; set; }
-       
+        public string CategoryName { get; set; }
         public double Price { get; set; }
         public string ProductName { get; set; }
         public string ProductColor { get; set; }

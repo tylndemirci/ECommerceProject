@@ -7,6 +7,7 @@ using ECommerceProject.Business.Abstract;
 using ECommerceProject.DataAccess.Abstract;
 using ECommerceProject.Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceProject.AdminUI.Controllers
 {

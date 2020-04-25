@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Index";
 }
+
 <a class="button btn-sm btn-primary" asp-controller="Product" asp-action="AddProduct">Add Product</a>
     <table class="table-striped table table-sm">
         <tr>
@@ -28,10 +29,18 @@
         <td>@product.IsFeatured</td>
         <td>@product.IsStock</td>
         <td>@product.Price</td>
-        <td>@product.SubCategory</td>
+        @if (product.CategoryName != null)
+        {
+            <td>@product.CategoryName</td>
+        }
+        else
+        {
+            <td>No name</td>
+        }
 
 
-            <td><img src="~/productimages/@product.ImageUrl" width="50" /></td>
+
+        <td><img src="~/productimages/@product.ImageUrl" width="50" /></td>
     </tr>
         }
     </table>
