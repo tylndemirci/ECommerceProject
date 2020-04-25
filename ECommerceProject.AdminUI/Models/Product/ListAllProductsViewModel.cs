@@ -1,4 +1,6 @@
-﻿namespace ECommerceProject.AdminUI.Models.Product
+﻿using System.Linq;
+
+namespace ECommerceProject.AdminUI.Models.Product
 {
     public class ListAllProductsViewModel
     {
@@ -27,6 +29,7 @@
 
         public int ProductId { get; set; }
         public int SubCategoryId { get; set; }
+        public string SubCategory { get; set; }
         public int Count { get; set; }
         public double Price { get; set; }
         public bool IsStock { get; set; }

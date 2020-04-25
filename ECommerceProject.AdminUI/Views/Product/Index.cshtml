@@ -11,24 +11,28 @@
             <th>Count</th>
             <th>Is Approved</th>
             <th>Is Featured</th>
+            <td>Is Stock</td>
             <th>Price</th>
             <th>Sub Category Name</th>
+            <th>Image</th>
         </tr>
 
         @foreach (var product in Model)
         { 
-            <tr>
-                <td>@product.ProductId</td>
-                <td>@product.ProductName</td>
-                <td>@product.ProductColor</td>
-                <td>@product.Count</td>
-                <td>@product.IsApproved</td>
-                <td>@product.IsFeatured</td>
-                <td>@product.IsStock</td>
-                <td>@product.Price</td>
-                <td>@product.SubCategoryId</td>
-                <td><img src="~/productimages/@product.ImageUrl" width="50"/></td>
-            </tr>
+    <tr>
+        <td>@product.ProductId</td>
+        <td>@product.ProductName</td>
+        <td>@product.ProductColor</td>
+        <td>@product.Count</td>
+        <td>@product.IsApproved</td>
+        <td>@product.IsFeatured</td>
+        <td>@product.IsStock</td>
+        <td>@product.Price</td>
+        <td>@product.SubCategory</td>
+
+
+            <td><img src="~/productimages/@product.ImageUrl" width="50" /></td>
+    </tr>
         }
     </table>
 

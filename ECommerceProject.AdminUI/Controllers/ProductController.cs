@@ -54,6 +54,8 @@ namespace ECommerceProject.AdminUI.Controllers
                 }
             }
 
+            var categoryName = _categoryService.GetCategory(model.SubCategoryId);
+
             _productService.AddProduct(new Product()
             {
                 ProductId = model.ProductId,
@@ -61,7 +63,7 @@ namespace ECommerceProject.AdminUI.Controllers
                 Price = model.Price,
                 ProductName = model.ProductName,
                 ProductColor = model.ProductColor,
-                ImageUrl = model.ImageUrl ?? "~/assets/images/productDefault.png"
+                ImageUrl = model.ImageUrl ?? "productDefault.png"
 
         });
             return RedirectToAction("Index");
