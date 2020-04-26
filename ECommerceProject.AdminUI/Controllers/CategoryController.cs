@@ -93,11 +93,14 @@ namespace ECommerceProject.AdminUI.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateCategory(Category category)
+        public IActionResult UpdateCategory(AddCategoryViewModel model)
         {
-
-            _categoryService.UpdateCategory(category);
-
+            _categoryService.UpdateCategory(new Category()
+            {
+                Id = model.CategoryId,
+                ParentCategoryId = model.ParentCategoryId,
+                Title = model.Title,
+            });
 
 
             return RedirectToAction("Index");
