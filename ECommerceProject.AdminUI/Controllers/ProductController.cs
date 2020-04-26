@@ -80,16 +80,10 @@ namespace ECommerceProject.AdminUI.Controllers
         {
             ViewBag.categories = _categoryService.ListCategories().Where(x => x.ParentCategoryId != null);
             var getProduct = _productService.GetProduct(id);
-            var editProduct = new AddProductViewModel(new Product()
-            {
-                Category = getProduct.Category,
-                Count = getProduct.Count,
-                Description = getProduct.Description,
-                ImageUrl = getProduct.ImageUrl
-            });
+            var editProduct = new UpdateProductViewModel(getProduct);
 
 
-            return View();
+            return View(editProduct);
         }
 
         [HttpPost]
