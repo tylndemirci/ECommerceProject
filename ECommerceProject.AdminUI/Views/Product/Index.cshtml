@@ -41,6 +41,7 @@
 
 
         <td><img src="~/productimages/@product.ImageUrl" width="50" /></td>
+        <td><a asp-controller="Product" asp-action="EditProduct" asp-route-id="@product.ProductId" class="btn btn-sm btn-orange">Edit</a></td>
     </tr>
         }
     </table>

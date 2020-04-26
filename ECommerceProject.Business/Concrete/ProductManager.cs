@@ -21,6 +21,12 @@ namespace ECommerceProject.Business.Concrete
        }
 
 
+       public Product GetProduct(int id)
+       {
+           var getProduct = _productDal.GetBy(x => x.ProductId == id);
+           return getProduct;
+       }
+
        public void AddProduct(Product product)
         {
             _productDal.Add(product);

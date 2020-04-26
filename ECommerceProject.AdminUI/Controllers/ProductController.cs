@@ -26,9 +26,9 @@ namespace ECommerceProject.AdminUI.Controllers
 
         public IActionResult Index()
         {
-           
+
             var returnModel = _productService.ListProduct()
-                .Include(x=>x.Category)
+                .Include(x => x.Category)
                 .Select(x => new ListAllProductsViewModel(x));
             return View(returnModel);
         }
@@ -58,7 +58,7 @@ namespace ECommerceProject.AdminUI.Controllers
                 }
             }
 
-            var getCategory = _categoryService.GetCategory(model.SubCategoryId);
+
 
 
 
@@ -71,7 +71,55 @@ namespace ECommerceProject.AdminUI.Controllers
                 ProductColor = model.ProductColor,
                 ImageUrl = model.ImageUrl ?? "productDefault.png"
 
-        });
+            });
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult EditProduct(int id)
+        {
+            ViewBag.categories = _categoryService.ListCategories().Where(x => x.ParentCategoryId != null);
+            var getProduct = _productService.GetProduct(id);
+            var editProduct = new AddProductViewModel(new Product()
+            {
+                Category = getProduct.Category,
+                Count = getProduct.Count,
+                Description = getProduct.Description,
+                ImageUrl = getProduct.ImageUrl
+            });
+
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditProduct(AddProductViewModel model, IFormFile file)
+        {
+            
+            if (file != null)
+            {
+                if (file.FileName.EndsWith("jpg") || file.FileName.EndsWith("png"))
+                {
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot//productimages", file.FileName);
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+
+                    model.ImageUrl = file.FileName;
+                }
+            }
+
+            _productService.UpdateProduct(new Product()
+            {
+                ProductId = model.ProductId,
+                SubCategoryId = model.SubCategoryId,
+                Price = model.Price,
+                ProductName = model.ProductName,
+                ProductColor = model.ProductColor,
+                ImageUrl = model.ImageUrl ?? "productDefault.png"
+            });
+
             return RedirectToAction("Index");
         }
     }
