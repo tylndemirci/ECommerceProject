@@ -72,13 +72,13 @@ namespace ECommerceProject.AdminUI.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult DeleteCategory(int id)
-        {
+        //public IActionResult DeleteCategory(int id)
+        //{
 
-            _categoryService.DeleteCategoryTree(id);
+        //    _categoryService.DeleteCategoryTree(id);
 
-            return RedirectToAction("Index");
-        }
+        //    return RedirectToAction("Index");
+        //}
 
         [HttpGet]
         public IActionResult UpdateCategory(int id)
