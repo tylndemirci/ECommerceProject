@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ECommerceProject.AdminUI.Models.Product.ListAllProductsViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<a class="button btn-sm btn-primary" asp-controller="Product" asp-action="AddProduct">Add Product</a>
+    <table class="table-striped table table-sm">
+        <tr>
+            <th>Product Id</th>
+            <th>Product Name</th>
+            <th>Product Color</th>
+            <th>Count</th>
+            <th>Is Approved</th>
+            <th>Is Featured</th>
+            <td>Is Stock</td>
+            <th>Price</th>
+            <th>Sub Category Name</th>
+            <th>Image</th>
+        </tr>
+
+        @foreach (var product in Model)
+        { 
+    <tr>
+        <td>@product.ProductId</td>
+        <td>@product.ProductName</td>
+        <td>@product.ProductColor</td>
+        <td>@product.Count</td>
+        <td>@product.IsApproved</td>
+        <td>@product.IsFeatured</td>
+        <td>@product.IsStock</td>
+        <td>@product.Price</td>
+        @if (product.CategoryName != null)
+        {
+            <td>@product.CategoryName</td>
+        }
+        else
+        {
+            <td>No name</td>
+        }
+
+
+
+        <td><img src="~/productimages/@product.ImageUrl" width="50" /></td>
+        <td><a asp-controller="Product" asp-action="EditProduct" asp-route-id="@product.ProductId" class="btn btn-sm btn-orange">Edit</a></td>
+    </tr>
+        }
+    </table>
+

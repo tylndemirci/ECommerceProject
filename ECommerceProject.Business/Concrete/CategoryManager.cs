@@ -25,6 +25,12 @@ namespace ECommerceProject.Business.Concrete
         }
 
 
+        public Category GetCategory(int id)
+        {
+            var returnCategory = _categoryDal.GetBy(x => x.Id == id);
+            return returnCategory;
+        }
+
         public void AddCategory(Category category)
         {
             _categoryDal.Add(category);
