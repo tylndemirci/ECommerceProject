@@ -87,7 +87,7 @@ namespace ECommerceProject.AdminUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditProduct(AddProductViewModel model, IFormFile file)
+        public async Task<IActionResult> EditProduct(UpdateProductViewModel model, IFormFile file)
         {
             
             if (file != null)
@@ -104,12 +104,14 @@ namespace ECommerceProject.AdminUI.Controllers
                 }
             }
 
+
             _productService.UpdateProduct(new Product()
             {
                 ProductId = model.ProductId,
                 SubCategoryId = model.SubCategoryId,
                 Price = model.Price,
                 ProductName = model.ProductName,
+                Description = model.Description,
                 ProductColor = model.ProductColor,
                 ImageUrl = model.ImageUrl ?? "productDefault.png"
             });

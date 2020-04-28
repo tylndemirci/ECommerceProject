@@ -20,11 +20,16 @@ namespace ECommerceProject.AdminUI.Models.Product
             IsStock = product.IsStock;
             IsApproved = product.IsApproved;
             IsFeatured = product.IsFeatured;
-            IsDeleted = product.IsDeleted;
+            
             ProductName = product.ProductName;
             Description = product.Description;
             ProductColor = product.ProductColor;
             ImageUrl = product.ImageUrl ?? "~/assets/images/productDefault.png";
+        }
+
+        public UpdateProductViewModel()
+        {
+
         }
 
         public int ProductId { get; set; }
@@ -35,7 +40,6 @@ namespace ECommerceProject.AdminUI.Models.Product
         public bool IsStock { get; set; }
         public bool IsApproved { get; set; }
         public bool IsFeatured { get; set; }
-        public bool IsDeleted { get; set; }
         public string ProductName { get; set; }
         public string Description { get; set; }
         public string ProductColor { get; set; }

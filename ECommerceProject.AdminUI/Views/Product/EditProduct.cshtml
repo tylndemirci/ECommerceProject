@@ -2,6 +2,12 @@
 @{
     ViewData["Title"] = "EditProduct";
 }
+@section scripts {
+    <script src="~/lib/ckeditor5/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace("Description");
+    </script>
+}
 
 <form asp-controller="Product" asp-action="EditProduct" method="post" enctype="multipart/form-data">
     <input asp-for="ProductId" hidden />
@@ -27,9 +33,12 @@
             <img src="~/productimages/@Model.ImageUrl" width="50"/>
         }
       
-        <input type="file" name="file" id="file" asp-for="ImageUrl" class="form-control"/>
+        <input type="file" name="file" id="file" asp-for="ImageUrl" class="form"/>
     </div>
-    <div class="form-group"></div>
+    <div class="form-group">
+        <label asp-for="Description">Product Description</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
     <button class="btn btn-sm btn-success">Submit</button>
 </form>
 

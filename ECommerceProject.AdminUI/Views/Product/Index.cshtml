@@ -16,6 +16,8 @@
             <th>Price</th>
             <th>Sub Category Name</th>
             <th>Image</th>
+            <th>Description</th>
+
         </tr>
 
         @foreach (var product in Model)
@@ -37,10 +39,8 @@
         {
             <td>No name</td>
         }
-
-
-
         <td><img src="~/productimages/@product.ImageUrl" width="50" /></td>
+        <td>@Html.Raw(product.Description)</td>
         <td><a asp-controller="Product" asp-action="EditProduct" asp-route-id="@product.ProductId" class="btn btn-sm btn-orange">Edit</a></td>
     </tr>
         }
