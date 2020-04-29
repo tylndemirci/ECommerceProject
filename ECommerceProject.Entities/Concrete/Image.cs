@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ECommerceProject.Entities.Concrete
 {
-    public class User
+   public class Image
     {
     }
 }

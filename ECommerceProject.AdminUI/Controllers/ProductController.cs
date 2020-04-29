@@ -28,6 +28,7 @@ namespace ECommerceProject.AdminUI.Controllers
         {
 
             var returnModel = _productService.ListProduct()
+                .Where(x => x.IsDeleted != true)
                 .Include(x => x.Category)
                 .Select(x => new ListAllProductsViewModel(x));
             return View(returnModel);
@@ -44,35 +45,44 @@ namespace ECommerceProject.AdminUI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProduct(AddProductViewModel model, IFormFile file)
         {
-            if (file != null)
+            if (ModelState.IsValid)
             {
-                if (file.FileName.EndsWith("jpg") || file.FileName.EndsWith("png"))
+
+
+                if (file != null)
                 {
-                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot//productimages", file.FileName);
-                    using (var stream = new FileStream(path, FileMode.Create))
+                    if (file.FileName.EndsWith("jpg") || file.FileName.EndsWith("png"))
                     {
-                        await file.CopyToAsync(stream);
+                        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot//productimages", file.FileName);
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+
+                        model.ImageUrl = file.FileName;
                     }
-
-                    model.ImageUrl = file.FileName;
                 }
+
+
+
+
+
+                _productService.AddProduct(new Product()
+                {
+                    ProductId = model.ProductId,
+                    SubCategoryId = model.SubCategoryId,
+                    Price = model.Price,
+                    ProductName = model.ProductName,
+                    ProductColor = model.ProductColor,
+                    ImageUrl = model.ImageUrl ?? "productDefault.png"
+
+                });
+                return RedirectToAction("Index");
             }
-
-
-
-
-
-            _productService.AddProduct(new Product()
+            else
             {
-                ProductId = model.ProductId,
-                SubCategoryId = model.SubCategoryId,
-                Price = model.Price,
-                ProductName = model.ProductName,
-                ProductColor = model.ProductColor,
-                ImageUrl = model.ImageUrl ?? "productDefault.png"
-
-            });
-            return RedirectToAction("Index");
+                return View(model);
+            }
         }
 
         [HttpGet]
@@ -89,6 +99,9 @@ namespace ECommerceProject.AdminUI.Controllers
         [HttpPost]
         public async Task<IActionResult> EditProduct(UpdateProductViewModel model, IFormFile file)
         {
+            if (ModelState.IsValid)
+            {
+                
             
             if (file != null)
             {
@@ -116,6 +129,18 @@ namespace ECommerceProject.AdminUI.Controllers
                 ImageUrl = model.ImageUrl ?? "productDefault.png"
             });
 
+            return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(model);
+            }
+        }
+
+
+        public IActionResult DeleteProduct(int id)
+        {
+            _productService.DeleteProduct(id);
             return RedirectToAction("Index");
         }
     }

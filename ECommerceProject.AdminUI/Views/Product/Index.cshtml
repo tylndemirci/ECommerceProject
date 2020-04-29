@@ -42,6 +42,7 @@
         <td><img src="~/productimages/@product.ImageUrl" width="50" /></td>
         <td>@Html.Raw(product.Description)</td>
         <td><a asp-controller="Product" asp-action="EditProduct" asp-route-id="@product.ProductId" class="btn btn-sm btn-orange">Edit</a></td>
+        <td><a asp-controller="Product" asp-action="DeleteProduct" asp-route-id="@product.ProductId">Delete</a></td>
     </tr>
         }
     </table>
