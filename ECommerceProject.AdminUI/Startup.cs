@@ -1,15 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using ECommerceProject.Business.Abstract;
 using ECommerceProject.Business.Concrete;
 using ECommerceProject.DataAccess;
 using ECommerceProject.DataAccess.Abstract;
 using ECommerceProject.DataAccess.Concrete;
+using ECommerceProject.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,6 +35,8 @@ namespace ECommerceProject.AdminUI
             services.AddDbContext<ECommerceProjectContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
                 builder => builder.MigrationsAssembly("ECommerceProject.AdminUI"))
                 );
+
+            services.AddIdentity<ApplicationUser, IdentityRole>();
             services.AddTransient<IProductDal, EfProductDal>();
             services.AddTransient<IProductService, ProductManager>();
             services.AddTransient<ICategoryDal, EfCategoryDal>();
@@ -53,6 +58,8 @@ namespace ECommerceProject.AdminUI
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

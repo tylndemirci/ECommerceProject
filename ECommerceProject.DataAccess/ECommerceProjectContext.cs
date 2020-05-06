@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using ECommerceProject.Entities;
 using ECommerceProject.Entities.Concrete;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceProject.DataAccess
 {
-    public class ECommerceProjectContext : DbContext
+    public class ECommerceProjectContext : IdentityDbContext
     {
         public ECommerceProjectContext(DbContextOptions<ECommerceProjectContext> options) : base(options)
         {
