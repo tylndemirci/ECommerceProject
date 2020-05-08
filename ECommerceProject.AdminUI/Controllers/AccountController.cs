@@ -29,7 +29,6 @@ namespace ECommerceProject.AdminUI.Controllers
 
         public IActionResult Login(string returnUrl)
         {
-            testteetstset
             ViewBag.returnUrl = returnUrl;
             return View();
         }
@@ -102,21 +101,54 @@ namespace ECommerceProject.AdminUI.Controllers
             }
         }
 
-        public async Task<IActionResult> UpdateUser(string id, string password, string Email)
+        public async Task<IActionResult> UpdateUser(string id, string password, string email)
         {
             var user = await _userManager.FindByIdAsync(id);
             if (user!=null)
             {
-                user.Email = Email;
+                user.Email = email;
 
-                IdentityResult validPass;
+                IdentityResult validPass =null;
 
                 if (!string.IsNullOrEmpty(password))
                 {
-                    validPass = await 
+                    validPass = await _passwordValidator.ValidateAsync(_userManager, user, password);
+                    if (validPass.Succeeded)
+                    {
+                        user.PasswordHash = _passwordHasher.HashPassword(user, password);
+                    }
+                    else
+                    {
+                        foreach (var identityError in validPass.Errors)
+                        {
+                            ModelState.AddModelError("", identityError.Description);
+                        }
+                    }
                 }
 
+                if (validPass.Succeeded)
+                {
+                    
+                    var result = await _userManager.UpdateAsync(user);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        foreach (var identityError in result.Errors)
+                        {
+                            ModelState.AddModelError("", identityError.Description);
+                        }
+                    }
+                }
             }
+            else
+            {
+                ModelState.AddModelError("", "User not found");
+            }
+
+            return View(user);
         }
 
         public async Task<IActionResult> Logout()
