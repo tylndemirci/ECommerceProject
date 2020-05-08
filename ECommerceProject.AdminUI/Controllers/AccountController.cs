@@ -29,6 +29,7 @@ namespace ECommerceProject.AdminUI.Controllers
 
         public IActionResult Login(string returnUrl)
         {
+            testteetstset
             ViewBag.returnUrl = returnUrl;
             return View();
         }
