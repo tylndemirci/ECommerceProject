@@ -14,11 +14,16 @@ namespace ECommerceProject.AdminUI.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IPasswordValidator<ApplicationUser> _passwordValidator;
+        private readonly IPasswordHasher<ApplicationUser> _passwordHasher;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
+            IPasswordValidator<ApplicationUser> passwordValidator, IPasswordHasher<ApplicationUser> passwordHasher)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _passwordValidator = passwordValidator;
+            _passwordHasher = passwordHasher;
         }
 
 
