@@ -14,16 +14,22 @@ namespace ECommerceProject.AdminUI.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IPasswordHasher<ApplicationUser> _passwordHasher;
+        private readonly IPasswordValidator<ApplicationUser> _passwordValidator;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, 
+            IPasswordHasher<ApplicationUser> passwordHasher, IPasswordValidator<ApplicationUser> passwordValidator)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _passwordHasher = passwordHasher;
+            _passwordValidator = passwordValidator;
         }
 
 
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl)
         {
+            ViewBag.returnUrl = returnUrl;
             return View();
         }
 
@@ -34,7 +40,7 @@ namespace ECommerceProject.AdminUI.Controllers
             {
                 var user = await _userManager.FindByNameAsync(model.UserName);
 
-                if (user!=null)
+                if (user != null)
                 {
                     await _signInManager.SignOutAsync();
                     var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
@@ -46,6 +52,7 @@ namespace ECommerceProject.AdminUI.Controllers
                 ModelState.AddModelError("", "Username or password is invalid");
             }
 
+            ViewBag.returnUrl = returnUrl;
             return View(model);
         }
 
@@ -81,6 +88,36 @@ namespace ECommerceProject.AdminUI.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> UpdateUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user != null)
+            {
+                return View(user);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        public async Task<IActionResult> UpdateUser(string id, string password, string Email)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user!=null)
+            {
+                user.Email = Email;
+
+                IdentityResult validPass;
+
+                if (!string.IsNullOrEmpty(password))
+                {
+                    validPass = await 
+                }
+
+            }
+        }
+
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
@@ -92,6 +129,6 @@ namespace ECommerceProject.AdminUI.Controllers
             return View();
         }
 
-        
+
     }
 }

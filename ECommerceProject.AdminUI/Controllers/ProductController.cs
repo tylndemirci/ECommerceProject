@@ -65,8 +65,6 @@ namespace ECommerceProject.AdminUI.Controllers
 
 
 
-
-
                 _productService.AddProduct(new Product()
                 {
                     ProductId = model.ProductId,
