@@ -10,7 +10,7 @@ namespace ECommerceProject.WebUI.Helper
 {
     public class CartSessionHelper: ICartSessionHelper
     {
-        private IHttpContextAccessor _httpContextAccessor;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public CartSessionHelper(IHttpContextAccessor httpContextAccessor)
         {

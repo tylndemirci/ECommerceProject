@@ -12,5 +12,6 @@ namespace ECommerceProject.Entities.DomainModels
         }
 
         public List<CartLine> CartLines { get; set; }
+        public string UserId { get; set; }
     }
 }
