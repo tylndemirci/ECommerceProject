@@ -151,6 +151,24 @@ namespace ECommerceProject.AdminUI.Controllers
             return View(user);
         }
 
+        //public async Task<IActionResult> VerifyEmail(string userId, string code)
+        //{
+        //    var user = await _userManager.FindByIdAsync(userId);
+
+        //    if (user == null) return BadRequest();
+
+        //    var result = await _userManager.ConfirmEmailAsync(user, code);
+
+        //    if (result.Succeeded)
+        //    {
+        //        return View();
+        //    }
+
+        //    return BadRequest();
+        //}
+
+        //public IActionResult EmailVerification() => View();
+
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();

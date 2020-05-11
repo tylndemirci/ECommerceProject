@@ -67,7 +67,7 @@ namespace ECommerceProject.AdminUI
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Product}/{action=Index}/{id?}");
+                    pattern: "{controller=AdminPage}/{action=AdminInterface}/{id?}");
             });
         }
     }

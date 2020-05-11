@@ -10,10 +10,10 @@ using ECommerceProject.Entities.Concrete;
 
 namespace ECommerceProject.AdminUI.Controllers
 {
-    public class HomeController : Controller
+    public class AdminPageController : Controller
     {
         
-        public IActionResult Index()
+        public IActionResult AdminInterface()
         {
             return View();
         }
