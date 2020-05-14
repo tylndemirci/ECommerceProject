@@ -13,7 +13,7 @@ namespace ECommerceProject.AdminUI.Controllers
     public class AdminPageController : Controller
     {
         
-        public IActionResult AdminInterface()
+        public IActionResult Index()
         {
             return View();
         }

@@ -11,7 +11,11 @@ namespace ECommerceProject.AdminUI.Models.Category
             IsDeleted = false;
             Title = category.Title;
             ParentCategory = category.ParentCategory != null ? category.ParentCategory.Title : "";
-            SubCategories = category.SubCategories != null ? string.Join(",", category.SubCategories.Select(x => x.Title)) : "";
+            SubCategories = category.SubCategories != null ? string.Join(",", category.SubCategories.Where(x=>x.IsDeleted==false).Select(x => x.Title)) : "";
+            
+            
+            
+
         }
 
         public AddCategoryViewModel()

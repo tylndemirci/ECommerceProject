@@ -8,6 +8,7 @@ using ECommerceProject.DataAccess.Abstract;
 using ECommerceProject.Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace ECommerceProject.AdminUI.Controllers
 {
@@ -22,13 +23,22 @@ namespace ECommerceProject.AdminUI.Controllers
             _categoryService = categoryService;
             _categoryDal = categoryDal;
         }
-
+        //todo: even if the subcategory is deleted, it is shown is main category`s info
         public IActionResult Index()
         {
 
-            var returnModel = _categoryDal.GetAllWithSubNames().Where(f=>f.IsDeleted==false).Select(x => new AddCategoryViewModel(x));
+            var returnModel = _categoryDal.GetAllWithSubNames()
+                .Where(f => f.IsDeleted == false)
+                .Select(x => new AddCategoryViewModel(x));
+           
+
             return View(returnModel);
         }
+        
+
+
+            
+        
         [HttpGet]
         public IActionResult AddCategory()
         {
@@ -73,13 +83,13 @@ namespace ECommerceProject.AdminUI.Controllers
             return RedirectToAction("Index");
         }
 
-        //public IActionResult DeleteCategory(int id)
-        //{
+        public IActionResult DeleteCategory(int id)
+        {
 
-        //    _categoryService.DeleteCategoryTree(id);
+            _categoryService.DeleteCategoryTree(id);
 
-        //    return RedirectToAction("Index");
-        //}
+            return RedirectToAction("Index");
+        }
 
         [HttpGet]
         public IActionResult UpdateCategory(int id)
@@ -107,18 +117,18 @@ namespace ECommerceProject.AdminUI.Controllers
         }
 
         
-        public IActionResult StatusPage(int id)
-        {
-            var category = _categoryDal.GetBy(x => x.Id == id);
-                var yo = new AddCategoryViewModel()
-                {
-                    CategoryId = category.Id,
-                    Title = category.Title,
-                    IsDeleted = category.IsDeleted,
-                    ParentCategoryId = category.ParentCategoryId
-                };
-            return View(yo);
-        }
+        //public IActionResult StatusPage(int id)
+        //{
+        //    var category = _categoryDal.GetBy(x => x.Id == id);
+        //        var yo = new AddCategoryViewModel()
+        //        {
+        //            CategoryId = category.Id,
+        //            Title = category.Title,
+        //            IsDeleted = category.IsDeleted,
+        //            ParentCategoryId = category.ParentCategoryId
+        //        };
+        //    return View(yo);
+        //}
 
         
     }

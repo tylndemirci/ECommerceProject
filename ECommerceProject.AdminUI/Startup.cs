@@ -36,11 +36,19 @@ namespace ECommerceProject.AdminUI
                 builder => builder.MigrationsAssembly("ECommerceProject.AdminUI"))
                 );
 
-            services.AddIdentity<ApplicationUser, IdentityRole>();
+            services.AddIdentity<ApplicationUser, IdentityRole>(config =>
+                {
+                    config.SignIn.RequireConfirmedEmail = false;
+                    
+                }).AddEntityFrameworkStores<ECommerceProjectContext>()
+                .AddDefaultTokenProviders();
+            //services.ConfigureApplicationCookie(opt => opt.LoginPath = "/Member/Login");
             services.AddTransient<IProductDal, EfProductDal>();
             services.AddTransient<IProductService, ProductManager>();
             services.AddTransient<ICategoryDal, EfCategoryDal>();
             services.AddTransient<ICategoryService, CategoryManager>();
+          
+           
             
 
             services.AddControllersWithViews();
@@ -67,7 +75,7 @@ namespace ECommerceProject.AdminUI
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=AdminPage}/{action=AdminInterface}/{id?}");
+                    pattern: "{controller=AdminPage}/{action=Index}/{id?}");
             });
         }
     }

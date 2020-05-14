@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceProject.AdminUI.Controllers
 {
+    [Route("/AdminAccount")]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

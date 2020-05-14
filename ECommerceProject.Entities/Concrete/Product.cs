@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using ECommerceProject.Entities.Concrete;
 
@@ -20,7 +21,7 @@ namespace ECommerceProject.Entities.Concrete
         public string Description { get; set; }
         public string ProductColor { get; set; }
         public string ImageUrl { get; set; }
-
+        
        
     }
 }
