@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ECommerceProject.AdminUI.Models.Identity;
 using ECommerceProject.Entities;
+using ECommerceProject.WebUI.Models;
+using ECommerceProject.WebUI.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -39,7 +40,7 @@ namespace ECommerceProject.WebUI.Controller
             {
                 if (ModelState.IsValid)
                 {
-                    var user = await _userManager.FindByNameAsync(model.UserName);
+                    var user = await _userManager.FindByEmailAsync(model.Email);
 
                     if (user != null)
                     {
@@ -50,25 +51,26 @@ namespace ECommerceProject.WebUI.Controller
                             return Redirect(returnUrl ?? "/");
                         }
                     }
-                    ModelState.AddModelError("", "Username or password is invalid");
+                    ModelState.AddModelError("", "Email or password is invalid");
                 }
 
                 ViewBag.returnUrl = returnUrl;
                 return View(model);
             }
 
-            public IActionResult Create()
+            public IActionResult Register()
             {
                 return View();
             }
 
             [HttpPost]
-            public async Task<IActionResult> Create(RegisterModel model)
+            public async Task<IActionResult> Register(RegisterModel model)
             {
                 if (ModelState.IsValid)
                 {
                     ApplicationUser user = new ApplicationUser();
                     user.Email = model.Email;
+                    user.UserName = model.Email;
                     user.Name = model.Name;
                     user.Surname = model.Surname;
 

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceProject.DataAccess
 {
-    public class ECommerceProjectContext : IdentityDbContext
+    public class ECommerceProjectContext : IdentityDbContext<ApplicationUser>
     {
         public ECommerceProjectContext(DbContextOptions<ECommerceProjectContext> options) : base(options)
         {

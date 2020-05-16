@@ -39,7 +39,7 @@ namespace ECommerceProject.AdminUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByNameAsync(model.UserName);
+                var user = await _userManager.FindByEmailAsync(model.Email);
 
                 if (user != null)
                 {
@@ -50,7 +50,7 @@ namespace ECommerceProject.AdminUI.Controllers
                         return Redirect(returnUrl ?? "/");
                     }
                 }
-                ModelState.AddModelError("", "Username or password is invalid");
+                ModelState.AddModelError("", "Email or password is invalid");
             }
 
             ViewBag.returnUrl = returnUrl;

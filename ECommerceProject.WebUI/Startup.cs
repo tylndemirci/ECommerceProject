@@ -30,7 +30,10 @@ namespace ECommerceProject.WebUI
         {
             services.AddDbContext<ECommerceProjectContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(opt =>
+                {
+
+                })
                 .AddEntityFrameworkStores<ECommerceProjectContext>()
                 .AddDefaultTokenProviders();
             services.AddControllersWithViews();
