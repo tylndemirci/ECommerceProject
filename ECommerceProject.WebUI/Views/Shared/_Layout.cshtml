@@ -13,33 +13,36 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
     <!-- Bootstrap -->
-    <link type="text/css" rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <!-- Latest compiled and minified CSS -->
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/bootstrap-theme.css" rel="stylesheet" />
+   
 
     <!-- Slick -->
-    <link type="text/css" rel="stylesheet" href="~/css/slick.css" />
-    <link type="text/css" rel="stylesheet" href="~/css/slick-theme.css" />
+    <link type="text/css" rel="stylesheet" href="css/slick.css" />
+    <link type="text/css" rel="stylesheet" href="css/slick-theme.css" />
 
     <!-- nouislider -->
-    <link type="text/css" rel="stylesheet" href="~/css/nouislider.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/nouislider.min.css" />
 
     <!-- Font Awesome Icon -->
-    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
 
     <!-- Custom stlylesheet -->
-    <link type="text/css" rel="stylesheet" href="~/css/style.css" />
+    <link type="text/css" rel="stylesheet" href="css/style.css" />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
 </head>
 <body>
     <!-- HEADER -->
     <header>
-       @await Component.InvokeAsync("TopHeader")
+        @await Component.InvokeAsync("TopHeader")
         <!-- MAIN HEADER -->
         <div id="header">
             <!-- container -->
@@ -55,20 +58,20 @@
                         </div>
                     </div>
                     <!-- /LOGO -->
-                   @await Component.InvokeAsync("SearchBar")
+                    @await Component.InvokeAsync("SearchBar")
                     <!-- ACCOUNT -->
                     <div class="col-md-3 clearfix">
                         <div class="header-ctn">
-                         @await Component.InvokeAsync("WishList")
-                           @await Component.InvokeAsync("Cart")
-                            <!-- Menu Toogle -->
+                            @await Component.InvokeAsync("WishList")
+                            @await Component.InvokeAsync("Cart")
+                            <!-- Menu Toggle -->
                             <div class="menu-toggle">
                                 <a href="#">
                                     <i class="fa fa-bars"></i>
                                     <span>Menu</span>
                                 </a>
                             </div>
-                            <!-- /Menu Toogle -->
+                            <!-- /Menu Toggle -->
                         </div>
                     </div>
                     <!-- /ACCOUNT -->
@@ -78,23 +81,26 @@
             <!-- container -->
         </div>
         <!-- /MAIN HEADER -->
-</header>
-<!-- /HEADER -->
-@await Component.InvokeAsync("Navigation")
-@RenderBody()
+    </header>
+    <!-- /HEADER -->
+    @await Component.InvokeAsync("Navigation")
+    @RenderBody()
+
     <!-- FOOTER -->
     <footer id="footer">
-       @await Component.InvokeAsync("TopFooter")
-       
+        @await Component.InvokeAsync("TopFooter")
+
     </footer>
     <!-- /FOOTER -->
     <!-- jQuery Plugins -->
-    <script src="~/js/jquery.min.js"></script>
-    <script src="~/js/bootstrap.min.js"></script>
-    <script src="~/js/slick.min.js"></script>
-    <script src="~/js/nouislider.min.js"></script>
-    <script src="~/js/jquery.zoom.min.js"></script>
-    <script src="~/js/main.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/nouislider.min.js"></script>
+    <script src="js/jquery.zoom.min.js"></script>
+    <script src="js/main.js"></script>
 
 </body>
 </html>
