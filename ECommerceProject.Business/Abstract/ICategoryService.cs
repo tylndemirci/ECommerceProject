@@ -9,6 +9,7 @@ namespace ECommerceProject.Business.Abstract
 {
     public interface ICategoryService
     {
+        IQueryable<Category> GetAllWithSubNames();
         Category GetCategory(int id);
         void AddCategory(Category category);
         void UpdateCategory(Category category);

@@ -54,7 +54,7 @@ namespace ECommerceProject.AdminUI.Controllers
                     if (file.FileName.EndsWith("jpg") || file.FileName.EndsWith("png"))
                     {
                         var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot//productimages", file.FileName);
-                        using (var stream = new FileStream(path, FileMode.Create))
+                        await using (var stream = new FileStream(path, FileMode.Create))
                         {
                             await file.CopyToAsync(stream);
                         }
@@ -99,35 +99,35 @@ namespace ECommerceProject.AdminUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-            
-            if (file != null)
-            {
-                if (file.FileName.EndsWith("jpg") || file.FileName.EndsWith("png"))
+
+
+                if (file != null)
                 {
-                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot//productimages", file.FileName);
-                    using (var stream = new FileStream(path, FileMode.Create))
+                    if (file.FileName.EndsWith("jpg") || file.FileName.EndsWith("png"))
                     {
-                        await file.CopyToAsync(stream);
+                        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot//productimages", file.FileName);
+                        await using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+
+                        model.ImageUrl = file.FileName;
                     }
-
-                    model.ImageUrl = file.FileName;
                 }
-            }
 
 
-            _productService.UpdateProduct(new Product()
-            {
-                ProductId = model.ProductId,
-                SubCategoryId = model.SubCategoryId,
-                Price = model.Price,
-                ProductName = model.ProductName,
-                Description = model.Description,
-                ProductColor = model.ProductColor,
-                ImageUrl = model.ImageUrl ?? "productDefault.png"
-            });
+                _productService.UpdateProduct(new Product()
+                {
+                    ProductId = model.ProductId,
+                    SubCategoryId = model.SubCategoryId,
+                    Price = model.Price,
+                    ProductName = model.ProductName,
+                    Description = model.Description,
+                    ProductColor = model.ProductColor,
+                    ImageUrl = model.ImageUrl ?? "productDefault.png"
+                });
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
             }
             else
             {

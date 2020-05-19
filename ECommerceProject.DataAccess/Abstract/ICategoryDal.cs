@@ -9,6 +9,6 @@ namespace ECommerceProject.DataAccess.Abstract
 {
     public interface ICategoryDal : IEntityRepository<Category>
     {
-        IQueryable<Category> GetAllWithSubNames();
+       
     }
 }

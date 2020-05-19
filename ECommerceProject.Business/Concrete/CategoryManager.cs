@@ -21,6 +21,14 @@ namespace ECommerceProject.Business.Concrete
             
         }
 
+        public IQueryable<Category> GetAllWithSubNames()
+        {
+            return _categoryDal.GetAll().Where(x => x.IsDeleted == false)
+                    .Include(x => x.SubCategories)
+                    .Include(x => x.ParentCategory)
+                ;
+        }
+
 
         public Category GetCategory(int id)
         {

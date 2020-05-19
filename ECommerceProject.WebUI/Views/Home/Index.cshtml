@@ -5,5 +5,24 @@
         </div>
     </div>
 </div>
-   
-@await Component.InvokeAsync("TodaysDeals")
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            @await Component.InvokeAsync("TodaysDeals")
+        </div>
+    </div>
+</div>
+
+
+
+            @await Component.InvokeAsync("HotDeals")
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            @await Component.InvokeAsync("OnSale")
+        </div>
+    </div>
+</div>

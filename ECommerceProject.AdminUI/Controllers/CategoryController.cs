@@ -15,23 +15,22 @@ namespace ECommerceProject.AdminUI.Controllers
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
-        private readonly ICategoryDal _categoryDal;
+    
 
 
         public CategoryController(ICategoryService categoryService, ICategoryDal categoryDal)
         {
             _categoryService = categoryService;
-            _categoryDal = categoryDal;
+            
         }
-        //todo: even if the subcategory is deleted, it is shown is main category`s info
+        
         public IActionResult Index()
         {
 
-            var returnModel = _categoryDal.GetAllWithSubNames()
+            var returnModel = _categoryService.GetAllWithSubNames()
                 .Where(f => f.IsDeleted == false)
                 .Select(x => new AddCategoryViewModel(x));
-           
-
+            
             return View(returnModel);
         }
         
@@ -94,7 +93,7 @@ namespace ECommerceProject.AdminUI.Controllers
         [HttpGet]
         public IActionResult UpdateCategory(int id)
         {
-            var getCategory = _categoryDal.GetBy(x => x.Id == id);
+            var getCategory = _categoryService.GetCategory(id);
             return View(new AddCategoryViewModel()
             {
                 CategoryId = getCategory.Id,
@@ -116,7 +115,7 @@ namespace ECommerceProject.AdminUI.Controllers
             return RedirectToAction("Index");
         }
 
-        
+        //Test Page
         //public IActionResult StatusPage(int id)
         //{
         //    var category = _categoryDal.GetBy(x => x.Id == id);

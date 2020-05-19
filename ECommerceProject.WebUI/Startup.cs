@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
+using ECommerceProject.Business.Abstract;
+using ECommerceProject.Business.Concrete;
 using ECommerceProject.DataAccess;
+using ECommerceProject.DataAccess.Abstract;
+using ECommerceProject.DataAccess.Concrete;
 using ECommerceProject.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,6 +40,8 @@ namespace ECommerceProject.WebUI
                 })
                 .AddEntityFrameworkStores<ECommerceProjectContext>()
                 .AddDefaultTokenProviders();
+            services.AddTransient<ICategoryDal, EfCategoryDal>();
+            services.AddTransient<ICategoryService, CategoryManager>();
             services.AddControllersWithViews();
         }
 

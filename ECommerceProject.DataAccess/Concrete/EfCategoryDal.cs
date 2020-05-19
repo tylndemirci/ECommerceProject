@@ -14,13 +14,7 @@ namespace ECommerceProject.DataAccess.Concrete
         {
         }
 
-        public IQueryable<Category> GetAllWithSubNames()
-        {
-            return GetAll().Where(x=>x.IsDeleted==false)
-                    .Include(x => x.SubCategories)
-                    .Include(x => x.ParentCategory)
-                ;
-        }
+       
     }
 }
     
