@@ -42,6 +42,8 @@ namespace ECommerceProject.WebUI
                 .AddDefaultTokenProviders();
             services.AddTransient<ICategoryDal, EfCategoryDal>();
             services.AddTransient<ICategoryService, CategoryManager>();
+            services.AddTransient<IProductDal, EfProductDal>();
+            services.AddTransient<IProductService, ProductManager>();
             services.AddControllersWithViews();
         }
 

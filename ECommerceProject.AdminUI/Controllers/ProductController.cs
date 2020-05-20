@@ -9,6 +9,7 @@ using ECommerceProject.Business.Abstract;
 using ECommerceProject.Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceProject.AdminUI.Controllers
@@ -38,13 +39,18 @@ namespace ECommerceProject.AdminUI.Controllers
         [HttpGet]
         public IActionResult AddProduct()
         {
-            ViewBag.categories = _categoryService.ListCategories().Where(x => x.ParentCategoryId != null);
-            return View();
+             
+            var returnModel = new AddProductViewModel(_categoryService.GetAllWithSubNames()); 
+            return View(returnModel);
+
+
         }
 
         [HttpPost]
         public async Task<IActionResult> AddProduct(AddProductViewModel model, IFormFile file)
         {
+
+
             if (ModelState.IsValid)
             {
 
@@ -86,7 +92,7 @@ namespace ECommerceProject.AdminUI.Controllers
         [HttpGet]
         public IActionResult EditProduct(int id)
         {
-            ViewBag.categories = _categoryService.ListCategories().Where(x => x.ParentCategoryId != null);
+            ViewBag.returnCategory = _categoryService.GetAllWithSubNames().Where(x => x.IsDeleted == false);
             var getProduct = _productService.GetProduct(id);
             var editProduct = new UpdateProductViewModel(getProduct);
 

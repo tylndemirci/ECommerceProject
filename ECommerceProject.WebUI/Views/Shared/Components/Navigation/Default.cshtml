@@ -7,13 +7,16 @@
         <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
-                <li class="active"><a href="#">Cell Phones</a></li>
-                <li><a href="#">Computer</a></li>
-                <li><a href="#">Computer Parts</a></li>
-                <li><a href="#">Cameras</a></li>
-                <li><a href="#">TV & Home Electronics</a></li>
-                <li><a href="#">Office Tools</a></li>
-                <li><a href="#">Hobbies</a></li>
+                @if (Model != null)
+                {
+                    @foreach (var nav in Model)
+                    {
+                        <li><a href="">@nav.Title</a></li>
+                    }
+                }
+
+
+
             </ul>
             <!-- /NAV -->
         </div>

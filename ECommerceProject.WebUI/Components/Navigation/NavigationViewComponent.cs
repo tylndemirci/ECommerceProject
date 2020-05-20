@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ECommerceProject.AdminUI.Models.Category;
 using ECommerceProject.Business.Abstract;
 using ECommerceProject.Business.Concrete;
 using ECommerceProject.WebUI.Models.ViewComponent;
@@ -19,10 +20,11 @@ namespace ECommerceProject.WebUI.Components.Navigation
         }
 
 
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(NavigationViewModel searchModel)
         {
             var returnModel = _categoryService.GetAllWithSubNames()
-                .Where(f => f.IsDeleted == false).Select(x=>new NavigationViewModel());
+                .Where(f => f.IsDeleted == false)
+                .Select(x => new NavigationViewModel(x));
             return View(returnModel);
         }
     }
