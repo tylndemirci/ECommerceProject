@@ -92,12 +92,12 @@ namespace ECommerceProject.AdminUI.Controllers
         [HttpGet]
         public IActionResult EditProduct(int id)
         {
-            ViewBag.returnCategory = _categoryService.GetAllWithSubNames().Where(x => x.IsDeleted == false);
             var getProduct = _productService.GetProduct(id);
-            var editProduct = new UpdateProductViewModel(getProduct);
+            
+            var returnModel = new UpdateProductViewModel(_categoryService.GetAllWithSubNames(), getProduct);
+            
 
-
-            return View(editProduct);
+            return View(returnModel);
         }
 
         [HttpPost]

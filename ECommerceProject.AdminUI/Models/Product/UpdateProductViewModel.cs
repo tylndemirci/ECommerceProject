@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ECommerceProject.AdminUI.Models.Product
 {
@@ -32,8 +33,33 @@ namespace ECommerceProject.AdminUI.Models.Product
 
         }
 
+        public UpdateProductViewModel(IQueryable<Entities.Concrete.Category> categories, Entities.Concrete.Product product)
+        {
+            Categories = categories.Select(x => new SelectListItem(x.Title, x.Id.ToString(), false, false));
+            ProductId = product.ProductId;
+            SubCategoryId = product.SubCategoryId;
+            if (product.Category != null)
+            {
+                
+                CategoryName = product.Category.Title;
+            }
+            Count = product.Count;
+            Price = product.Price;
+            IsStock = product.IsStock;
+            IsApproved = product.IsApproved;
+            IsFeatured = product.IsFeatured;
+           
+            ProductName = product.ProductName;
+            Description = product.Description;
+            ProductColor = product.ProductColor;
+            ImageUrl = product.ImageUrl ?? "~/assets/images/productDefault.png";
+
+        }
+
+
         public int ProductId { get; set; }
         public int SubCategoryId { get; set; }
+       
         public string CategoryName { get; set; }
         public int Count { get; set; }
         public double Price { get; set; }
@@ -44,5 +70,7 @@ namespace ECommerceProject.AdminUI.Models.Product
         public string Description { get; set; }
         public string ProductColor { get; set; }
         public string ImageUrl { get; set; }
+        public IEnumerable<SelectListItem> Categories { get; set; }
+
     }
 }
