@@ -74,7 +74,7 @@ namespace ECommerceProject.AdminUI.Controllers
                 _productService.AddProduct(new Product()
                 {
                     ProductId = model.ProductId,
-                    SubCategoryId = model.SubCategoryId,
+                    CategoryId = model.CategoryId,
                     Price = model.Price,
                     ProductName = model.ProductName,
                     ProductColor = model.ProductColor,
@@ -125,7 +125,7 @@ namespace ECommerceProject.AdminUI.Controllers
                 _productService.UpdateProduct(new Product()
                 {
                     ProductId = model.ProductId,
-                    SubCategoryId = model.SubCategoryId,
+                    CategoryId = model.CategoryId,
                     Price = model.Price,
                     ProductName = model.ProductName,
                     Description = model.Description,

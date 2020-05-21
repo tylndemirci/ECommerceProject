@@ -9,11 +9,8 @@ namespace ECommerceProject.AdminUI.Models.Product
         public ListAllProductsViewModel(Entities.Concrete.Product product)
         {
             ProductId = product.ProductId;
-            SubCategoryId = product.SubCategoryId;
-            if (product.Category!=null)
-            {
-                CategoryName = product.Category.Title;
-            }
+            CategoryId = product.CategoryId;
+            CategoryName = product.Category.Title;
             Count = product.Count;
             Price = product.Price;
             IsStock = product.Count > 1 ? true : false;
@@ -33,7 +30,7 @@ namespace ECommerceProject.AdminUI.Models.Product
 
 
         public int ProductId { get; set; }
-        public int SubCategoryId { get; set; }
+        public int CategoryId { get; set; }
         public string CategoryName { get; set; }
         public int Count { get; set; }
         public double Price { get; set; }

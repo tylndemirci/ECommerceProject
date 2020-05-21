@@ -182,8 +182,7 @@ namespace ECommerceProject.AdminUI.Migrations
                 {
                     ProductId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SubCategoryId = table.Column<int>(nullable: false),
-                    CategoryId = table.Column<int>(nullable: true),
+                    CategoryId = table.Column<int>(nullable: false),
                     Count = table.Column<int>(nullable: false),
                     Price = table.Column<double>(nullable: false),
                     IsStock = table.Column<bool>(nullable: false),
@@ -203,7 +202,7 @@ namespace ECommerceProject.AdminUI.Migrations
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

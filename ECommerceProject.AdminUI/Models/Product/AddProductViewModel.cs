@@ -11,13 +11,8 @@ namespace ECommerceProject.AdminUI.Models.Product
         public AddProductViewModel(Entities.Concrete.Product product)
         {
             ProductId = product.ProductId;
-            SubCategoryId = product.SubCategoryId;
-            if (product.Category != null)
-            {
-                CategoryName = product.Category.Title;
-                
-
-            }
+            CategoryId = product.CategoryId;
+            CategoryName = product.Category.Title;
             Price = product.Price;
             ProductName = product.ProductName;
             ProductColor = product.ProductColor;
@@ -37,9 +32,7 @@ namespace ECommerceProject.AdminUI.Models.Product
 
 
         public int ProductId { get; set; }
-        
-        public int SubCategoryId { get; set; }
-       
+        public int CategoryId { get; set; }
         public string CategoryName { get; set; }
         public double Price { get; set; }
         public string ProductName { get; set; }

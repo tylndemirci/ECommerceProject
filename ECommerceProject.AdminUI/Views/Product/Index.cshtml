@@ -31,14 +31,7 @@
         <td>@product.IsFeatured</td>
         <td>@product.IsStock</td>
         <td>@product.Price</td>
-        @if (product.CategoryName != null)
-        {
-            <td>@product.CategoryName</td>
-        }
-        else
-        {
-            <td>No name</td>
-        }
+        <td>@product.CategoryName</td>
         <td><img src="~/productimages/@product.ImageUrl" width="50" /></td>
         <td>@Html.Raw(product.Description)</td>
         <td><a asp-controller="Product" asp-action="EditProduct" asp-route-id="@product.ProductId" class="btn btn-sm btn-orange">Edit</a></td>

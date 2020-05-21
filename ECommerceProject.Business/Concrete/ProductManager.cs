@@ -24,29 +24,44 @@ namespace ECommerceProject.Business.Concrete
        public Product GetProduct(int id)
        {
            var getProduct = _productDal.GetBy(x => x.ProductId == id);
+           
            return getProduct;
        }
 
        public void AddProduct(Product product)
         {
-            _productDal.Add(product);
+           
+            if (product!=null)
+            {
+                _productDal.Add(product);
+            }
         }
 
         public void UpdateProduct(Product product)
         {
-            _productDal.Update(product);
+            var getProduct = _productDal.GetBy(x=>x.ProductId==product.ProductId);
+
+            if (getProduct!=null)
+            {
+                _productDal.Update(product);
+            }
+            
         }
 
         public void DeleteProduct(int productId)
         {
             var deleteProduct = _productDal.GetBy(p => p.ProductId == productId);
-            deleteProduct.IsDeleted = true;
-            _productDal.Update(deleteProduct);
+            if (deleteProduct!=null)
+            {
+                deleteProduct.IsDeleted = true;
+                _productDal.Update(deleteProduct);
+            }
+            
         }
 
         public IQueryable<Product> ListProduct()
         {
-            var returnProducts = _productDal.GetAll();
+            var returnProducts = _productDal.GetAll().Where(x=>x.IsDeleted==false);
             return returnProducts;
         }
    }

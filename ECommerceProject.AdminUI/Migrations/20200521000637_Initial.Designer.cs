@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerceProject.AdminUI.Migrations
 {
     [DbContext(typeof(ECommerceProjectContext))]
-    [Migration("20200519192648_code")]
-    partial class code
+    [Migration("20200521000637_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -125,7 +125,7 @@ namespace ECommerceProject.AdminUI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<int>("Count")
@@ -157,9 +157,6 @@ namespace ECommerceProject.AdminUI.Migrations
 
                     b.Property<string>("ProductName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SubCategoryId")
-                        .HasColumnType("int");
 
                     b.HasKey("ProductId");
 
@@ -310,7 +307,9 @@ namespace ECommerceProject.AdminUI.Migrations
                 {
                     b.HasOne("ECommerceProject.Entities.Concrete.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

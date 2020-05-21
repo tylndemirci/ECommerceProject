@@ -123,7 +123,7 @@ namespace ECommerceProject.AdminUI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<int>("Count")
@@ -155,9 +155,6 @@ namespace ECommerceProject.AdminUI.Migrations
 
                     b.Property<string>("ProductName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SubCategoryId")
-                        .HasColumnType("int");
 
                     b.HasKey("ProductId");
 
@@ -308,7 +305,9 @@ namespace ECommerceProject.AdminUI.Migrations
                 {
                     b.HasOne("ECommerceProject.Entities.Concrete.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
