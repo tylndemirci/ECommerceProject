@@ -9,6 +9,7 @@ using ECommerceProject.DataAccess;
 using ECommerceProject.DataAccess.Abstract;
 using ECommerceProject.DataAccess.Concrete;
 using ECommerceProject.Entities;
+using ECommerceProject.WebUI.Helper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -44,6 +45,17 @@ namespace ECommerceProject.WebUI
             services.AddTransient<ICategoryService, CategoryManager>();
             services.AddTransient<IProductDal, EfProductDal>();
             services.AddTransient<IProductService, ProductManager>();
+            services.AddTransient<ICartService, CartManager>();
+            services.AddTransient<ICartSessionHelper, CartSessionHelper>();
+            services.AddTransient<IOrderService, OrderManager>();
+            services.AddTransient<IOrderDal, EfOrderDal>();
+           
+            services.AddSession();
+            services.AddAuthentication("CookieAuth").AddCookie(opt =>
+            {
+                opt.Cookie.Name = "Ecom";
+                opt.LoginPath = "/Account/Login";
+            });
             services.AddControllersWithViews();
         }
 
@@ -59,12 +71,12 @@ namespace ECommerceProject.WebUI
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting();
-
+            app.UseRouting(); 
+            app.UseSession();
             app.UseAuthentication();
 
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

@@ -34,12 +34,12 @@
                                             <h4 class="product-price">@product.Price</h4>
                                       
                                             <div class="product-btns">
-                                                <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">Add to Wishlist</span></button>
+                                                <button  class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">Add to Wishlist</span></button>
                                                 <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">Add to Compare</span></button>
                                             </div>
                                         </div>
                                         <div class="add-to-cart">
-                                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                                            <a asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@product.ProductId" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
                                         </div>
                                     </div>
                               

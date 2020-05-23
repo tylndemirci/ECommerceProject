@@ -5,11 +5,13 @@ using System.Text;
 using ECommerceProject.Business.Abstract;
 using ECommerceProject.Entities.Concrete;
 using ECommerceProject.Entities.DomainModels;
+using Microsoft.VisualBasic.CompilerServices;
 
 namespace ECommerceProject.Business.Concrete
 {
     public class CartManager : ICartService
     {
+
         public void AddToCart(Cart cart, Product product)
         {
             CartLine cartLine = cart.CartLines.FirstOrDefault(c => c.Product.ProductId == product.ProductId);
@@ -27,6 +29,17 @@ namespace ECommerceProject.Business.Concrete
         public void RemoveFromCart(Cart cart, int productId)
         {
             cart.CartLines.Remove(cart.CartLines.FirstOrDefault(c => c.Product.ProductId == productId));
+        }
+
+        public double TotalPrice(Cart cart)
+        {
+            
+            return cart.TotalPrice();
+        }
+
+        public int TotalProductQuantity(Cart cart)
+        {
+            return cart.TotalProductQuantity();
         }
 
         public List<CartLine> List(Cart cart)

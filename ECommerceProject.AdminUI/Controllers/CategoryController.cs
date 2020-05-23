@@ -18,7 +18,7 @@ namespace ECommerceProject.AdminUI.Controllers
     
 
 
-        public CategoryController(ICategoryService categoryService, ICategoryDal categoryDal)
+        public CategoryController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
             

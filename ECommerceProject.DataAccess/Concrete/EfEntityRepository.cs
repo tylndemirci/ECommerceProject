@@ -63,7 +63,7 @@ namespace ECommerceProject.DataAccess.Concrete
 
         public int Commit()
         {
-            //?
+            
             try
             {
                 var i = _dbContext.SaveChanges();

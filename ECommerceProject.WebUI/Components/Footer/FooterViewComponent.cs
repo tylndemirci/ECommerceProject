@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ECommerceProject.WebUI.Components.TopFooter
+namespace ECommerceProject.WebUI.Components.Footer
 {
-    public class TopFooterViewComponent: ViewComponent
+    public class FooterViewComponent: ViewComponent
     {
         public IViewComponentResult Invoke()
         {

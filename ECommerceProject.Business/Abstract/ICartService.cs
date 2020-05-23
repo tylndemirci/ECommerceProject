@@ -10,6 +10,7 @@ namespace ECommerceProject.Business.Abstract
    {
        void AddToCart(Cart cart, Product product);
        void RemoveFromCart(Cart cart, int productId);
+       //double TotalPrice();
        List<CartLine> List(Cart cart);
    }
 }

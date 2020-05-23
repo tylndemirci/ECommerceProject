@@ -4,9 +4,14 @@ using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
 using ECommerceProject.Business.Abstract;
+using ECommerceProject.Core.Enums;
 using ECommerceProject.Entities;
 using ECommerceProject.Entities.Concrete;
+using ECommerceProject.Entities.DomainModels;
 using ECommerceProject.WebUI.Helper;
+using ECommerceProject.WebUI.Models.Order;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,40 +22,110 @@ namespace ECommerceProject.WebUI.Controller
         private readonly ICartService _cartService;
         private readonly ICartSessionHelper _cartSessionHelper;
         private readonly IProductService _productService;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IOrderService _orderService;
+        
+        
 
-        public CartController(ICartService cartService, ICartSessionHelper cartSessionHelper, IProductService productService, UserManager<ApplicationUser> userManager)
+        public CartController(ICartService cartService, ICartSessionHelper cartSessionHelper, IProductService productService, IOrderService orderService)
         {
             _cartService = cartService;
             _cartSessionHelper = cartSessionHelper;
             _productService = productService;
-            _userManager = userManager;
+            _orderService = orderService;
         }
         //todo add tempdata
-        public IActionResult AddToCart(int productId, string userId)
+        public IActionResult AddToCart(int productId)
         {
-            var user = _userManager.FindByIdAsync(userId);
+            
             Product product = _productService.GetProduct(productId);
-            var cart = _cartSessionHelper.GetCart("cart");
-            cart.UserId = user.Result.Id;
-            _cartService.AddToCart(cart, product);
-            //tempdata
-            _cartSessionHelper.SetCart("cart", cart);
+            if (product!=null)
+            {
+                var cart = _cartSessionHelper.GetCart("cart");
+                
+                _cartService.AddToCart(cart, product);
+                //tempdata
+                _cartSessionHelper.SetCart("cart", cart);
+            }
 
-            return RedirectToAction("Index", "Product");
+            return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult RemoveFromCart(int productId, string userId)
+        public IActionResult RemoveFromCart(int productId)
         {
-            var user = _userManager.FindByIdAsync(userId);
+            
             Product product = _productService.GetProduct(productId);
-            var cart = _cartSessionHelper.GetCart("cart");
-            cart.UserId = user.Result.Id;
-            _cartService.RemoveFromCart(cart,productId);
-            //tempdata
-            _cartSessionHelper.SetCart("cart", cart);
+            if (product!=null)
+            {
+                var cart = _cartSessionHelper.GetCart("cart");
 
-            return RedirectToAction("Index", "Cart");
+                _cartService.RemoveFromCart(cart, productId);
+                //tempdata
+                _cartSessionHelper.SetCart("cart", cart);
+            }
+
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult Checkout()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Checkout(OrderDetailsModel model)
+        {
+            var cart = _cartSessionHelper.GetCart("cart");
+            if (cart.CartLines==null)
+            {
+                ModelState.AddModelError("", "There is no product in your cart");
+            }
+
+            if (ModelState.IsValid)
+            {
+                SaveOrder(cart, model);
+                _cartSessionHelper.Clear();
+                return View("Completed");
+
+            }
+            return View(model);
+        }
+
+        private void SaveOrder(Cart cart, OrderDetailsModel model)
+        {
+            var order = new Order();
+            order.OrderNumber = "A" + (new Random()).Next(111111, 999999).ToString();
+            order.Total = cart.TotalPrice();
+            order.OrderDate = DateTime.Now;
+            order.OrderState = EnumOrderState.WaitingForApproval;
+            order.UserName = User.Identity.Name;
+            order.AddressTitle = model.AddressTitle;
+            order.Address = model.Address;
+            order.Name = model.Name;
+            order.Surname = model.Surname;
+            order.Country = model.Country;
+            order.City = model.City;
+            order.District = model.District;
+            order.Phone = model.Phone;
+            
+
+            order.OrderLines = new List<OrderLine>();
+
+            foreach (var product in cart.CartLines)
+            {
+                
+                    var orderLine = new OrderLine();
+                    orderLine.Quantity = product.Quantity;
+                    orderLine.Price = product.Product.Price;
+                    orderLine.ProductId = product.Product.ProductId;
+                    order.OrderLines.Add(orderLine);
+            }
+
+            _orderService.UpdateOrder(order);
+
         }
 
 
