@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ECommerceProject.Business.Abstract;
 using ECommerceProject.Core.Enums;
@@ -41,7 +42,9 @@ namespace ECommerceProject.WebUI.Controller
             if (product!=null)
             {
                 var cart = _cartSessionHelper.GetCart("cart");
-                
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                cart.UserId = userId;
+
                 _cartService.AddToCart(cart, product);
                 //tempdata
                 _cartSessionHelper.SetCart("cart", cart);
@@ -57,6 +60,8 @@ namespace ECommerceProject.WebUI.Controller
             if (product!=null)
             {
                 var cart = _cartSessionHelper.GetCart("cart");
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                cart.UserId = userId;
 
                 _cartService.RemoveFromCart(cart, productId);
                 //tempdata
@@ -79,6 +84,8 @@ namespace ECommerceProject.WebUI.Controller
         public IActionResult Checkout(OrderDetailsModel model)
         {
             var cart = _cartSessionHelper.GetCart("cart");
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            cart.UserId = userId;
             if (cart.CartLines==null)
             {
                 ModelState.AddModelError("", "There is no product in your cart");

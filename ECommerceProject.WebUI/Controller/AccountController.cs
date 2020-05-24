@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ECommerceProject.Entities;
+using ECommerceProject.WebUI.Helper;
 using ECommerceProject.WebUI.Models;
 using ECommerceProject.WebUI.Models.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -18,14 +19,16 @@ namespace ECommerceProject.WebUI.Controller
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IPasswordHasher<ApplicationUser> _passwordHasher;
         private readonly IPasswordValidator<ApplicationUser> _passwordValidator;
+        private readonly ICartSessionHelper _cartSessionHelper;
 
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
-            IPasswordHasher<ApplicationUser> passwordHasher, IPasswordValidator<ApplicationUser> passwordValidator)
+            IPasswordHasher<ApplicationUser> passwordHasher, IPasswordValidator<ApplicationUser> passwordValidator, ICartSessionHelper cartSessionHelper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _passwordHasher = passwordHasher;
             _passwordValidator = passwordValidator;
+            _cartSessionHelper = cartSessionHelper;
         }
 
         [Route("/Account/Login")]
@@ -39,6 +42,7 @@ namespace ECommerceProject.WebUI.Controller
         [Route("/Account/Login")]
         public async Task<IActionResult> Login(LoginModel model, string returnUrl)
         {
+            _cartSessionHelper.GetCart("cart");
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(model.Email);
@@ -80,7 +84,7 @@ namespace ECommerceProject.WebUI.Controller
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Login", "Account");
                 }
                 else
                 {
@@ -178,6 +182,10 @@ namespace ECommerceProject.WebUI.Controller
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
+            
+            
+          
+            
             return RedirectToAction("Index", "Home");
         }
 

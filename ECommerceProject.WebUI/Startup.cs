@@ -12,6 +12,7 @@ using ECommerceProject.Entities;
 using ECommerceProject.WebUI.Helper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -41,6 +42,7 @@ namespace ECommerceProject.WebUI
                 })
                 .AddEntityFrameworkStores<ECommerceProjectContext>()
                 .AddDefaultTokenProviders();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<ICategoryDal, EfCategoryDal>();
             services.AddTransient<ICategoryService, CategoryManager>();
             services.AddTransient<IProductDal, EfProductDal>();
@@ -49,14 +51,17 @@ namespace ECommerceProject.WebUI
             services.AddTransient<ICartSessionHelper, CartSessionHelper>();
             services.AddTransient<IOrderService, OrderManager>();
             services.AddTransient<IOrderDal, EfOrderDal>();
+            
            
-            services.AddSession();
+           
             services.AddAuthentication("CookieAuth").AddCookie(opt =>
             {
                 opt.Cookie.Name = "Ecom";
                 opt.LoginPath = "/Account/Login";
             });
             services.AddControllersWithViews();
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,6 +78,7 @@ namespace ECommerceProject.WebUI
 
             app.UseRouting(); 
             app.UseSession();
+            
             app.UseAuthentication();
 
             app.UseAuthorization();

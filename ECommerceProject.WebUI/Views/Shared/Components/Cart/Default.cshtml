@@ -10,26 +10,26 @@
         <div class="cart-list">
             @foreach (var product in Model.CartLines)
             {
-                <div class="product-widget">
-                    <div class="product-img">
-                        <img src="./img/product01.png" alt="">
-                    </div>
-                    <div class="product-body">
-                        <h3 class="product-name"><a href="#">@product.Product.ProductName</a></h3>
-                        <h4 class="product-price"><span class="qty">@product.Quantity</span>@product.Product.Price * @product.Quantity</h4>
-                    </div>
-                    <button class="delete" asp-controller="Cart" asp-action="RemoveFromCart"><i class="fa fa-close"></i></button>
+            <div class="product-widget">
+                <div class="product-img">
+                    <img src="./img/product01.png" alt="">
                 </div>
-            }
+                <div class="product-body">
+                    <h3 class="product-name"><a href="#">@product.Product.ProductName</a></h3>
+                    <h4 class="product-price"><span class="qty">@product.Quantity</span>@product.Product.Price * @product.Quantity</h4>
+                </div>
+                @* <button class="delete" asp-controller="Cart" asp-action="RemoveFromCart"><i class="fa fa-close"></i></button> *@
+            </div>
+                    }
+                </div>
+                <div class="cart-summary">
+                    <small>3 Item(s) selected</small>
+                    <h5>SUBTOTAL: $2940.00</h5>
+                </div>
+                <div class="cart-btns">
+                    <a href="#">View Cart</a>
+                    <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
         </div>
-        <div class="cart-summary">
-            <small>3 Item(s) selected</small>
-            <h5>SUBTOTAL: $2940.00</h5>
-        </div>
-        <div class="cart-btns">
-            <a href="#">View Cart</a>
-            <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
-        </div>
-    </div>
-</div>
-<!-- /Cart -->
+        <!-- /Cart -->

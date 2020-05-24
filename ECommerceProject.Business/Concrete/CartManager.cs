@@ -15,6 +15,7 @@ namespace ECommerceProject.Business.Concrete
         public void AddToCart(Cart cart, Product product)
         {
             CartLine cartLine = cart.CartLines.FirstOrDefault(c => c.Product.ProductId == product.ProductId);
+            
             if (cartLine!=null)
             {
                 cartLine.Quantity++;
