@@ -4,14 +4,16 @@ using ECommerceProject.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ECommerceProject.AdminUI.Migrations
 {
     [DbContext(typeof(ECommerceProjectContext))]
-    partial class ECommerceProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20200525200816_productprice2")]
+    partial class productprice2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

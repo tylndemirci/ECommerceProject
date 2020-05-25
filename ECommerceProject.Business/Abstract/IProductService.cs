@@ -12,7 +12,7 @@ namespace ECommerceProject.Business.Abstract
    {
        Product GetProduct(int id);
        void AddProduct(Product product);
-       void UpdateProduct(Product product, int productId);
+       void UpdateProduct(Product product);
        void DeleteProduct(int productId);
        IQueryable<Product> ListProduct();
 

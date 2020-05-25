@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using ECommerceProject.Entities.Concrete;
 
@@ -12,6 +13,7 @@ namespace ECommerceProject.Entities.Concrete
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
         public int Count { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
         public double Price { get; set; }
         public bool IsStock { get; set; }
         public bool IsApproved { get; set; }

@@ -12,7 +12,6 @@ namespace ECommerceProject.WebUI.Models.Product
         {
             ProductId = product.ProductId;
             CategoryId = product.CategoryId;
-            CategoryName = product.Category.Title;
             Count = product.Count;
             Price = product.Price;
             IsStock = product.Count >= 1;
@@ -24,7 +23,7 @@ namespace ECommerceProject.WebUI.Models.Product
 
         public int ProductId { get; set; }
         public int CategoryId { get; set; }
-        public string CategoryName { get; set; }
+       
         public int Count { get; set; }
         public double Price { get; set; }
         public bool IsStock { get; set; }

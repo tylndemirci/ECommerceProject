@@ -9,19 +9,19 @@
                 <div class="col-md-5 col-md-push-2">
                     <div id="product-main-img">
                         <div class="product-preview">
-                            <img src="~/img/@Model.ImageUrl" alt="">
+                            <img src="~/productimages/@Model.ImageUrl" alt="">
                         </div>
 
                         <div class="product-preview">
-                            <img src="~/img/@Model.ImageUrl" alt="">
+                            <img src="~/productimages/@Model.ImageUrl" alt="">
                         </div>
 
                         <div class="product-preview">
-                            <img src="~/img/@Model.ImageUrl" alt="">
+                            <img src="~/productimages/@Model.ImageUrl" alt="">
                         </div>
 
                         <div class="product-preview">
-                            <img src="~/img/@Model.ImageUrl" alt="">
+                            <img src="~/productimages/@Model.ImageUrl" alt="">
                         </div>
                     </div>
                 </div>
@@ -30,19 +30,19 @@
                 <div class="col-md-2  col-md-pull-5">
                     <div id="product-imgs">
                         <div class="product-preview">
-                            <img src="~/img/@Model.ImageUrl" alt="">
+                            <img src="~/productimages/@Model.ImageUrl" alt="">
                         </div>
 
                         <div class="product-preview">
-                            <img src="~/img/@Model.ImageUrl" alt="">
+                            <img src="~/productimages/@Model.ImageUrl" alt="">
                         </div>
 
                         <div class="product-preview">
-                            <img src="~/img/@Model.ImageUrl" alt="">
+                            <img src="~/productimages/@Model.ImageUrl" alt="">
                         </div>
 
                         <div class="product-preview">
-                            <img src="~/img/@Model.ImageUrl" alt="">
+                            <img src="~/productimages/@Model.ImageUrl" alt="">
                         </div>
                     </div>
                 </div>
@@ -53,8 +53,8 @@
                         <h2 class="product-name">@Model.ProductName</h2>
                        
                         <div>
-                            <h3 class="product-price">@Model.Price</h3>
-                            <span class="product-available">In Stock</span>
+                            <h3 class="product-price">@Model.Price.ToString("C")</h3>
+                            <span class="product-available">@Model.IsStock</span>
                         </div>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 

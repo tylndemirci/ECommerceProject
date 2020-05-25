@@ -3,6 +3,23 @@
     ViewData["Title"] = "Index";
 }
 
+@*@section scripts {
+    <script>
+
+      
+        var elements = document.querySelectorAll("#priceOfProduct");
+        for (var i = 0; i < elements.length; i++) {
+            var oldValue = elements[i].innerText;
+            var newValue = oldValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            console.log(newValue);
+            var div = $("#priceOfProduct");
+            $(div[i]).text(newValue);
+        }
+
+    </script>
+}*@
+
+
 <a class="button btn-sm btn-primary" asp-controller="Product" asp-action="AddProduct">Add Product</a>
     <table class="table-striped table table-sm">
         <tr>
@@ -30,7 +47,7 @@
         <td>@product.IsApproved</td>
         <td>@product.IsFeatured</td>
         <td>@product.IsStock</td>
-        <td>@product.Price</td>
+        <td @*id="priceOfProduct"*@>@product.Price.ToString("C")</td>
         <td>@product.CategoryName</td>
         <td><img src="~/productimages/@product.ImageUrl" width="50" /></td>
         <td>@Html.Raw(product.Description)</td>

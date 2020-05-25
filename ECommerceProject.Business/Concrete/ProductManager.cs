@@ -37,11 +37,21 @@ namespace ECommerceProject.Business.Concrete
             }
         }
 
-        public void UpdateProduct(Product product, int productId)
+        public void UpdateProduct(Product product)
         {
             var getProduct = _productDal.GetBy(x=>x.ProductId==product.ProductId);
-            getProduct = product;
-            getProduct.ProductId = productId;
+            
+            getProduct.CategoryId = product.CategoryId;
+            getProduct.Count = product.Count;
+            getProduct.Price = product.Price;
+            getProduct.IsStock = product.IsStock;
+            getProduct.IsApproved = product.IsApproved;
+            getProduct.IsFeatured = product.IsFeatured;
+            getProduct.ProductName = product.ProductName;
+            getProduct.Description = product.Description;
+            getProduct.ProductColor = product.ProductColor;
+            getProduct.ImageUrl = product.ImageUrl ?? "~/assets/images/productDefault.png";
+
 
             _productDal.Update(getProduct);
 

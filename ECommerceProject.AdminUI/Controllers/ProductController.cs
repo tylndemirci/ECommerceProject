@@ -32,6 +32,7 @@ namespace ECommerceProject.AdminUI.Controllers
                 .Where(x => x.IsDeleted != true)
                 .Include(x => x.Category)
                 .Select(x => new ListAllProductsViewModel(x));
+            
             return View(returnModel);
         }
 
@@ -123,7 +124,7 @@ namespace ECommerceProject.AdminUI.Controllers
 
                 var product = new Product
                 {
-                  
+                    ProductId = model.ProductId,
                     CategoryId = model.CategoryId,
                     Price = model.Price,
                     ProductName = model.ProductName,
@@ -132,7 +133,7 @@ namespace ECommerceProject.AdminUI.Controllers
                     ImageUrl = model.ImageUrl ?? "productDefault.png"
                 };
 
-                _productService.UpdateProduct(product, model.ProductId);
+                _productService.UpdateProduct(product);
 
                 return RedirectToAction("Index");
             }

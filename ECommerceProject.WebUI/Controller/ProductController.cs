@@ -11,25 +11,26 @@ namespace ECommerceProject.WebUI.Controller
     public class ProductController : Microsoft.AspNetCore.Mvc.Controller
     {
         private readonly IProductService _productService;
+        private readonly ICategoryService _categoryService;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService, ICategoryService categoryService)
         {
             _productService = productService;
+            _categoryService = categoryService;
         }
-
+        [Route("/ProductDetails")]
         public IActionResult ProductDetails(int productId)
         {
-            var getProduct = _productService.GetProduct(productId);
-            var setProduct = new ProductDetailsModel(getProduct);
+            
+                var getProduct = _productService.GetProduct(productId);
+                var setProduct = new ProductDetailsModel(getProduct);
+                var category = _categoryService.GetCategory(getProduct.CategoryId);
 
-            if (getProduct!=null)
-            {
                 return View(setProduct);
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
+           //todo return to home in case something occurs.
+
+                
+            
            
         }
     }
