@@ -12,10 +12,6 @@ namespace ECommerceProject.AdminUI.Models.Product
         {
             ProductId = product.ProductId;
             CategoryId = product.CategoryId;
-            if (product.Category != null)
-            {
-                CategoryName = product.Category.Title;
-            }
             Count = product.Count;
             Price = product.Price;
             IsStock = product.IsStock;
@@ -38,7 +34,6 @@ namespace ECommerceProject.AdminUI.Models.Product
             Categories = categories.Select(x => new SelectListItem(x.Title, x.Id.ToString(), false, false));
             ProductId = product.ProductId;
             CategoryId = product.CategoryId;
-            CategoryName = product.Category.Title;
             Count = product.Count;
             Price = product.Price;
             IsStock = product.IsStock;
@@ -55,7 +50,7 @@ namespace ECommerceProject.AdminUI.Models.Product
 
         public int ProductId { get; set; }
         public int CategoryId { get; set; }
-        public string CategoryName { get; set; }
+       
         public int Count { get; set; }
         public double Price { get; set; }
         public bool IsStock { get; set; }

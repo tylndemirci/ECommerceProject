@@ -40,6 +40,7 @@ namespace ECommerceProject.DataAccess.Concrete
         public void Update(T entity)
         {
             var updatedEntity = _dbContext.Entry(entity);
+            
             updatedEntity.State = EntityState.Modified;
             _dbContext.SaveChanges();
             

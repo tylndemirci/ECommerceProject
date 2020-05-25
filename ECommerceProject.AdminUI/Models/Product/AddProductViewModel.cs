@@ -26,8 +26,8 @@ namespace ECommerceProject.AdminUI.Models.Product
 
         public AddProductViewModel(IQueryable<Entities.Concrete.Category> categories)
         {
-            Categories = categories.Select(x=>new SelectListItem(x.Title, x.Id.ToString(),false,false));
-             
+            Categories = categories.Select(x => new SelectListItem(x.Title, x.Id.ToString(), false, false));
+
         }
 
 

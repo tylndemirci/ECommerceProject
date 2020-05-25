@@ -37,15 +37,14 @@ namespace ECommerceProject.Business.Concrete
             }
         }
 
-        public void UpdateProduct(Product product)
+        public void UpdateProduct(Product product, int productId)
         {
             var getProduct = _productDal.GetBy(x=>x.ProductId==product.ProductId);
+            getProduct = product;
+            getProduct.ProductId = productId;
 
-            if (getProduct!=null)
-            {
-                _productDal.Update(product);
-            }
-            
+            _productDal.Update(getProduct);
+
         }
 
         public void DeleteProduct(int productId)

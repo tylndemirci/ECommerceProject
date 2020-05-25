@@ -20,7 +20,7 @@ namespace ECommerceProject.AdminUI.Models.Product
             Description = product.Description;
             ProductColor = product.ProductColor;
             ImageUrl = product.ImageUrl ?? "~/assets/images/productDefault.png";
-            
+
         }
 
         public ListAllProductsViewModel()
@@ -41,6 +41,6 @@ namespace ECommerceProject.AdminUI.Models.Product
         public string Description { get; set; }
         public string ProductColor { get; set; }
         public string ImageUrl { get; set; }
-        
+
     }
 }

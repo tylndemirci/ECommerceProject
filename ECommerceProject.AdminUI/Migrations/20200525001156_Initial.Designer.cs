@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerceProject.AdminUI.Migrations
 {
     [DbContext(typeof(ECommerceProjectContext))]
-    [Migration("20200523154818_CartInfo")]
-    partial class CartInfo
+    [Migration("20200525001156_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -194,7 +194,7 @@ namespace ECommerceProject.AdminUI.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderLine");
+                    b.ToTable("OrderLines");
                 });
 
             modelBuilder.Entity("ECommerceProject.Entities.Concrete.Product", b =>

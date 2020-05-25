@@ -39,8 +39,8 @@ namespace ECommerceProject.AdminUI.Controllers
         [HttpGet]
         public IActionResult AddProduct()
         {
-             
-            var returnModel = new AddProductViewModel(_categoryService.GetAllWithSubNames()); 
+
+            var returnModel = new AddProductViewModel(_categoryService.GetAllWithSubNames());
             return View(returnModel);
 
 
@@ -93,9 +93,9 @@ namespace ECommerceProject.AdminUI.Controllers
         public IActionResult EditProduct(int id)
         {
             var getProduct = _productService.GetProduct(id);
-            
+
             var returnModel = new UpdateProductViewModel(_categoryService.GetAllWithSubNames(), getProduct);
-            
+
 
             return View(returnModel);
         }
@@ -121,17 +121,18 @@ namespace ECommerceProject.AdminUI.Controllers
                     }
                 }
 
-
-                _productService.UpdateProduct(new Product()
+                var product = new Product
                 {
-                    ProductId = model.ProductId,
+                  
                     CategoryId = model.CategoryId,
                     Price = model.Price,
                     ProductName = model.ProductName,
                     Description = model.Description,
                     ProductColor = model.ProductColor,
                     ImageUrl = model.ImageUrl ?? "productDefault.png"
-                });
+                };
+
+                _productService.UpdateProduct(product, model.ProductId);
 
                 return RedirectToAction("Index");
             }

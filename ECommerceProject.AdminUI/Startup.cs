@@ -32,9 +32,10 @@ namespace ECommerceProject.AdminUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ECommerceProjectContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-                builder => builder.MigrationsAssembly("ECommerceProject.AdminUI"))
-                );
+            services.AddDbContext<ECommerceProjectContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")
+                ,builder => builder.MigrationsAssembly("ECommerceProject.AdminUI")));
+            
 
             services.AddIdentity<ApplicationUser, IdentityRole>(config =>
                 {

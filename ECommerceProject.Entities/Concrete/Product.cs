@@ -10,7 +10,7 @@ namespace ECommerceProject.Entities.Concrete
     {
         public int ProductId { get; set; }
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
         public int Count { get; set; }
         public double Price { get; set; }
         public bool IsStock { get; set; }
