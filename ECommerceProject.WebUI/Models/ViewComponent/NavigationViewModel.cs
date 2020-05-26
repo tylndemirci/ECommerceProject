@@ -9,13 +9,18 @@ namespace ECommerceProject.WebUI.Models.ViewComponent
 {
     public class NavigationViewModel
     {
-        public NavigationViewModel(Category category)
+        public NavigationViewModel(Entities.Concrete.Category category)
         {
             Id = category.Id;
             Title = category.Title;
+            if (category.ParentCategoryId!=null)
+            {
+                isSubCategory = true;
+            }
         }
         public int Id { get; set; }
         public string Title { get; set; }
+        public bool isSubCategory { get; set; }
     }
 }
 

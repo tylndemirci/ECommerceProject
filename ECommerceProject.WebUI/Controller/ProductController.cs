@@ -24,7 +24,7 @@ namespace ECommerceProject.WebUI.Controller
             
                 var getProduct = _productService.GetProduct(productId);
                 var setProduct = new ProductDetailsModel(getProduct);
-                var category = _categoryService.GetCategory(getProduct.CategoryId);
+                //var category = _categoryService.GetCategory(getProduct.CategoryId);
 
                 return View(setProduct);
            //todo return to home in case something occurs.

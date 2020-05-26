@@ -36,6 +36,13 @@ namespace ECommerceProject.Business.Concrete
             return returnCategory;
         }
 
+        public IQueryable<Category> GetSubCategories(int categoryId)
+        {
+            var subCategories = _categoryDal.GetAll().Where(x=>x.ParentCategoryId.ToString()!=null);
+            var returnModel = subCategories.Where(x => x.ParentCategoryId == categoryId);
+            return returnModel;
+        }
+
         public void AddCategory(Category category)
         {
             _categoryDal.Add(category);

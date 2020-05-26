@@ -26,7 +26,7 @@
                                     <!-- product -->
                                     <div class="product">
                                         <div class="product-img">
-                                            <a asp-controller="Product" asp-action="ProductDetails" asp-route-productId="@product.ProductId"> <img src="~/productimages/@product.ImageUrl" alt=""></a>
+                                            <a asp-controller="Product" asp-action="ProductDetails" asp-route-productId="@product.ProductId"> <img src="~/productimages/@product.ImageUrl" width="213" style="margin: auto" alt=""></a>
                                         </div>
                                         <div class="product-body">
                                             <p class="product-category">@product.CategoryName</p>
@@ -39,7 +39,7 @@
                                             </div>
                                         </div>
                                         <div class="add-to-cart">
-                                           w
+                                           
                                             <a asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@product.ProductId" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
                                         </div>
                                     </div>

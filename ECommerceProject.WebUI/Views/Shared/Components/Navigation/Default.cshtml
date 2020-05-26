@@ -9,9 +9,16 @@
             <ul class="main-nav nav navbar-nav">
                 @if (Model != null)
                 {
+                   
+
+                
                     @foreach (var nav in Model)
                     {
-                        <li><a href="">@nav.Title</a></li>
+                        if (nav.isSubCategory == false) 
+                        {
+                <li><a asp-controller="Category" asp-action="ListCategoryProducts" asp-route-categoryId="@nav.Id">@nav.Title</a></li>
+                        }
+                        
                     }
                 }
 
