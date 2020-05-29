@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ECommerceProject.Business.Abstract;
 using ECommerceProject.WebUI.Models.Product;
+using ECommerceProject.WebUI.Models.ViewComponent.ProductFilter;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceProject.WebUI.Controller
@@ -29,9 +30,8 @@ namespace ECommerceProject.WebUI.Controller
                 return View(setProduct);
            //todo return to home in case something occurs.
 
-                
-            
-           
         }
+
+        
     }
 }

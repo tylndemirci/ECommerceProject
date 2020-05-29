@@ -15,12 +15,12 @@ namespace ECommerceProject.WebUI.Models.ViewComponent
             Title = category.Title;
             if (category.ParentCategoryId!=null)
             {
-                isSubCategory = true;
+                IsSubCategory = true;
             }
         }
         public int Id { get; set; }
         public string Title { get; set; }
-        public bool isSubCategory { get; set; }
+        public bool IsSubCategory { get; set; }
     }
 }
 

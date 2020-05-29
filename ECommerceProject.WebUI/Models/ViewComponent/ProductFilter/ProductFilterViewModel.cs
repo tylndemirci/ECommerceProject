@@ -1,19 +1,34 @@
-﻿namespace ECommerceProject.WebUI.Models.ViewComponent.ProductFilter
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
+namespace ECommerceProject.WebUI.Models.ViewComponent.ProductFilter
 {
     public class ProductFilterViewModel
     {
-
-        public ProductFilterViewModel(Entities.Concrete.Category category)
+        public ProductFilterViewModel(IQueryable<Entities.Concrete.Category> categories)
         {
-            
-            CategoryId = category.Id;
-            CategoryName = category.Title;
+            Categories = categories.Select(x => new SelectListItem(x.Title, x.Id.ToString(), false, false));
 
         }
 
-        public string CategoryName { get; set; }
-        public int CategoryId { get; set; }
+        public ProductFilterViewModel()
+        {
+                
+        }
 
-        
+        public int CategoryId { get; set; }
+        public int SearchCategoryId { get; set; }
+        public string SearchCategoryName { get; set; }
+        public double Min { get; set; }
+        public double Max { get; set; }
+        public IEnumerable<SelectListItem> Categories { get; set; }
+
+
+
+
+
+
     }
 }

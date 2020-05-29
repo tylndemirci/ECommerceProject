@@ -2,6 +2,7 @@
 using ECommerceProject.Business.Abstract;
 using ECommerceProject.WebUI.Models.ViewComponent.ProductFilter;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ECommerceProject.WebUI.Components.ProductFilter
 {
@@ -19,10 +20,10 @@ namespace ECommerceProject.WebUI.Components.ProductFilter
         public IViewComponentResult Invoke(int categoryId)
         {
 
-            var subCategory = _categoryService.GetSubCategories(categoryId)
-                .Select(x => new ProductFilterViewModel(x));
+            var subCategory = new ProductFilterViewModel(_categoryService.GetSubCategories(categoryId));
 
-          
+
+            ViewBag.CategoryId = categoryId;
            
                 return View(subCategory);
 

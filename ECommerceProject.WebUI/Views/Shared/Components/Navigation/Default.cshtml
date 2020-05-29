@@ -14,7 +14,7 @@
                 
                     @foreach (var nav in Model)
                     {
-                        if (nav.isSubCategory == false) 
+                        if (nav.IsSubCategory == false) 
                         {
                 <li><a asp-controller="Category" asp-action="ListCategoryProducts" asp-route-categoryId="@nav.Id">@nav.Title</a></li>
                         }

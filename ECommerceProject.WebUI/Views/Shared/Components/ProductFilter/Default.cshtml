@@ -1,25 +1,14 @@
-﻿@model IEnumerable<ECommerceProject.WebUI.Models.ViewComponent.ProductFilter.ProductFilterViewModel>
-    <!-- aside Widget -->
+﻿@model ECommerceProject.WebUI.Models.ViewComponent.ProductFilter.ProductFilterViewModel
+
+<!-- aside Widget -->
     <div class="aside">
         <h3 class="aside-title">Categories</h3>
-        <div class="checkbox-filter">
-            @foreach (var subCategory in Model)
-            {
-                
-                    <div class="input-checkbox">
-                        <input type="checkbox" id="category-1">
-                        <label for="category-1">
-                            <span></span>
-                            @subCategory.CategoryName
-                            <small>()</small>
-                        </label>
-                    </div>
-                
-               
-            }
-         
-
-          
-        </div>
+        <form asp-controller="Category" asp-action="ListCategoryProducts" method="post">
+            <input asp-for="CategoryId" type="hidden"/>
+            @Html.DropDownListFor(x => x.SearchCategoryId, Model.Categories, "Select a Sub Category", new {@class = "form-control"})
+            <button type="submit" value="Submit">Search</button>
+        </form>
+        @Html.TextBoxFor(x => x.Min, new { placeholder = "Minimum", @class = "form-control" })
+        @Html.TextBoxFor(x => x.Max, new { placeholder = "Maximum", @class = "form-control" })
     </div>
-    <!-- /aside Widget -->
+<!-- /aside Widget -->
