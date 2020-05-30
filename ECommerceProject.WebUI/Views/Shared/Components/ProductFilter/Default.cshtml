@@ -6,9 +6,10 @@
         <form asp-controller="Category" asp-action="ListCategoryProducts" method="post">
             <input asp-for="CategoryId" type="hidden"/>
             @Html.DropDownListFor(x => x.SearchCategoryId, Model.Categories, "Select a Sub Category", new {@class = "form-control"})
-            <button type="submit" value="Submit">Search</button>
-        </form>
+           <div class="text text-danger" asp-validation-summary="ModelOnly"></div>
         @Html.TextBoxFor(x => x.Min, new { placeholder = "Minimum", @class = "form-control" })
         @Html.TextBoxFor(x => x.Max, new { placeholder = "Maximum", @class = "form-control" })
+            <button type="submit" value="Submit">Search</button>
+        </form>
     </div>
 <!-- /aside Widget -->

@@ -27,47 +27,61 @@ namespace ECommerceProject.WebUI.Controller
             var subCategoryId = model.SearchCategoryId;
             var getCategoryId = model.CategoryId;
 
-            if (subCategoryId!= 0)
+            if (minPrice> maxPrice)
             {
+                ModelState.AddModelError("","Minimum price cannot bigger than maximum price");
+                var products = _productService.ListProduct()
+                    .Where(x => x.CategoryId == categoryId || x.Category.ParentCategoryId == categoryId)
+                    .Include(x => x.Category).Select(x => new ListCategoryProductsModel(x));
+
+                return View(products);
+            }
+
+            if (subCategoryId == 0 && minPrice == 0 && maxPrice == 0)
+            {
+                var products = _productService.ListProduct()
+                    .Where(x => x.CategoryId == categoryId || x.Category.ParentCategoryId == categoryId)
+                    .Include(x => x.Category).Select(x => new ListCategoryProductsModel(x));
+
+                return View(products);
+
+            }
+           
+
+            if (subCategoryId != 0 || minPrice>=0 || maxPrice==0)  
+            {
+                if (maxPrice==0)
+                {
+                   
+                   return View(
+                       _productService.ListProduct()
+                           .Where(x => x.CategoryId == categoryId  
+                                       || x.Category.ParentCategoryId == categoryId
+                                       && x.CategoryId == subCategoryId 
+                                       && x.Price >= minPrice)
+                           .Include(x => x.Category).Select(x => new ListCategoryProductsModel(x))
+                   );
+
+                }
+
+                var getMaxPrice = _productService.ListProduct().Select(x => x.Price).Max();
                 return View(
                         _productService.ListProduct()
-                            .Where(x => x.CategoryId == categoryId || x.Category.ParentCategoryId == categoryId && x.CategoryId== subCategoryId)
+                            .Where(x => x.CategoryId == categoryId 
+                                        || x.Category.ParentCategoryId == categoryId
+                                        && x.CategoryId== subCategoryId
+                                        && x.Price >= minPrice && x.Price<= getMaxPrice)
                             .Include(x => x.Category).Select(x => new ListCategoryProductsModel(x))
                     );
                
             }
-            //if (min != null && max != null)
-            //{
-            //    var minMaxPriceProducts = _productService.ListProduct().Where(x => x.CategoryId == categoryId && x.Price >= min && x.Price <= max)
-            //        .Include(x => x.Category).Select(x => new ListCategoryProductsModel(x));
-            //    return View(minMaxPriceProducts);
-            //}
 
-            //if (min != null)
-            //{
-            //    var minPriceProducts = _productService.ListProduct().Where(x => x.CategoryId == categoryId && x.Price >= min)
-            //        .Include(x => x.Category).Select(x => new ListCategoryProductsModel(x));
-            //    return View(minPriceProducts);
-            //}
-
-            //if (max != null)
-            //{
-            //    var maxPriceProducts = _productService.ListProduct().Where(x => x.CategoryId == categoryId && x.Price <= max)
-            //        .Include(x => x.Category).Select(x => new ListCategoryProductsModel(x));
-            //    return View(maxPriceProducts);
-            //}
-
-            var products = _productService.ListProduct()
-                .Where(x => x.CategoryId == categoryId || x.Category.ParentCategoryId==categoryId)
-                .Include(x => x.Category).Select(x => new ListCategoryProductsModel(x));
+            return RedirectToAction("Index", "Home");
 
 
 
-           
 
 
-
-            return View(products);
         }
 
         //public IActionResult ProductFilter(MiniProductFilterModel model)
