@@ -14,11 +14,12 @@ namespace ECommerceProject.Business.Concrete
     public class CategoryManager : ICategoryService
     {
         private readonly ICategoryDal _categoryDal;
+        private readonly IProductDal _productDal;
 
-        public CategoryManager(ICategoryDal categoryDal)
+        public CategoryManager(ICategoryDal categoryDal, IProductDal productDal)
         {
             _categoryDal = categoryDal;
-            
+            _productDal = productDal;
         }
 
         public IQueryable<Category> GetAllWithSubNames()
@@ -41,6 +42,13 @@ namespace ECommerceProject.Business.Concrete
             var subCategories = _categoryDal.GetAll().Where(x=>x.ParentCategoryId.ToString()!=null);
             var returnModel = subCategories.Where(x => x.ParentCategoryId == categoryId);
             return returnModel;
+        }
+
+        public Category GetSubCategoryForProduct(int productId)
+        {
+            var getProduct = _productDal.GetBy(x => x.ProductId == productId);
+            var subCategory = _categoryDal.GetBy(x => x.Id == getProduct.CategoryId);
+            return subCategory;
         }
 
         public void AddCategory(Category category)

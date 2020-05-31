@@ -227,10 +227,13 @@ namespace ECommerceProject.AdminUI.Migrations
                         .HasColumnType("bit");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(3,3,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ProductColor")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductDetailsId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ProductName")
                         .HasColumnType("nvarchar(max)");
@@ -240,6 +243,29 @@ namespace ECommerceProject.AdminUI.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("ECommerceProject.Entities.Concrete.ProductDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ProductDetailDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProductDetailTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductDetails");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -400,6 +426,15 @@ namespace ECommerceProject.AdminUI.Migrations
                     b.HasOne("ECommerceProject.Entities.Concrete.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ECommerceProject.Entities.Concrete.ProductDetails", b =>
+                {
+                    b.HasOne("ECommerceProject.Entities.Concrete.Product", "Product")
+                        .WithMany("ProductDetails")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

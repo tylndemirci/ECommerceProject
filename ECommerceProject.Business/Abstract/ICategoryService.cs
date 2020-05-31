@@ -12,6 +12,7 @@ namespace ECommerceProject.Business.Abstract
         IQueryable<Category> GetAllWithSubNames();
         Category GetCategory(int id);
         IQueryable<Category> GetSubCategories(int categoryId);
+        Category GetSubCategoryForProduct(int productId);
         void AddCategory(Category category);
         void UpdateCategory(Category category);
       

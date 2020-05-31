@@ -11,7 +11,10 @@ namespace ECommerceProject.Entities.Concrete
     {
         public int ProductId { get; set; }
         public int CategoryId { get; set; }
+        public int ProductDetailsId { get; set; }
         public virtual Category Category { get; set; }
+        public virtual List<ProductDetails> ProductDetails { get; set; }
+        
         public int Count { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public double Price { get; set; }

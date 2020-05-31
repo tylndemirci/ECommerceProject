@@ -12,10 +12,7 @@ namespace ECommerceProject.Entities.Concrete
         public bool IsDeleted { get; set; }
         public Category ParentCategory { get; set; }
 
-        public IEnumerable<object> Where(Func<object, bool> p)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         public string Title { get; set; }
 

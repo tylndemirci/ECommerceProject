@@ -51,9 +51,11 @@ namespace ECommerceProject.WebUI
             services.AddTransient<ICartSessionHelper, CartSessionHelper>();
             services.AddTransient<IOrderService, OrderManager>();
             services.AddTransient<IOrderDal, EfOrderDal>();
-            
-           
-           
+            services.AddTransient<IProductDetailsDal, EfProductDetailsDal>();
+            services.AddTransient<IProductDetailsService, ProductDetailsManager>();
+
+
+
             services.AddAuthentication("CookieAuth").AddCookie(opt =>
             {
                 opt.Cookie.Name = "Ecom";

@@ -18,11 +18,13 @@ namespace ECommerceProject.AdminUI.Controllers
     {
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
+        private readonly IProductDetailsService _productDetailsService;
 
-        public ProductController(IProductService productService, ICategoryService categoryService)
+        public ProductController(IProductService productService, ICategoryService categoryService, IProductDetailsService productDetailsService)
         {
             _productService = productService;
             _categoryService = categoryService;
+            _productDetailsService = productDetailsService;
         }
 
         public IActionResult Index()
@@ -70,9 +72,7 @@ namespace ECommerceProject.AdminUI.Controllers
                     }
                 }
 
-
-
-                _productService.AddProduct(new Product()
+                var product = new Product()
                 {
                     ProductId = model.ProductId,
                     CategoryId = model.CategoryId,
@@ -81,7 +81,31 @@ namespace ECommerceProject.AdminUI.Controllers
                     ProductColor = model.ProductColor,
                     ImageUrl = model.ImageUrl ?? "productDefault.png"
 
-                });
+                };
+
+                _productService.AddProduct(product);
+
+                //product.ProductDetails = new List<ProductDetails>();
+
+                //creates detailLine for each detail submitted.
+                for (int i = 0; i < model.ProductDetailsTitle.Count; i++)
+                {
+                    var detailLine = new ProductDetails();
+                    //detailLine.Id = model.ProductDetailsId;
+                    detailLine.ProductId = product.ProductId;
+                    detailLine.ProductDetailTitle = model.ProductDetailsTitle[i];
+                        detailLine.ProductDetailDescription = model.ProductDetailsDescription[i];
+                        product.ProductDetails.Add(detailLine);
+                    _productDetailsService.AddDetails(detailLine);
+                }
+                
+
+
+
+                _productService.UpdateProduct(product);
+                
+                
+               
                 return RedirectToAction("Index");
             }
             else
@@ -89,6 +113,17 @@ namespace ECommerceProject.AdminUI.Controllers
                 return View(model);
             }
         }
+
+
+
+
+
+
+
+
+
+
+
 
         [HttpGet]
         public IActionResult EditProduct(int id)
@@ -130,8 +165,10 @@ namespace ECommerceProject.AdminUI.Controllers
                     ProductName = model.ProductName,
                     Description = model.Description,
                     ProductColor = model.ProductColor,
-                    ImageUrl = model.ImageUrl ?? "productDefault.png"
+                    ImageUrl = model.ImageUrl ?? "productDefault.png",
+                   
                 };
+
 
                 _productService.UpdateProduct(product);
 

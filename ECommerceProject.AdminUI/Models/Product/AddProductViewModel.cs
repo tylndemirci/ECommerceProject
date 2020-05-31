@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ECommerceProject.Entities.Concrete;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ECommerceProject.AdminUI.Models.Product
@@ -17,6 +18,8 @@ namespace ECommerceProject.AdminUI.Models.Product
             ProductName = product.ProductName;
             ProductColor = product.ProductColor;
             ImageUrl = product.ImageUrl;
+           
+
         }
 
         public AddProductViewModel()
@@ -33,11 +36,15 @@ namespace ECommerceProject.AdminUI.Models.Product
 
         public int ProductId { get; set; }
         public int CategoryId { get; set; }
-        public string CategoryName { get; set; }
+        public int ProductDetailsId { get; set; }
         public double Price { get; set; }
         public string ProductName { get; set; }
         public string ProductColor { get; set; }
         public string ImageUrl { get; set; }
+        public string CategoryName { get; set; }
+        public List<string> ProductDetailsTitle { get; set; }
+        public List<string> ProductDetailsDescription { get; set; }
         public IEnumerable<SelectListItem> Categories { get; set; }
+        
     }
 }

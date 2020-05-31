@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ECommerceProject.Entities.Concrete;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ECommerceProject.AdminUI.Models.Product
@@ -22,6 +23,7 @@ namespace ECommerceProject.AdminUI.Models.Product
             Description = product.Description;
             ProductColor = product.ProductColor;
             ImageUrl = product.ImageUrl ?? "~/assets/images/productDefault.png";
+           
         }
 
         public UpdateProductViewModel()
@@ -50,7 +52,7 @@ namespace ECommerceProject.AdminUI.Models.Product
 
         public int ProductId { get; set; }
         public int CategoryId { get; set; }
-       
+        public int ProductDetailsId { get; set; }
         public int Count { get; set; }
         public double Price { get; set; }
         public bool IsStock { get; set; }
@@ -60,6 +62,8 @@ namespace ECommerceProject.AdminUI.Models.Product
         public string Description { get; set; }
         public string ProductColor { get; set; }
         public string ImageUrl { get; set; }
+        public string ProductDetailsTitle { get; set; }
+        public string ProductDetailsDescription { get; set; }
         public IEnumerable<SelectListItem> Categories { get; set; }
 
     }

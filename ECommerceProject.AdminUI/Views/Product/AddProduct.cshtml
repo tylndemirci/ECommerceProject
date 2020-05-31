@@ -2,28 +2,58 @@
 @{
     ViewData["Title"] = "AddProduct";
 }
+@section scripts {
+    <script>
+        function myFunction() {
 
-    <form asp-controller="Product" asp-action="AddProduct" method="post" enctype="multipart/form-data">
-        <input asp-for="ProductId" hidden />
-        <div class="form-group">
-            <label asp-for="ProductName">Product Name</label>
-            <input asp-for="ProductName" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label asp-for="CategoryId">Category Name</label>
+            $("#patates").append('<label asp-for="ProductDetailsTitle">Title</label><input name="ProductDetailsTitle" class="form-control" /><label asp-for="ProductDetailsDescription">Description</label><input name="ProductDetailsDescription"/> <input type="hidden" value="ProductDetailsId" />');
+        }
+    </script>
 
-            @Html.DropDownListFor(x=>x.CategoryId, Model.Categories,"Select a Category",new { @class="form-control" })
+   
+}
 
+<form asp-controller="Product" asp-action="AddProduct" method="post" enctype="multipart/form-data">
+    <input asp-for="ProductId" hidden />
+    <div class="form-group">
+        <label asp-for="ProductName">Product Name</label>
+        <input asp-for="ProductName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="CategoryId">Category Name</label>
+
+        @Html.DropDownListFor(x => x.CategoryId, Model.Categories, "Select a Category", new { @class = "form-control" })
+
+    </div>
+    <div class="form-group">
+        <label asp-for="Price">Price</label>
+        <input asp-for="Price" class="form-control" /> Dollar(s)
+    </div>
+    <div class="form-group">
+        <label asp-for="ImageUrl">Image</label>
+        <input type="file" name="file" id="file" asp-for="ImageUrl" class="form-control" />
+    </div>
+    
+
+    <div class="container">
+        <div class="row">
+            <div class="form-group" id="patates">
+             
+            </div>
         </div>
-        <div class="form-group">
-            <label asp-for="Price">Price</label>
-            <input asp-for="Price" class="form-control"/> Dollar(s)
-        </div>
-        <div class="form-group">
-            <label asp-for="ImageUrl">Image</label>
-            <input type="file" name="file" id="file" asp-for="ImageUrl" class="form-control"/>
-        </div>
-        <div class="form-group"></div>
+
+        
+    </div>
+    
+
+            <input type="button" onclick="myFunction()" href="#" value="Add Detail"/>
+
+        
+
+   
+
+    <div class="form-group">
         <button class="btn btn-sm btn-success">Submit</button>
-    </form>
+    </div>
+</form>
 
