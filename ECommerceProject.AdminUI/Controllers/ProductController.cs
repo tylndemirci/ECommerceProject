@@ -97,7 +97,7 @@ namespace ECommerceProject.AdminUI.Controllers
                     detailLine.ProductId = product.ProductId;
                     detailLine.ProductDetailTitle = model.ProductDetailsTitle[i];
                         detailLine.ProductDetailDescription = model.ProductDetailsDescription[i];
-                        product.ProductDetails.Add(detailLine);
+                        
                     _productDetailsService.AddDetails(detailLine);
                 }
                 
@@ -175,7 +175,7 @@ namespace ECommerceProject.AdminUI.Controllers
         [HttpGet]
         public IActionResult EditProductDetail(int productId)
         {
-            var getDetails = _productDetailsService.GetAllDetails(productId).Where(x=>x.ProductId==productId);
+            var getDetails = _productDetailsService.GetAllDetails(productId).Where(x=>x.ProductId==productId && x.IsDeleted == false);
             var returnModel = new ProductDetailsModel();
             
             
@@ -210,6 +210,16 @@ namespace ECommerceProject.AdminUI.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult DeleteProductDetail(int productDetailId)
+        {
+            var getDetail = _productDetailsService.GetDetail(productDetailId);
+            var getProductId = getDetail.ProductId;
+            _productDetailsService.DeleteDetails(getDetail.Id);
+
+            return RedirectToAction("EditProductDetail", new {productId = getProductId});
+        }
+
+        //tekrar çağırınca bilgiler gelmiyor
 
         public IActionResult DeleteProduct(int id)
         {

@@ -9,6 +9,7 @@ namespace ECommerceProject.Entities.Concrete
         public int Id { get; set; }
         public int ProductId { get; set; }
         public Product Product { get; set; }
+        public bool IsDeleted { get; set; }
         public string ProductDetailTitle { get; set; }
         public string ProductDetailDescription { get; set; }
         

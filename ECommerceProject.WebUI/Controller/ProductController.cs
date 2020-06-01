@@ -52,7 +52,7 @@ namespace ECommerceProject.WebUI.Controller
 
             };
 
-            var getDetails = _productDetailsService.GetAllDetails(productId);
+            var getDetails = _productDetailsService.GetAllDetails(productId).Where(x=> x.IsDeleted == false);
             //Need to do the thing below to prevent setProduct.ProductDetails... returning null.
             setProduct.ProductDetailsTitle = new List<string>();
             setProduct.ProductDetailsDescription = new List<string>();

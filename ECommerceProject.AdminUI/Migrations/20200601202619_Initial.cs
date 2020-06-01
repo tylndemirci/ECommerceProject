@@ -266,6 +266,7 @@ namespace ECommerceProject.AdminUI.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductId = table.Column<int>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
                     ProductDetailTitle = table.Column<string>(nullable: true),
                     ProductDetailDescription = table.Column<string>(nullable: true)
                 },

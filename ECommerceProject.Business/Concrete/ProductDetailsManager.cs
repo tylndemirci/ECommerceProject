@@ -57,7 +57,9 @@ namespace ECommerceProject.Business.Concrete
             var details = _productDetailsDal.GetBy(x => x.Id == detailsId);
             if (details != null)
             {
-                _productDetailsDal.Delete(details);
+                details.IsDeleted = true;
+                    _productDetailsDal.Update(details);
+               
             }
         }
     }
