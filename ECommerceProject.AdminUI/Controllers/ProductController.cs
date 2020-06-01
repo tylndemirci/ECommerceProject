@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using ECommerceProject.AdminUI.Models.Product;
+using ECommerceProject.AdminUI.Models.Product.ProductDetails;
 using ECommerceProject.Business.Abstract;
 using ECommerceProject.Entities.Concrete;
 using Microsoft.AspNetCore.Http;
@@ -85,7 +87,7 @@ namespace ECommerceProject.AdminUI.Controllers
 
                 _productService.AddProduct(product);
 
-                //product.ProductDetails = new List<ProductDetails>();
+                product.ProductDetails = new List<ProductDetails>();
 
                 //creates detailLine for each detail submitted.
                 for (int i = 0; i < model.ProductDetailsTitle.Count; i++)
@@ -113,16 +115,6 @@ namespace ECommerceProject.AdminUI.Controllers
                 return View(model);
             }
         }
-
-
-
-
-
-
-
-
-
-
 
 
         [HttpGet]
@@ -178,6 +170,44 @@ namespace ECommerceProject.AdminUI.Controllers
             {
                 return View(model);
             }
+        }
+
+        [HttpGet]
+        public IActionResult EditProductDetail(int productId)
+        {
+            var getDetails = _productDetailsService.GetAllDetails(productId).Where(x=>x.ProductId==productId);
+            var returnModel = new ProductDetailsModel();
+            
+            
+            foreach (var detail in getDetails)
+            {
+
+                returnModel.ProductDetailIds.Add(detail.Id);
+                returnModel.ProductDetailTitles.Add(detail.ProductDetailTitle);
+                returnModel.ProductDetailDescriptions.Add(detail.ProductDetailDescription);
+
+            }
+
+            ViewBag.ProductId = productId;
+            return View(returnModel);
+        }
+
+        [HttpPost]
+        public IActionResult EditProductDetail(ProductDetailsModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                for (int i = 0; i < model.ProductDetailTitles.Count; i++)
+                {
+                    var detail = _productDetailsService.GetDetail(model.ProductDetailIds[i]);
+                    detail.ProductDetailTitle = model.ProductDetailTitles[i];
+                    detail.ProductDetailDescription = model.ProductDetailDescriptions[i];
+                    _productDetailsService.UpdateDetails(detail);
+                }
+                
+            }
+
+            return RedirectToAction("Index");
         }
 
 

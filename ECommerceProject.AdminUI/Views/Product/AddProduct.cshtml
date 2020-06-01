@@ -6,7 +6,7 @@
     <script>
         function myFunction() {
 
-            $("#patates").append('<label asp-for="ProductDetailsTitle">Title</label><input name="ProductDetailsTitle" class="form-control" /><label asp-for="ProductDetailsDescription">Description</label><input name="ProductDetailsDescription"/> <input type="hidden" value="ProductDetailsId" />');
+            $("#product-detail-row").append('<label asp-for="ProductDetailsTitle">Title</label><input name="ProductDetailsTitle" class="form-control" /><label asp-for="ProductDetailsDescription">Description</label><input name="ProductDetailsDescription"/> <input type="hidden" value="ProductDetailsId" />');
         }
     </script>
 
@@ -37,7 +37,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="form-group" id="patates">
+            <div class="form-group" id="product-detail-row">
              
             </div>
         </div>

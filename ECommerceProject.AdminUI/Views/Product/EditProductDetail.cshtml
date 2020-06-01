@@ -1,0 +1,23 @@
+﻿@model ECommerceProject.AdminUI.Models.Product.ProductDetails.ProductDetailsModel
+
+<form asp-controller="Product" asp-action="EditProductDetail" method="post">
+        <input value="@ViewBag.ProductId" hidden />
+        @for (int i = 0; i < Model.ProductDetailTitles.Count; i++)
+        {
+            <div class="form-group">
+                <div class="col">
+                    @Html.HiddenFor(model => model.ProductDetailIds[i])
+                    <label asp-for="ProductDetailTitles">Title</label>
+                    @*<input type="text" value="@Model.ProductDetailTitles[i]" name="@Model.ProductDetailTitles[i]" class="form-control" />*@
+                    @Html.EditorFor(model => model.ProductDetailTitles[i])
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="ProductDetailDescriptions">Description</label>
+                    @*<input type="text" value="@Model.ProductDetailDescriptions[i]" name="@Model.ProductDetailDescriptions[i]" class="form-control" />*@
+                    @Html.EditorFor(model => model.ProductDetailDescriptions[i])
+                </div>
+            </div>
+        }
+        <button type="submit" value="Submit" class="btn btn-success">Save All Details</button>
+        <button asp-controller="Product" asp-action="Index" class="btn btn-danger">Turn to List</button>
+    </form>
