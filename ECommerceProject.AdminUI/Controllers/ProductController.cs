@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace ECommerceProject.AdminUI.Controllers
 {
@@ -36,7 +37,7 @@ namespace ECommerceProject.AdminUI.Controllers
                 .Where(x => x.IsDeleted != true)
                 .Include(x => x.Category)
                 .Select(x => new ListAllProductsViewModel(x));
-            
+
             return View(returnModel);
         }
 
@@ -96,18 +97,18 @@ namespace ECommerceProject.AdminUI.Controllers
                     //detailLine.Id = model.ProductDetailsId;
                     detailLine.ProductId = product.ProductId;
                     detailLine.ProductDetailTitle = model.ProductDetailsTitle[i];
-                        detailLine.ProductDetailDescription = model.ProductDetailsDescription[i];
-                        
+                    detailLine.ProductDetailDescription = model.ProductDetailsDescription[i];
+
                     _productDetailsService.AddDetails(detailLine);
                 }
-                
+
 
 
 
                 _productService.UpdateProduct(product);
-                
-                
-               
+
+
+
                 return RedirectToAction("Index");
             }
             else
@@ -158,7 +159,7 @@ namespace ECommerceProject.AdminUI.Controllers
                     Description = model.Description,
                     ProductColor = model.ProductColor,
                     ImageUrl = model.ImageUrl ?? "productDefault.png",
-                   
+
                 };
 
 
@@ -175,10 +176,10 @@ namespace ECommerceProject.AdminUI.Controllers
         [HttpGet]
         public IActionResult EditProductDetail(int productId)
         {
-            var getDetails = _productDetailsService.GetAllDetails(productId).Where(x=>x.ProductId==productId && x.IsDeleted == false);
+            var getDetails = _productDetailsService.GetAllDetails(productId).Where(x => x.ProductId == productId && x.IsDeleted == false);
             var returnModel = new ProductDetailsModel();
-            
-            
+
+
             foreach (var detail in getDetails)
             {
 
@@ -188,6 +189,7 @@ namespace ECommerceProject.AdminUI.Controllers
 
             }
 
+            returnModel.ProductId = productId;
             ViewBag.ProductId = productId;
             return View(returnModel);
         }
@@ -197,6 +199,7 @@ namespace ECommerceProject.AdminUI.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 for (int i = 0; i < model.ProductDetailTitles.Count; i++)
                 {
                     var detail = _productDetailsService.GetDetail(model.ProductDetailIds[i]);
@@ -204,7 +207,23 @@ namespace ECommerceProject.AdminUI.Controllers
                     detail.ProductDetailDescription = model.ProductDetailDescriptions[i];
                     _productDetailsService.UpdateDetails(detail);
                 }
-                
+
+
+                if (model.AddProductDetailTitles != null)
+                {
+
+                    for (int i = 0; i < model.AddProductDetailTitles.Count; i++)
+                    {
+                        var detailLine = new ProductDetails();
+                        //detailLine.Id = model.AddProductDetailIds[i];
+                        detailLine.ProductId = model.ProductId;
+                        detailLine.ProductDetailTitle = model.AddProductDetailTitles[i];
+                        detailLine.ProductDetailDescription = model.AddProductDetailDescriptions[i];
+
+                        _productDetailsService.AddDetails(detailLine);
+                    }
+                }
+
             }
 
             return RedirectToAction("Index");
@@ -216,10 +235,10 @@ namespace ECommerceProject.AdminUI.Controllers
             var getProductId = getDetail.ProductId;
             _productDetailsService.DeleteDetails(getDetail.Id);
 
-            return RedirectToAction("EditProductDetail", new {productId = getProductId});
+            return RedirectToAction("EditProductDetail", new { productId = getProductId });
         }
 
-        //tekrar çağırınca bilgiler gelmiyor
+
 
         public IActionResult DeleteProduct(int id)
         {

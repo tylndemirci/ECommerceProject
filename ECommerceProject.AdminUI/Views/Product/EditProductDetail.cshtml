@@ -1,26 +1,61 @@
 ﻿@model ECommerceProject.AdminUI.Models.Product.ProductDetails.ProductDetailsModel
+@section scripts {
+    <script>
+        function myFunction() {
+           
+            $("#product-detail-row").append('<div class="container"><div class="row"><div class="col"><label asp-for="AddProductDetailTitles">Title</label><input name="AddProductDetailTitles" class="form-control" /> </div> <div class="col-6"><label asp-for="AddProductDetailDescriptions">Description</label><input name="AddProductDetailDescriptions" class="form-control"/> <input type="hidden" value="AddProductDetailIds" /></div> <div class="col"></div> </div></div>');
+        }
+    </script>
 
+
+}
 <form asp-controller="Product" asp-action="EditProductDetail" method="post">
-        <input value="@ViewBag.ProductId" hidden />
-        @for (int i = 0; i < Model.ProductDetailTitles.Count; i++)
-        {
-            <div class="form-group">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <label asp-for="ProductDetailTitles">Title</label>
+            </div>
+            <div class="col-6 text-center">
+                <label asp-for="ProductDetailDescriptions">Description</label>
+            </div>
+            <div class="col ">
+                Options
+            </div>
+        </div>
+    </div>
+    @Html.HiddenFor(model => model.ProductId)
+    @for (int i = 0; i < Model.ProductDetailTitles.Count; i++)
+    {
+        <div class="container">
+            
+            <div class="row">
                 <div class="col">
                     @Html.HiddenFor(model => model.ProductDetailIds[i])
-                    <label asp-for="ProductDetailTitles">Title</label>
+
+
+
                     @*<input type="text" value="@Model.ProductDetailTitles[i]" name="@Model.ProductDetailTitles[i]" class="form-control" />*@
-                    @Html.EditorFor(model => model.ProductDetailTitles[i])
+                    @Html.EditorFor(model => model.ProductDetailTitles[i], new {htmlAttributes = new {@class = "form-control"}})
+            <br>
                 </div>
-                <div class="col-md-3">
-                    <label asp-for="ProductDetailDescriptions">Description</label>
+
+                <div class="col-6">
+
                     @*<input type="text" value="@Model.ProductDetailDescriptions[i]" name="@Model.ProductDetailDescriptions[i]" class="form-control" />*@
-                    @Html.EditorFor(model => model.ProductDetailDescriptions[i])
+                    @Html.EditorFor(model => model.ProductDetailDescriptions[i], new {htmlAttributes = new {@class = "form-control"}})
                 </div>
+
+                <div class="col">
+
+                    <a asp-controller="Product" asp-action="DeleteProductDetail" asp-route-productDetailId="@Model.ProductDetailIds[i]" class="btn btn-danger">Remove Detail</a>
+                </div>
+
             </div>
-            <div class="col-md-3">
-                <a asp-controller="Product" asp-action="DeleteProductDetail" asp-route-productDetailId="@Model.ProductDetailIds[i]" class="btn btn-danger">Remove Detail</a>
-            </div>
-        }
-        <button type="submit" value="Submit" class="btn btn-success">Save All Details</button>
-        <button asp-controller="Product" asp-action="Index" class="btn btn-danger">Turn to List</button>
-    </form>
+        </div>
+
+    }
+    <div class="form-group" id="product-detail-row"></div>
+    <input type="button" onclick="myFunction()" href="#" value="Add Detail" class="btn btn-orange"/>
+    <button type="submit" value="Submit" class="btn btn-success">Save All Details</button>
+    <button asp-controller="Product" asp-action="Index" class="btn btn-danger">Turn to List</button>
+</form>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using ECommerceProject.Business.Abstract;
 using ECommerceProject.DataAccess.Abstract;
@@ -10,6 +11,7 @@ namespace ECommerceProject.Business.Concrete
   public  class OrderManager:IOrderService
   {
       private readonly IOrderDal _orderDal;
+  
 
       public OrderManager(IOrderDal orderDal)
       {
@@ -26,5 +28,11 @@ namespace ECommerceProject.Business.Concrete
             }
 
         }
-    }
+
+        public IQueryable<Order> GetOrdersOfUser(string userName)
+        {
+            var orders = _orderDal.GetAll(x => x.UserName == userName);
+            return orders;
+        }
+  }
 }

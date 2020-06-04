@@ -84,9 +84,14 @@
     </header>
     <!-- /HEADER -->
     @await Component.InvokeAsync("Navigation")
-    <div style="margin-bottom: 55px">
-        @RenderBody()
-    </div>
+<div style="margin-bottom: 55px">
+    @if (TempData["message"] != null)
+    {
+        <div class="alert alert-success">@TempData["message"]</div>
+    }
+   
+    @RenderBody()
+</div>
 
 
     <!-- FOOTER -->

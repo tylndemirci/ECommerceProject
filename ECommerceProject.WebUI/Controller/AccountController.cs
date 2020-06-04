@@ -1,13 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using ECommerceProject.Business.Abstract;
 using ECommerceProject.Entities;
 using ECommerceProject.WebUI.Helper;
 using ECommerceProject.WebUI.Models;
 using ECommerceProject.WebUI.Models.Identity;
+using ECommerceProject.WebUI.Models.MyAccount;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace ECommerceProject.WebUI.Controller
 {
@@ -20,15 +29,17 @@ namespace ECommerceProject.WebUI.Controller
         private readonly IPasswordHasher<ApplicationUser> _passwordHasher;
         private readonly IPasswordValidator<ApplicationUser> _passwordValidator;
         private readonly ICartSessionHelper _cartSessionHelper;
+        private readonly IOrderService _orderService;
 
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
-            IPasswordHasher<ApplicationUser> passwordHasher, IPasswordValidator<ApplicationUser> passwordValidator, ICartSessionHelper cartSessionHelper)
+            IPasswordHasher<ApplicationUser> passwordHasher, IPasswordValidator<ApplicationUser> passwordValidator, ICartSessionHelper cartSessionHelper, IOrderService orderService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _passwordHasher = passwordHasher;
             _passwordValidator = passwordValidator;
             _cartSessionHelper = cartSessionHelper;
+            _orderService = orderService;
         }
 
         [Route("/Account/Login")]
@@ -96,69 +107,187 @@ namespace ECommerceProject.WebUI.Controller
             }
             return View(model);
         }
-        [Route("/Account/UpdateUser")]
-        public async Task<IActionResult> UpdateUser(string id)
+
+        [HttpGet]
+        [Route("/ChangeMyPassword")]
+        public async Task<IActionResult> ChangeMyPassword(/*string id*/)
         {
-            var user = await _userManager.FindByIdAsync(id);
-            if (user != null)
+            if (HttpContext.User.Identity.IsAuthenticated)
             {
-                return View(user);
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+                //var userId = user.Result.Id;
+                //    var returnuser = await _userManager.FindByIdAsync(userId);
+
+                var returnModel = new ChangePasswordViewModel();
+                returnModel.Id = user.Id;
+
+                return View(returnModel);
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("MyAccount", "Account");
             }
         }
-        [Route("/Account/UpdateUser")]
-        public async Task<IActionResult> UpdateUser(string id, string password, string email)
+        [HttpPost]
+        [Route("/ChangeMyPassword")]
+        public async Task<IActionResult> ChangeMyPassword(ChangePasswordViewModel model)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(model.Id);
             if (user != null)
             {
-                user.Email = email;
+                //user.Email = model.Email;
 
-                IdentityResult validPass = null;
 
-                if (!string.IsNullOrEmpty(password))
+                if (!string.IsNullOrEmpty(model.OldPassword))
                 {
-                    validPass = await _passwordValidator.ValidateAsync(_userManager, user, password);
-                    if (validPass.Succeeded)
+                    var validatePass = await _passwordValidator.ValidateAsync(_userManager, user, model.OldPassword);
+                    if (validatePass.Succeeded)
                     {
-                        user.PasswordHash = _passwordHasher.HashPassword(user, password);
+                        if (!string.IsNullOrEmpty(model.NewPassword) && !string.IsNullOrEmpty(model.NewPasswordToCheck))
+                        {
+                            if (model.NewPassword == model.NewPasswordToCheck)
+                            {
+                                user.PasswordHash = _passwordHasher.HashPassword(user, model.NewPassword);
+                                var result = await _userManager.UpdateAsync(user);
+                                if (result.Succeeded)
+                                {
+                                    TempData["message"] = "Password successfully changed.";
+                                    return RedirectToAction("MyAccount");
+                                }
+                                else
+                                {
+                                    foreach (var resultError in result.Errors)
+                                    {
+                                        ModelState.AddModelError("", resultError.Description);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                ModelState.AddModelError("", "New password does not match with other.");
+                            }
+
+                        }
+                        else
+                        {
+                            foreach (var identityError in validatePass.Errors)
+                            {
+                                ModelState.AddModelError("", identityError.Description);
+
+                            }
+                        }
                     }
                     else
                     {
-                        foreach (var identityError in validPass.Errors)
-                        {
-                            ModelState.AddModelError("", identityError.Description);
-                        }
+                        ModelState.AddModelError("", "Old password does not match with the current one.");
                     }
-                }
 
-                if (validPass.Succeeded)
+                }
+                else
                 {
-
-                    var result = await _userManager.UpdateAsync(user);
-                    if (result.Succeeded)
-                    {
-                        return RedirectToAction("Index");
-                    }
-                    else
-                    {
-                        foreach (var identityError in result.Errors)
-                        {
-                            ModelState.AddModelError("", identityError.Description);
-                        }
-                    }
+                    ModelState.AddModelError("", "Your old password cannot be empty.");
                 }
+
+                
             }
             else
             {
                 ModelState.AddModelError("", "User not found");
             }
 
-            return View(user);
+            return View(model);
         }
+
+        [HttpGet]
+        [Route("/ChangeMyEmail")]
+        public async Task<IActionResult> ChangeMyEmail()
+        {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+
+                var returnModel = new ChangeEmailViewModel();
+                returnModel.Id = user.Id;
+
+                return View(returnModel);
+            }
+            else
+            {
+                return RedirectToAction("MyAccount", "Account");
+            }
+        }
+
+        [HttpPost]
+        [Route("/ChangeMyEmail")]
+        public async Task<IActionResult> ChangeMyEmail(ChangeEmailViewModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.Id);
+            if (user != null)
+            {
+                if (!string.IsNullOrEmpty(model.Email) && !string.IsNullOrEmpty(model.Password))
+                {
+                    var validatePass = await _passwordValidator.ValidateAsync(_userManager, user, model.Password);
+                    if (validatePass.Succeeded)
+                    {
+                        user.Email = model.Email;
+                        var result = await _userManager.UpdateAsync(user);
+                                if (result.Succeeded)
+                                {
+                                    TempData["message"] = "Email successfully changed.";
+                                    return RedirectToAction("MyAccount");
+                                }
+
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Password does not match.");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Email and Password cannot be empty.");
+                } 
+            }
+            else
+            {
+                ModelState.AddModelError("", "User not found.");
+            }
+            return View(model);
+        }
+
+        [Route("/MyOrders")]
+        public IActionResult MyOrders()
+        {
+            var user = HttpContext.User;
+            var orders = _orderService.GetOrdersOfUser(user.Identity.Name);
+            var returnModel = new MyOrdersViewModel();
+            foreach (var order in orders)
+            {
+                returnModel.OrderDate.Add(order.OrderDate.ToShortDateString());
+                returnModel.OrderId.Add(order.OrderId);
+                returnModel.OrderNumber.Add(order.OrderNumber);
+                returnModel.OrderState.Add(order.OrderState.ToString());
+                returnModel.ProductName.Add(order.OrderLines.Select(x=>x.Product.ProductName).ToString());
+                returnModel.Quantity.Add(Convert.ToInt32(order.OrderLines.Select(x=>x.Quantity)));
+                returnModel.Price.Add(Convert.ToDouble(order.OrderLines.Select(x=>x.Product.Price)));
+                returnModel.Total.Add(Convert.ToDouble(order.OrderLines.Select(x => x.Price)) * Convert.ToDouble(order.OrderLines.Select(x => x.Quantity)));
+
+            }
+
+            return View(returnModel);
+        }
+
+        [Route("/MyAccount")]
+        public IActionResult MyAccount(MyAccountInfoViewModel model)
+        {
+            var user = _userManager.GetUserAsync(HttpContext.User);
+            model.Name = user.Result.Name;
+            model.Surname = user.Result.Surname;
+            model.Email = user.Result.Email;
+
+            return View(model);
+        }
+
 
         //public async Task<IActionResult> VerifyEmail(string userId, string code)
         //{
@@ -182,12 +311,13 @@ namespace ECommerceProject.WebUI.Controller
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            
-            
-          
-            
+
+
+
+
             return RedirectToAction("Index", "Home");
         }
+
 
         public IActionResult AccessDenied()
         {

@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Http
+@model ECommerceProject.WebUI.Models.MyAccount.MyAccountInfoViewModel
+<div class="container">
+    <div class="container">
+        <div class="col" style="margin:20px">
+            Hello, @Model.Name @Model.Surname
+        </div>
+    </div>
+    <div class="col-md-3">
+        <ul class="list-group">
+            <li class="list-group-item"><a asp-controller="Account" asp-action="MyOrders">Your Orders</a></li>
+            <li class="list-group-item"><a asp-controller="Account" asp-action="ChangeMyEmail"> Change Email</a></li>
+            <li class="list-group-item"><a asp-controller="Account" asp-action="ChangeMyPassword"> Change Password</a></li>
+        </ul>
+    </div>
+
+</div>
