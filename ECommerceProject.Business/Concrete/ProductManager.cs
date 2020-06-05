@@ -2,6 +2,7 @@
 using ECommerceProject.Business.Abstract;
 using ECommerceProject.DataAccess.Abstract;
 using ECommerceProject.Entities.Concrete;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceProject.Business.Concrete
 {
@@ -64,7 +65,7 @@ namespace ECommerceProject.Business.Concrete
 
         public IQueryable<Product> ListProduct()
         {
-            var returnProducts = _productDal.GetAll().Where(x=>x.IsDeleted==false);
+            var returnProducts = _productDal.GetAll().Where(x=>x.IsDeleted==false).Include(x=>x.Category);
             return returnProducts;
         }
    }

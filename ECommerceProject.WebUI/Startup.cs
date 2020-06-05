@@ -20,6 +20,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+
 namespace ECommerceProject.WebUI
 {
     public class Startup
@@ -61,7 +62,9 @@ namespace ECommerceProject.WebUI
                 opt.Cookie.Name = "Ecom";
                 opt.LoginPath = "/Account/Login";
             });
+           
             services.AddControllersWithViews();
+            services.AddCloudscribePagination();
             services.AddMemoryCache();
             services.AddSession();
         }

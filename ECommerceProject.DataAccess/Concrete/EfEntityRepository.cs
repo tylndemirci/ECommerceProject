@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using ECommerceProject.DataAccess.Abstract;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +20,8 @@ namespace ECommerceProject.DataAccess.Concrete
 
         public IQueryable<T> GetAll(Expression<Func<T, bool>> filter = null)
         {
-            return _dbContext.Set<T>();
+            return _dbContext.Set<T>().AsNoTracking();
+            //asnotracking added, in case of a problem, delete it.
 
         }
 

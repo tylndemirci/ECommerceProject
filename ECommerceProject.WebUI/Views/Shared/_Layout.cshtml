@@ -1,4 +1,11 @@
-﻿
+﻿@model cloudscribe.Pagination.Models.PagedResult<ECommerceProject.WebUI.Models.Category.ListCategoryProductsModel>
+@using cloudscribe.Web.Pagination
+@{
+    ViewData["Title"] = "Products";
+    ViewData["Controller"] = "Product";
+    ViewData["Action"] = "ListCategoryProducts";
+   
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,14 +91,14 @@
     </header>
     <!-- /HEADER -->
     @await Component.InvokeAsync("Navigation")
-<div style="margin-bottom: 55px">
-    @if (TempData["message"] != null)
-    {
-        <div class="alert alert-success">@TempData["message"]</div>
-    }
-   
-    @RenderBody()
-</div>
+    <div style="margin-bottom: 55px">
+        @if (TempData["message"] != null)
+        {
+            <div class="alert alert-success">@TempData["message"]</div>
+        }
+
+        @RenderBody()
+    </div>
 
 
     <!-- FOOTER -->
@@ -99,6 +106,9 @@
         @await Component.InvokeAsync("Footer")
 
     </footer>
+
+   
+   
     <!-- /FOOTER -->
     <!-- jQuery Plugins -->
     <script src="~/js/jquery.min.js"></script>
@@ -109,6 +119,7 @@
     <script src="~/js/nouislider.min.js"></script>
     <script src="~/js/jquery.zoom.min.js"></script>
     <script src="~/js/main.js"></script>
+
 
 </body>
 </html>

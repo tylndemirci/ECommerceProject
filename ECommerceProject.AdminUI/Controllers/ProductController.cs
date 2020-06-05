@@ -91,6 +91,10 @@ namespace ECommerceProject.AdminUI.Controllers
                 product.ProductDetails = new List<ProductDetails>();
 
                 //creates detailLine for each detail submitted.
+                if (model.ProductDetailsTitle!=null)
+                {
+                    
+                
                 for (int i = 0; i < model.ProductDetailsTitle.Count; i++)
                 {
                     var detailLine = new ProductDetails();
@@ -100,6 +104,7 @@ namespace ECommerceProject.AdminUI.Controllers
                     detailLine.ProductDetailDescription = model.ProductDetailsDescription[i];
 
                     _productDetailsService.AddDetails(detailLine);
+                }
                 }
 
 

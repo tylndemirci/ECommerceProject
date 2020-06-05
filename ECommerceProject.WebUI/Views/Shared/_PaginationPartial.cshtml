@@ -1,0 +1,14 @@
+﻿
+<div>
+    @*<span class="store-qty">Showing Model.TotalItems products in total</span>*@
+
+    <cs-pager cs-paging-pagenumber="Model.PageNumber"
+              cs-paging-totalitems="Model.TotalItems"
+              cs-paging-pagesize="Model.PageSize"
+              cs-pagenumber-param="pageIndex"
+              asp-controller=@ViewData["Controller"]
+              asp-action=@ViewData["Action"]>
+
+    </cs-pager>
+
+</div>

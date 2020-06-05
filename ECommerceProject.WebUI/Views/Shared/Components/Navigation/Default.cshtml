@@ -16,7 +16,7 @@
                     {
                         if (nav.IsSubCategory == false) 
                         {
-                <li><a asp-controller="Category" asp-action="ListCategoryProducts" asp-route-categoryId="@nav.Id">@nav.Title</a></li>
+                <li><a asp-controller="Product" asp-action="ListCategoryProducts" asp-route-categoryId="@nav.Id" asp-route-pageIndex="1">@nav.Title</a></li>
                         }
                         
                     }

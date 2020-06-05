@@ -1,0 +1,90 @@
+﻿@model cloudscribe.Pagination.Models.PagedResult<ECommerceProject.WebUI.Models.Category.ListCategoryProductsModel>
+@using cloudscribe.Web.Pagination
+@{
+    ViewData["Title"] = "Products";
+    ViewData["Controller"] = "Product";
+    ViewData["Action"] = "ListCategoryProducts";
+    ViewData["Model"] = Model;
+}
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- ASIDE -->
+            <div id="aside" class="col-md-3">
+                @await Component.InvokeAsync("ProductFilter", ViewBag.CategoryId)
+            </div>
+            <!-- /ASIDE -->
+            <!-- STORE -->
+            <div id="store" class="col-md-9">
+                <!-- store top filter -->
+                <div class="store-filter clearfix">
+                    <div class="store-sort">
+                        <label>
+                            Sort By:
+                            <select class="input-select">
+                                <option onclick="">Popular</option>
+                                <option value="1">Position</option>
+                            </select>
+                        </label>
+
+
+                    </div>
+                    <ul class="store-grid">
+                        <li class="active"><i class="fa fa-th"></i></li>
+                        <li><a href="#"><i class="fa fa-th-list"></i></a></li>
+                    </ul>
+                </div>
+                <!-- /store top filter -->
+                <!-- store products -->
+                <div class="row">
+
+                    @foreach (var product in Model.Data)
+                    {
+
+                        <!-- product -->
+                        <div class="col-md-4 col-xs-6">
+                            <div class="product">
+                                <div class="product-img">
+                                    <img src="~/productimages/@product.ImageUrl" alt="">
+
+                                </div>
+                                <div class="product-body">
+                                    <p class="product-category">@product.CategoryName</p>
+                                    <h3 class="product-name"><a asp-controller="Product" asp-action="ProductDetails" asp-route-productId="@product.ProductId">@product.ProductName</a></h3>
+                                    <h4 class="product-price">@product.Price.ToString("C")</h4>
+
+
+                                    <div class="product-btns">
+                                        <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">Add to Wishlist</span></button>
+                                        <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">Add to Compare</span></button>
+                                    </div>
+                                </div>
+                                <div class="add-to-cart">
+
+                                    <a asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@product.ProductId" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- /product -->
+                    }
+
+
+
+                </div>
+                <!-- /store products -->
+                <!-- /store bottom filter -->
+               
+                <partial name="_PaginationPartial" view-data="ViewData" model="Model" />
+                <!-- /store bottom filter -->
+            </div>
+            <!-- /STORE -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->

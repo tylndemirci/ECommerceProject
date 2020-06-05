@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,5 +25,17 @@ namespace ECommerceProject.WebUI.Models.Category
         public string ProductName { get; set; }
         public string ImageUrl { get; set; }
         public string CategoryName { get; set; }
+        public int PageNumber { get; set; }
+        public int TotalItems { get; set; }
+        public int PageSize { get; set; }
+
+       
+
+
+
+
+
+
+
     }
 }
