@@ -1,13 +1,23 @@
 ﻿
 <div>
     @*<span class="store-qty">Showing Model.TotalItems products in total</span>*@
-
+  
+ 
     <cs-pager cs-paging-pagenumber="Model.PageNumber"
               cs-paging-totalitems="Model.TotalItems"
               cs-paging-pagesize="Model.PageSize"
               cs-pagenumber-param="pageIndex"
+              asp-route-subCategoryId="@ViewData["subCategoryId"]"
+              asp-route-categoryId="@ViewData["CategoryId"]"
+              asp-route-min="@ViewData["MinPrice"]"
+              asp-route-max="@ViewData["MaxPrice"]"
+              asp-route-searchCategoryName="@ViewData["SearchCategoryName"]"
+              asp-route-searchFor=@ViewData["searchFor"]
+              cs-preserve-ambient-querystring="true"
               asp-controller=@ViewData["Controller"]
-              asp-action=@ViewData["Action"]>
+              asp-action=@ViewData["Action"]
+    
+              >
 
     </cs-pager>
 

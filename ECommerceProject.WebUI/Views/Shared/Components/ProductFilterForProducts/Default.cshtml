@@ -1,19 +1,17 @@
 ﻿@model ECommerceProject.WebUI.Models.ViewComponent.ProductFilter.ProductFilterViewModel
-
 <!-- aside Widget -->
 <div class="aside">
     <h3 class="aside-title">Categories</h3>
-    <form asp-controller="Product" asp-action="Search" method="post">
-        <input type="hidden" name="searchFor" value="@ViewData["searchFor"]" />
-        
-        <input type="hidden" name="SearchCategoryName" value="@ViewData["SearchCategoryName"]"/>
-        
+    <form asp-controller="Product" asp-action="Products" method="post">
+
+        <input type="hidden" name="SearchCategoryName" value="@ViewData["SearchCategoryName"]" />
+
         @Html.HiddenFor(x => x.CategoryId)
         @Html.DropDownListFor(x => x.SearchCategoryId, Model.Categories, "Select a Sub Category", new { @class = "form-control" })
         <div class="text text-danger" asp-validation-summary="ModelOnly"></div>
-     
+
         @Html.TextBoxFor(x => x.Min, new { placeholder = "Minimum", @class = "form-control" })
-       
+
         @Html.TextBoxFor(x => x.Max, new { placeholder = "Maximum", @class = "form-control" })
 
         <button type="submit" value="Submit">Search</button>

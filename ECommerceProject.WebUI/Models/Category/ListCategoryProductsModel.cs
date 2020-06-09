@@ -16,8 +16,10 @@ namespace ECommerceProject.WebUI.Models.Category
             Price = product.Price;
             ProductName = product.ProductName;
             ImageUrl = product.ImageUrl;
+            
         }
 
+      
         public int ProductId { get; set; }
         public int CategoryId { get; set; }
         
@@ -28,6 +30,7 @@ namespace ECommerceProject.WebUI.Models.Category
         public int PageNumber { get; set; }
         public int TotalItems { get; set; }
         public int PageSize { get; set; }
+        public string Query { get; set; }
 
        
 

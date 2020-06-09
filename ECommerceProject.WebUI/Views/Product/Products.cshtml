@@ -1,11 +1,12 @@
 ﻿@model cloudscribe.Pagination.Models.PagedResult<ECommerceProject.WebUI.Models.Category.ListCategoryProductsModel>
-@using cloudscribe.Web.Pagination
 @{
     ViewData["Title"] = "Products";
     ViewData["Controller"] = "Product";
-    ViewData["Action"] = "ListCategoryProducts";
+    ViewData["Action"] = "Products";
     ViewData["Model"] = Model;
+    
 }
+
 <!-- SECTION -->
 <div class="section">
     <!-- container -->
@@ -14,7 +15,7 @@
         <div class="row">
             <!-- ASIDE -->
             <div id="aside" class="col-md-3">
-                @await Component.InvokeAsync("ProductFilter", ViewBag.CategoryId)
+                @await Component.InvokeAsync("ProductFilterForProducts", new { categoryId = ViewData["CategoryId"] })
             </div>
             <!-- /ASIDE -->
             <!-- STORE -->
@@ -40,6 +41,8 @@
                 <!-- /store top filter -->
                 <!-- store products -->
                 <div class="row">
+                 
+
 
                     @foreach (var product in Model.Data)
                     {
@@ -78,7 +81,10 @@
                 <!-- /store products -->
                 <!-- /store bottom filter -->
                
-                <partial name="_PaginationPartial" view-data="ViewData" model="Model" />
+                   
+
+                    <partial name="_PaginationPartial" view-data="ViewData" model="Model" />
+               
                 <!-- /store bottom filter -->
             </div>
             <!-- /STORE -->

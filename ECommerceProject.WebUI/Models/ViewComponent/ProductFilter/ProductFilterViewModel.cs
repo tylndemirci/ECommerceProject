@@ -24,6 +24,9 @@ namespace ECommerceProject.WebUI.Models.ViewComponent.ProductFilter
         public double Min { get; set; }
         public double Max { get; set; }
         public IEnumerable<SelectListItem> Categories { get; set; }
+        public int PageIndex { get; set; }
+
+       
 
 
 

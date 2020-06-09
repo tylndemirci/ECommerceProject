@@ -18,8 +18,9 @@ namespace ECommerceProject.WebUI.Components.NewProducts
             _productService = productService;
         }
             
-        public IViewComponentResult Invoke(NewProductsViewModel model)
+        public IViewComponentResult Invoke()
         {
+            
             var returnModel = _productService.ListProduct()
                 .Include(x=> x.Category)
                 .OrderByDescending(x=>x.ProductId)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ECommerceProject.Business.Concrete;
 using ECommerceProject.Entities.Concrete;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ECommerceProject.WebUI.Models.ViewComponent
 {
@@ -18,9 +19,18 @@ namespace ECommerceProject.WebUI.Models.ViewComponent
                 IsSubCategory = true;
             }
         }
+
+        public NavigationViewModel()
+        {
+            
+        }
+
+      
         public int Id { get; set; }
         public string Title { get; set; }
         public bool IsSubCategory { get; set; }
+        public string ProductName { get; set; }
+
     }
 }
 

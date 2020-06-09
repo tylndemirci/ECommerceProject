@@ -25,7 +25,7 @@ namespace ECommerceProject.WebUI.Controller
             _productService = productService;
         }
         //[Route("/Products")]
-        //public IActionResult ListCategoryProducts(ProductFilterViewModel model, int categoryId, int pageIndex=1)
+        //public IActionResult Products(ProductFilterViewModel model, int categoryId, int pageIndex=1)
         //{
         //    ViewBag.CategoryId = categoryId;
         //    var minPrice = model.Min;
@@ -34,8 +34,8 @@ namespace ECommerceProject.WebUI.Controller
         //    var getCategoryId = model.CategoryId;
         //    int pageSize = 5;
         //    int excludeRecords = (pageSize * pageIndex) - pageSize;
-         
-            
+
+
 
 
 
@@ -75,7 +75,7 @@ namespace ECommerceProject.WebUI.Controller
 
         //        return View(resultd);
         //    }
-           
+
 
         //    if (subCategoryId != 0 || minPrice>=0 || maxPrice==0)  
         //    {
@@ -119,10 +119,10 @@ namespace ECommerceProject.WebUI.Controller
         //            PageNumber = pageIndex,
         //            PageSize = pageSize
         //        };
-              
+
         //        return View(result);
-               
-               
+
+
         //    }
 
         //    return RedirectToAction("Index", "Home");
@@ -136,7 +136,7 @@ namespace ECommerceProject.WebUI.Controller
 
         //public IActionResult ProductFilter(MiniProductFilterModel model)
         //{
-        //    return RedirectToAction("ListCategoryProducts", new {min = model.Min, max = model.Max, categoryId = model.CategoryId});
+        //    return RedirectToAction("Products", new {min = model.Min, max = model.Max, categoryId = model.CategoryId});
 
 
         //}

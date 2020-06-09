@@ -1,15 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Threading;
 using System.Threading.Tasks;
+
 using cloudscribe.Pagination.Models;
 using ECommerceProject.Business.Abstract;
 using ECommerceProject.Entities.Concrete;
+using ECommerceProject.WebUI.Components.SearchBar;
 using ECommerceProject.WebUI.Models.Category;
 using ECommerceProject.WebUI.Models.Product;
+using ECommerceProject.WebUI.Models.ViewComponent;
 using ECommerceProject.WebUI.Models.ViewComponent.ProductFilter;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 
 namespace ECommerceProject.WebUI.Controller
@@ -55,7 +63,7 @@ namespace ECommerceProject.WebUI.Controller
 
             };
 
-            var getDetails = _productDetailsService.GetAllDetails(productId).Where(x=> x.IsDeleted == false);
+            var getDetails = _productDetailsService.GetAllDetails(productId).Where(x => x.IsDeleted == false);
             //Need to do the thing below to prevent setProduct.ProductDetails... returning null.
             setProduct.ProductDetailsTitle = new List<string>();
             setProduct.ProductDetailsDescription = new List<string>();
@@ -78,68 +86,67 @@ namespace ECommerceProject.WebUI.Controller
 
         }
 
-        [Route("/Products")]
-        public IActionResult ListCategoryProducts(ProductFilterViewModel model, int categoryId, int pageIndex = 1)
+        //[Route("/Products-{pageIndex}-{categoryId}")]
+        //[Route("/Products/{pageIndex}.{subCategoryId?}")]
+
+        public IActionResult Products(ProductFilterViewModel model, int pageIndex = 1)
         {
-            ViewBag.CategoryId = categoryId;
-            var minPrice = model.Min;
-            var maxPrice = model.Max;
-            var subCategoryId = model.SearchCategoryId;
-            var getCategoryId = model.CategoryId;
-            int pageSize = 5;
+            int pageSize = 6;
             int excludeRecords = (pageSize * pageIndex) - pageSize;
-            
+
+            ViewData["CategoryId"] = model.CategoryId;
+
+            if (model.SearchCategoryId != 0)
+            {
+                
+                //model.CategoryId = model.SearchCategoryId;
+                ViewData["CategoryId"] = model.SearchCategoryId;
+            }
+
+            if (model.SearchCategoryId==0 && model.CategoryId!=0)
+            {
+                var getCategory = _categoryService.GetCategory(model.CategoryId);
+                if (getCategory.ParentCategoryId!=null)
+                {
+                    model.SearchCategoryId = model.CategoryId;
+                }
+            }
+            ViewData["MaxPrice"] = model.Max;
+            if (model.Min > model.Max && (decimal)model.Max == 0)
+            {
+                model.Max = _productService.ListProduct().Select(x => x.Price).Max();
+            }
+            ViewData["MinPrice"] = model.Min;
+            ViewData["SearchCategoryName"] = model.SearchCategoryName;
 
 
-
-            if (minPrice > maxPrice)
+            if (model.Min > model.Max)
             {
                 ModelState.AddModelError("", "Minimum price cannot bigger than maximum price");
                 var products = _productService.ListProduct()
-                    .Where(x => x.CategoryId == categoryId || x.Category.ParentCategoryId == categoryId)
+                    .Where(x => x.Category.ParentCategoryId == model.CategoryId || x.CategoryId == model.CategoryId)
                     .Skip(excludeRecords)
                     .Take(pageSize)
                     .Include(x => x.Category).Select(x => new ListCategoryProductsModel(x));
+
                 var resultd = new PagedResult<ListCategoryProductsModel>
                 {
                     Data = products.ToList(),
-                    TotalItems = products.Count(),
+                    TotalItems = _productService.ListProduct().Count(x => x.Category.ParentCategoryId == model.CategoryId || x.CategoryId == model.CategoryId),
                     PageNumber = pageIndex,
                     PageSize = pageSize
                 };
-
-                return View(resultd);
-            }
-
-            if (subCategoryId == 0 && minPrice == 0 && maxPrice == 0)
-            {
-                var products = _productService.ListProduct()
-                    .Where(x => x.CategoryId == categoryId || x.Category.ParentCategoryId == categoryId)
-                    .Skip(excludeRecords)
-                    .Take(pageSize)
-                    .Include(x => x.Category).Select(x => new ListCategoryProductsModel(x));
-                var resultd = new PagedResult<ListCategoryProductsModel>
-                {
-                    Data = products.ToList(),
-                    TotalItems = _productService
-                        .ListProduct().Count(x => x.CategoryId == categoryId || x.Category.ParentCategoryId == categoryId),
-                    PageNumber = pageIndex,
-                    PageSize = pageSize
-                };
-
+                //min>max
                 return View(resultd);
             }
 
 
-            if (subCategoryId != 0 || minPrice >= 0 || maxPrice == 0)
+            if (model.SearchCategoryId == 0)
             {
-                if (maxPrice == 0)
+                if (model.Min >= 0 && model.Max > 0)
                 {
                     var products = _productService.ListProduct()
-                        .Where(x => x.CategoryId == categoryId
-                                    || x.Category.ParentCategoryId == categoryId
-                                    && x.CategoryId == subCategoryId
-                                    && x.Price >= minPrice)
+                        .Where(x =>x.Category.ParentCategoryId == model.CategoryId && x.Price >= model.Min && x.Price <= model.Max)
                         .Skip(excludeRecords)
                         .Take(pageSize)
                         .Include(x => x.Category).Select(x => new ListCategoryProductsModel(x));
@@ -147,54 +154,216 @@ namespace ECommerceProject.WebUI.Controller
                     {
                         Data = products.ToList(),
                         TotalItems = _productService
-                            .ListProduct().Count(x => x.CategoryId == categoryId
-                                                      || x.Category.ParentCategoryId == categoryId
-                                                      && x.CategoryId == subCategoryId
-                                                      && x.Price >= minPrice),
+                            .ListProduct().Count(x => x.Category.ParentCategoryId == model.CategoryId  && x.Price >= model.Min && x.Price <= model.Max),
                         PageNumber = pageIndex,
                         PageSize = pageSize
                     };
-
+                   //0 0 1000
                     return View(resultd);
-
-
+                }
+                if (model.Min >= 0)
+                {
+                    var products = _productService.ListProduct()
+                        .Where(x => x.Category.ParentCategoryId == model.CategoryId || x.CategoryId == model.CategoryId && x.Price >= model.Min)
+                        .Skip(excludeRecords)
+                        .Take(pageSize)
+                        .Include(x => x.Category).Select(x => new ListCategoryProductsModel(x));
+                    var resultd = new PagedResult<ListCategoryProductsModel>
+                    {
+                        Data = products.ToList(),
+                        TotalItems = _productService
+                            .ListProduct().Count(x => x.Category.ParentCategoryId == model.CategoryId || x.CategoryId == model.CategoryId && x.Price >= model.Min),
+                        PageNumber = pageIndex,
+                        PageSize = pageSize
+                    };
+                    //ok / main
+                    return View(resultd);
                 }
 
-                var getMaxPrice = _productService.ListProduct().Select(x => x.Price).Max();
-                var returnProducts = _productService.ListProduct()
-                    .Where(x => x.CategoryId == categoryId
-                                || x.Category.ParentCategoryId == categoryId
-                                && x.CategoryId == subCategoryId
-                                && x.Price >= minPrice && x.Price <= getMaxPrice)
+            }
+
+
+            if (model.SearchCategoryId != 0 && model.Min >=0 || model.Max<= 0)
+            {
+
+                if (model.Min >= 0 && model.Max > 0)
+                {
+                    var products = _productService.ListProduct()
+                        .Where(x => x.CategoryId == model.SearchCategoryId && x.Price >= model.Min && x.Price <= model.Max)
+                        .Skip(excludeRecords)
+                        .Take(pageSize)
+                        .Include(x => x.Category).Select(x => new ListCategoryProductsModel(x));
+                    var resultd = new PagedResult<ListCategoryProductsModel>
+                    {
+                        Data = products.ToList(),
+                        TotalItems = _productService
+                            .ListProduct().Count(x => x.CategoryId == model.SearchCategoryId && x.Price >= model.Min && x.Price <= model.Max),
+                        PageNumber = pageIndex,
+                        PageSize = pageSize
+                    };
+                  //android 0 1000
+                    return View(resultd);
+                }
+                if (model.Min >= 0)
+                {
+                    var products = _productService.ListProduct()
+                        .Where(x => x.CategoryId == model.SearchCategoryId && x.Price >= model.Min)
+                        .Skip(excludeRecords)
+                        .Take(pageSize)
+                        .Include(x => x.Category).Select(x => new ListCategoryProductsModel(x));
+                    var resultd = new PagedResult<ListCategoryProductsModel>
+                    {
+                        Data = products.ToList(),
+                        TotalItems = _productService
+                            .ListProduct().Count(x => x.CategoryId == model.SearchCategoryId && x.Price >= model.Min),
+                        PageNumber = pageIndex,
+                        PageSize = pageSize
+                    };
+                    //android 0 0
+                    return View(resultd);
+                }
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+
+
+        public IActionResult Search(ProductFilterViewModel model, string searchFor, int pageIndex = 1)
+        {
+            int pageSize = 6;
+            int excludeRecords = (pageSize * pageIndex) - pageSize;
+
+            ViewData["searchFor"] = searchFor;
+            if (model.CategoryId == 0)
+            {
+                model.CategoryId = model.SearchCategoryId;
+                ViewData["CategoryId"] = model.SearchCategoryId;
+            }
+
+            ViewData["CategoryId"] = model.CategoryId;
+            if (model.SearchCategoryId == 0 && model.CategoryId != 0)
+            {
+                var getCategory = _categoryService.GetCategory(model.CategoryId);
+                if (getCategory.ParentCategoryId != null)
+                {
+                    model.SearchCategoryId = model.CategoryId;
+                }
+            }
+
+            ViewData["MaxPrice"] = model.Max;
+            if (model.Min > model.Max && (decimal)model.Max == 0)
+            {
+                model.Max = _productService.ListProduct().Select(x => x.Price).Max();
+            }
+            ViewData["MinPrice"] = model.Min;
+            ViewData["SearchCategoryName"] = model.SearchCategoryName;
+
+            if (model.Min > model.Max)
+            {
+                ModelState.AddModelError("", "Minimum price cannot bigger than maximum price");
+                var products = _productService.ListProduct()
+                    .Where(x => x.ProductName.Contains(searchFor))
                     .Skip(excludeRecords)
                     .Take(pageSize)
                     .Include(x => x.Category).Select(x => new ListCategoryProductsModel(x));
 
-                var result = new PagedResult<ListCategoryProductsModel>
+                var resultd = new PagedResult<ListCategoryProductsModel>
                 {
-                    Data = returnProducts.ToList(),
-                    TotalItems = _productService
-                        .ListProduct().Count(x => x.CategoryId == categoryId
-                                                  || x.Category.ParentCategoryId == categoryId
-                                                  && x.CategoryId == subCategoryId
-                                                  && x.Price >= minPrice && x.Price <= getMaxPrice),
+                    Data = products.ToList(),
+                    TotalItems = _productService.ListProduct().Count(x => x.ProductName.Contains(searchFor)),
                     PageNumber = pageIndex,
                     PageSize = pageSize
                 };
+                //min>max
+                return View(resultd);
+            }
 
-                return View(result);
 
+            if (model.SearchCategoryId == 0)
+            {
+                if (model.Min >= 0 && model.Max > 0)
+                {
+                    var products = _productService.ListProduct()
+                        .Where(x => x.ProductName.Contains(searchFor) && x.Price >= model.Min && x.Price <= model.Max)
+                        .Skip(excludeRecords)
+                        .Take(pageSize)
+                        .Include(x => x.Category).Select(x => new ListCategoryProductsModel(x));
+                    var resultd = new PagedResult<ListCategoryProductsModel>
+                    {
+                        Data = products.ToList(),
+                        TotalItems = _productService
+                            .ListProduct().Count(x => x.ProductName.Contains(searchFor) && x.Price >= model.Min && x.Price <= model.Max),
+                        PageNumber = pageIndex,
+                        PageSize = pageSize
+                    };
+                    //0 0 1000
+                    return View(resultd);
+                }
+                if (model.Min >= 0)
+                {
+                    var products = _productService.ListProduct()
+                        .Where(x => x.ProductName.Contains(searchFor) && x.Price >= model.Min)
+                        .Skip(excludeRecords)
+                        .Take(pageSize)
+                        .Include(x => x.Category).Select(x => new ListCategoryProductsModel(x));
+                    var resultd = new PagedResult<ListCategoryProductsModel>
+                    {
+                        Data = products.ToList(),
+                        TotalItems = _productService
+                            .ListProduct().Count(x => x.ProductName.Contains(searchFor) &&  x.Price >= model.Min),
+                        PageNumber = pageIndex,
+                        PageSize = pageSize
+                    };
+                    //main
+                    return View(resultd);
+                }
 
             }
 
+
+            if (model.SearchCategoryId != 0 && model.Min >= 0 || model.Max <= 0)
+            {
+
+                if (model.Min >= 0 && model.Max > 0)
+                {
+                    var products = _productService.ListProduct()
+                        .Where(x => x.ProductName.Contains(searchFor) && x.CategoryId == model.CategoryId && x.Price >= model.Min && x.Price <= model.Max)
+                        .Skip(excludeRecords)
+                        .Take(pageSize)
+                        .Include(x => x.Category).Select(x => new ListCategoryProductsModel(x));
+                    var resultd = new PagedResult<ListCategoryProductsModel>
+                    {
+                        Data = products.ToList(),
+                        TotalItems = _productService
+                            .ListProduct().Count(x => x.ProductName.Contains(searchFor) && x.CategoryId == model.CategoryId && x.Price >= model.Min && x.Price <= model.Max),
+                        PageNumber = pageIndex,
+                        PageSize = pageSize
+                    };
+                   //android 0 1000
+                    return View(resultd);
+                }
+                if (model.Min >= 0)
+                {
+                    var products = _productService.ListProduct()
+                        .Where(x => x.ProductName.Contains(searchFor) && x.CategoryId == model.CategoryId && x.Price >= model.Min)
+                        .Skip(excludeRecords)
+                        .Take(pageSize)
+                        .Include(x => x.Category).Select(x => new ListCategoryProductsModel(x));
+                    var resultd = new PagedResult<ListCategoryProductsModel>
+                    {
+                        Data = products.ToList(),
+                        TotalItems = _productService
+                            .ListProduct().Count(x =>x.ProductName.Contains(searchFor) && x.CategoryId == model.CategoryId && x.Price >= model.Min),
+                        PageNumber = pageIndex,
+                        PageSize = pageSize
+                    };
+                    //android 0 0
+                    return View(resultd);
+                }
+            }
             return RedirectToAction("Index", "Home");
 
 
-
-
-
         }
-
-
     }
 }

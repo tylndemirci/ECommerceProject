@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 
 namespace ECommerceProject.WebUI.Components.SearchBar
@@ -11,7 +7,9 @@ namespace ECommerceProject.WebUI.Components.SearchBar
     {
         public IViewComponentResult Invoke()
         {
+
             return View();
         }
+
     }
 }

@@ -81,8 +81,8 @@
 
                         <ul class="product-links">
                             <li>Category:</li>
-                            <li><a asp-controller="Category" asp-action="ListCategoryProducts" asp-route-categoryId="@Model.SubCategoryId">@Model.SubCategoryName</a></li>
-                            <li><a asp-controller="Category" asp-action="ListCategoryProducts" asp-route-categoryId="@Model.CategoryId">@Model.CategoryName</a></li>
+                            <li><a asp-controller="Product" asp-action="Products" asp-route-categoryId="@Model.SubCategoryId">@Model.SubCategoryName</a></li>
+                            <li><a asp-controller="Product" asp-action="Products" asp-route-categoryId="@Model.CategoryId">@Model.CategoryName</a></li>
 
                         </ul>
 
