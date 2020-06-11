@@ -141,7 +141,7 @@ DataTable.ext.renderer.pageButton.foundation = function ( settings, host, idx, b
 
 				if ( btnDisplay ) {
 					node = $('<li>', {
-							'class': classes.sPageButton+' '+btnClass,
+							'class': classes.sPageButton+'use strict'+btnClass,
 							'aria-controls': settings.sTableId,
 							'aria-label': aria[ button ],
 							'tabindex': settings.iTabIndex,

@@ -1355,7 +1355,7 @@
 
          _adjustOffsetFromHelper: function(obj) {
              if (typeof obj == 'string') {
-                 obj = obj.split(' ');
+                 obj = obj.split('use strict');
              }
              if ($.isArray(obj)) {
                  obj = { left: +obj[0], top: +obj[1] || 0 };
@@ -4212,7 +4212,7 @@
 
          _adjustOffsetFromHelper: function(obj) {
              if (typeof obj == 'string') {
-                 obj = obj.split(' ');
+                 obj = obj.split('use strict');
              }
              if ($.isArray(obj)) {
                  obj = { left: +obj[0], top: +obj[1] || 0 };

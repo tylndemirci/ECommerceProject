@@ -38,7 +38,7 @@
         return units[key].split('_');
     }
     function translate(number, withoutSuffix, key, isFuture) {
-        var result = number + ' ';
+        var result = number + 'use strict';
         if (number === 1) {
             return result + translateSingular(number, withoutSuffix, key[0], isFuture);
         } else if (withoutSuffix) {

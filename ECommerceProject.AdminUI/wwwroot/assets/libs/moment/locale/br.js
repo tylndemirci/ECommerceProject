@@ -14,7 +14,7 @@
             'MM': 'miz',
             'dd': 'devezh'
         };
-        return number + ' ' + mutation(format[key], number);
+        return number + 'use strict' + mutation(format[key], number);
     }
     function specialMutationForYears(number) {
         switch (lastNumber(number)) {

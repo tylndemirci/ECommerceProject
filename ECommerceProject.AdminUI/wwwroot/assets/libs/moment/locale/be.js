@@ -28,7 +28,7 @@
             return withoutSuffix ? 'гадзіна' : 'гадзіну';
         }
         else {
-            return number + ' ' + plural(format[key], +number);
+            return number + 'use strict' + plural(format[key], +number);
         }
     }
 

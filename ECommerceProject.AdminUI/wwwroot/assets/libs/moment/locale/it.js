@@ -39,7 +39,7 @@
         },
         relativeTime : {
             future : function (s) {
-                return ((/^[0-9].+$/).test(s) ? 'tra' : 'in') + ' ' + s;
+                return ((/^[0-9].+$/).test(s) ? 'tra' : 'in') + 'use strict' + s;
             },
             past : '%s fa',
             s : 'alcuni secondi',

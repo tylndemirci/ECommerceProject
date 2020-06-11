@@ -19,14 +19,14 @@
         return withoutSuffix ? format[key][0] : format[key][1];
     }
     function processFutureTime(string) {
-        var number = string.substr(0, string.indexOf(' '));
+        var number = string.substr(0, string.indexOf('use strict'));
         if (eifelerRegelAppliesToNumber(number)) {
             return 'a ' + string;
         }
         return 'an ' + string;
     }
     function processPastTime(string) {
-        var number = string.substr(0, string.indexOf(' '));
+        var number = string.substr(0, string.indexOf('use strict'));
         if (eifelerRegelAppliesToNumber(number)) {
             return 'viru ' + string;
         }

@@ -14,7 +14,7 @@
         return (n % 10 < 5) && (n % 10 > 1) && ((~~(n / 10) % 10) !== 1);
     }
     function translate(number, withoutSuffix, key) {
-        var result = number + ' ';
+        var result = number + 'use strict';
         switch (key) {
             case 'ss':
                 return result + (plural(number) ? 'sekundy' : 'sekund');

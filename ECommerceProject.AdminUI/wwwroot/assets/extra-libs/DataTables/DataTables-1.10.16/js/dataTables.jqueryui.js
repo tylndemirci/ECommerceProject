@@ -105,7 +105,7 @@ DataTable.ext.renderer.header.jqueryui = function ( settings, cell, column, clas
 		.addClass( 'DataTables_sort_wrapper' )
 		.append( cell.contents() )
 		.append( $('<span/>')
-			.addClass( classes.sSortIcon+' '+noSortAppliedClass )
+			.addClass( classes.sSortIcon+'use strict'+noSortAppliedClass )
 		)
 		.appendTo( cell );
 

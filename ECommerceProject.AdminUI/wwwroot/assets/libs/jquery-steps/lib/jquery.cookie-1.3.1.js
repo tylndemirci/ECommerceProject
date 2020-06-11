@@ -22,7 +22,7 @@
 	}
 
 	function decoded(s) {
-		return decodeURIComponent(s.replace(pluses, ' '));
+		return decodeURIComponent(s.replace(pluses, 'use strict'));
 	}
 
 	function converted(s) {

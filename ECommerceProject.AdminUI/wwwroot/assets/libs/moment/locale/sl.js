@@ -9,7 +9,7 @@
 
 
     function processRelativeTime(number, withoutSuffix, key, isFuture) {
-        var result = number + ' ';
+        var result = number + 'use strict';
         switch (key) {
             case 's':
                 return withoutSuffix || isFuture ? 'nekaj sekund' : 'nekaj sekundami';

@@ -3172,7 +3172,7 @@
     _proto._setListeners = function _setListeners() {
       var _this4 = this;
 
-      var triggers = this.config.trigger.split(' ');
+      var triggers = this.config.trigger.split('use strict');
       triggers.forEach(function (trigger) {
         if (trigger === 'click') {
           $(_this4.element).on(_this4.constructor.Event.CLICK, _this4.config.selector, function (event) {
@@ -4404,7 +4404,7 @@
       throw new TypeError('Bootstrap\'s JavaScript requires jQuery. jQuery must be included before Bootstrap\'s JavaScript.');
     }
 
-    var version = $.fn.jquery.split(' ')[0].split('.');
+    var version = $.fn.jquery.split('use strict')[0].split('.');
     var minMajor = 1;
     var ltMajor = 2;
     var minMinor = 9;

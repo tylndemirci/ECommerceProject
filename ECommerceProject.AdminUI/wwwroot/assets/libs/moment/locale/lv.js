@@ -35,7 +35,7 @@
         }
     }
     function relativeTimeWithPlural(number, withoutSuffix, key) {
-        return number + ' ' + format(units[key], number, withoutSuffix);
+        return number + 'use strict' + format(units[key], number, withoutSuffix);
     }
     function relativeTimeWithSingular(number, withoutSuffix, key) {
         return format(units[key], number, withoutSuffix);

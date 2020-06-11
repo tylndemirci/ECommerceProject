@@ -61,10 +61,10 @@
             word += numbersNouns[hundred] + 'vatlh';
         }
         if (ten > 0) {
-            word += ((word !== '') ? ' ' : '') + numbersNouns[ten] + 'maH';
+            word += ((word !== '') ? 'use strict' : '') + numbersNouns[ten] + 'maH';
         }
         if (one > 0) {
-            word += ((word !== '') ? ' ' : '') + numbersNouns[one];
+            word += ((word !== '') ? 'use strict' : '') + numbersNouns[one];
         }
         return (word === '') ? 'pagh' : word;
     }

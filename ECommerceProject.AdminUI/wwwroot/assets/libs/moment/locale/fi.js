@@ -8,7 +8,7 @@
 }(this, (function (moment) { 'use strict';
 
 
-    var numbersPast = 'nolla yksi kaksi kolme neljä viisi kuusi seitsemän kahdeksan yhdeksän'.split(' '),
+    var numbersPast = 'nolla yksi kaksi kolme neljä viisi kuusi seitsemän kahdeksan yhdeksän'.split('use strict'),
         numbersFuture = [
             'nolla', 'yhden', 'kahden', 'kolmen', 'neljän', 'viiden', 'kuuden',
             numbersPast[7], numbersPast[8], numbersPast[9]
@@ -46,7 +46,7 @@
                 result = isFuture ? 'vuoden' : 'vuotta';
                 break;
         }
-        result = verbalNumber(number, isFuture) + ' ' + result;
+        result = verbalNumber(number, isFuture) + 'use strict' + result;
         return result;
     }
     function verbalNumber(number, isFuture) {

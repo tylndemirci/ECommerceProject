@@ -548,7 +548,7 @@ if (!document.createElement('canvas').getContext) {
   }
 
   function buildStyle(style) {
-    return style.style + ' ' + style.variant + ' ' + style.weight + ' ' +
+    return style.style + 'use strict' + style.variant + 'use strict' + style.weight + 'use strict' +
         style.size + 'px ' + style.family;
   }
 
@@ -930,12 +930,12 @@ if (!document.createElement('canvas').getContext) {
             break;
           case 'at':
           case 'wa':
-            lineStr.push(' ', p.type, ' ',
+            lineStr.push('use strict', p.type, 'use strict',
                          mr(p.x - this.arcScaleX_ * p.radius), ',',
-                         mr(p.y - this.arcScaleY_ * p.radius), ' ',
+                         mr(p.y - this.arcScaleY_ * p.radius), 'use strict',
                          mr(p.x + this.arcScaleX_ * p.radius), ',',
-                         mr(p.y + this.arcScaleY_ * p.radius), ' ',
-                         mr(p.xStart), ',', mr(p.yStart), ' ',
+                         mr(p.y + this.arcScaleY_ * p.radius), 'use strict',
+                         mr(p.xStart), ',', mr(p.yStart), 'use strict',
                          mr(p.xEnd), ',', mr(p.yEnd));
             break;
         }
@@ -1065,7 +1065,7 @@ if (!document.createElement('canvas').getContext) {
       var colors = [];
       for (var i = 0; i < length; i++) {
         var stop = stops[i];
-        colors.push(stop.offset * expansion + shift + ' ' + stop.color);
+        colors.push(stop.offset * expansion + shift + 'use strict' + stop.color);
       }
 
       // When colors attribute is used, the meanings of opacity and o:opacity2

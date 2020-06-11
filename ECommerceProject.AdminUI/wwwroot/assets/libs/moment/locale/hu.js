@@ -8,7 +8,7 @@
 }(this, (function (moment) { 'use strict';
 
 
-    var weekEndings = 'vasárnap hétfőn kedden szerdán csütörtökön pénteken szombaton'.split(' ');
+    var weekEndings = 'vasárnap hétfőn kedden szerdán csütörtökön pénteken szombaton'.split('use strict');
     function translate(number, withoutSuffix, key, isFuture) {
         var num = number;
         switch (key) {

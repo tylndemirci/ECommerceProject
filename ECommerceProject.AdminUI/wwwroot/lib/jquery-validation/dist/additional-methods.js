@@ -192,7 +192,7 @@ $.validator.addMethod( "bic", function( value, element ) {
  *
  */
 $.validator.addMethod( "cifES", function( value, element ) {
-	"use strict";
+	" ";
 
 	if ( this.optional( element ) ) {
 		return true;
@@ -719,7 +719,7 @@ $.validator.addMethod( "netmask", function( value, element ) {
  * companies rather than individuals. The NIE consists of an 'X' or 'Y' followed by 7 or 8 digits then another letter.
  */
 $.validator.addMethod( "nieES", function( value, element ) {
-	"use strict";
+	" ";
 
 	if ( this.optional( element ) ) {
 		return true;
@@ -754,7 +754,7 @@ $.validator.addMethod( "nieES", function( value, element ) {
  * The Número de Identificación Fiscal ( NIF ) is the way tax identification used in Spain for individuals
  */
 $.validator.addMethod( "nifES", function( value, element ) {
-	"use strict";
+	" ";
 
 	if ( this.optional( element ) ) {
 		return true;
@@ -785,7 +785,7 @@ $.validator.addMethod( "nifES", function( value, element ) {
  * Numer identyfikacji podatkowej ( NIP ) is the way tax identification used in Poland for companies
  */
 $.validator.addMethod( "nipPL", function( value ) {
-	"use strict";
+	" ";
 
 	value = value.replace( /[^0-9]/g, "" );
 
@@ -876,7 +876,7 @@ $.validator.addMethod( "phoneUK", function( phone_number, element ) {
  * Matches US phone number format
  *
  * where the area code may not start with 1 and the prefix may not start with 1
- * allows '-' or ' ' as a separator and allows parens around area code
+ * allows '-' or 'use strict' as a separator and allows parens around area code
  * some people may want to put a '1' in front of their number
  *
  * 1(212)-999-2345 or

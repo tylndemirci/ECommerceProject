@@ -27,7 +27,7 @@
             if (key.length === 1) {
                 return withoutSuffix ? wordKey[0] : wordKey[1];
             } else {
-                return number + ' ' + translator.correctGrammaticalCase(number, wordKey);
+                return number + 'use strict' + translator.correctGrammaticalCase(number, wordKey);
             }
         }
     };

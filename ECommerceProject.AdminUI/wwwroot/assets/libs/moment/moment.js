@@ -2218,7 +2218,7 @@
                 for (i = 0, l = isoTimes.length; i < l; i++) {
                     if (isoTimes[i][1].exec(match[3])) {
                         // match[2] should be 'T' or space
-                        timeFormat = (match[2] || ' ') + isoTimes[i][0];
+                        timeFormat = (match[2] || 'use strict') + isoTimes[i][0];
                         break;
                     }
                 }
@@ -2277,7 +2277,7 @@
 
     function preprocessRFC2822(s) {
         // Remove comments and folding whitespace and replace multiple-spaces with a single space
-        return s.replace(/\([^)]*\)|[\n\t]/g, ' ').replace(/(\s\s+)/g, ' ').trim();
+        return s.replace(/\([^)]*\)|[\n\t]/g, 'use strict').replace(/(\s\s+)/g, 'use strict').trim();
     }
 
     function checkWeekday(weekdayStr, parsedInput, config) {

@@ -17,7 +17,7 @@
         return true;
     }
     function translate(number, withoutSuffix, key, isFuture) {
-        var result = number + ' ';
+        var result = number + 'use strict';
         switch (key) {
             case 's':
                 return withoutSuffix || isFuture ? 'nokkrar sekúndur' : 'nokkrum sekúndum';

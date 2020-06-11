@@ -83,7 +83,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var container_1 = __webpack_require__(17);
@@ -127,7 +127,7 @@ exports.default = Parchment;
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -705,7 +705,7 @@ module.exports = function extend() {
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -963,7 +963,7 @@ exports.default = Block;
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -1698,7 +1698,7 @@ exports.default = Quill;
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -1788,7 +1788,7 @@ exports.default = Inline;
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -1825,7 +1825,7 @@ exports.default = TextBlot;
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -1941,7 +1941,7 @@ exports.default = Emitter;
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -1967,7 +1967,7 @@ exports.default = Module;
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -2105,7 +2105,7 @@ function objEquiv(a, b, opts) {
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Registry = __webpack_require__(1);
@@ -2168,7 +2168,7 @@ exports.default = Attributor;
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -2370,7 +2370,7 @@ exports.default = CodeBlock;
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -2738,7 +2738,7 @@ exports.default = Editor;
 /* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -3227,7 +3227,7 @@ exports.default = Selection;
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -3297,7 +3297,7 @@ exports.default = Break;
 /* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -3563,7 +3563,7 @@ exports.default = ContainerBlot;
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -3645,7 +3645,7 @@ exports.default = FormatBlot;
 /* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -4097,7 +4097,7 @@ if (typeof module === 'object' && module.exports) {
 /* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -4350,7 +4350,7 @@ exports.default = Scroll;
 /* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -4677,7 +4677,7 @@ Keyboard.DEFAULTS = {
       }
     },
     'list autofill': {
-      key: ' ',
+      key: 'use strict',
       collapsed: true,
       format: { list: false },
       prefix: /^\s*?(\d+\.|-|\*|\[ ?\]|\[x\])$/,
@@ -4704,7 +4704,7 @@ Keyboard.DEFAULTS = {
           default:
             value = 'ordered';
         }
-        this.quill.insertText(range.index, ' ', _quill2.default.sources.USER);
+        this.quill.insertText(range.index, 'use strict', _quill2.default.sources.USER);
         this.quill.history.cutoff();
         var delta = new _quillDelta2.default().retain(range.index - offset).delete(length + 1).retain(line.length() - 2 - offset).retain(1, { list: value });
         this.quill.updateContents(delta, _quill2.default.sources.USER);
@@ -4956,7 +4956,7 @@ exports.SHORTKEY = SHORTKEY;
 /* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -5139,7 +5139,7 @@ exports.default = Cursor;
 /* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -5182,7 +5182,7 @@ exports.default = Container;
 /* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -5247,7 +5247,7 @@ exports.ColorStyle = ColorStyle;
 /* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -5332,7 +5332,7 @@ exports.default = _quill2.default;
 /* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Registry = __webpack_require__(1);
@@ -5495,7 +5495,7 @@ exports.default = ShadowBlot;
 /* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var attributor_1 = __webpack_require__(12);
@@ -5572,7 +5572,7 @@ exports.default = AttributorStore;
 /* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -5635,7 +5635,7 @@ exports.default = ClassAttributor;
 /* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -5698,7 +5698,7 @@ exports.default = StyleAttributor;
 /* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -5754,7 +5754,7 @@ exports.default = Theme;
 /* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -5875,7 +5875,7 @@ exports.default = Embed;
 /* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -5906,7 +5906,7 @@ exports.AlignStyle = AlignStyle;
 /* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -5936,7 +5936,7 @@ exports.BackgroundStyle = BackgroundStyle;
 /* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -5967,7 +5967,7 @@ exports.DirectionStyle = DirectionStyle;
 /* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -6026,7 +6026,7 @@ exports.FontClass = FontClass;
 /* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -6057,7 +6057,7 @@ exports.SizeStyle = SizeStyle;
 /* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -6226,7 +6226,7 @@ exports.getLastChangeIndex = getLastChangeIndex;
 /* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var LinkedList = /** @class */ (function () {
@@ -6367,7 +6367,7 @@ exports.default = LinkedList;
 /* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -6551,7 +6551,7 @@ exports.default = ScrollBlot;
 /* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -6636,7 +6636,7 @@ exports.default = InlineBlot;
 /* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -6712,7 +6712,7 @@ exports.default = BlockBlot;
 /* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -6760,7 +6760,7 @@ exports.default = EmbedBlot;
 /* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -6863,7 +6863,7 @@ exports.default = TextBlot;
 /* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 var elem = document.createElement('div');
@@ -8036,7 +8036,7 @@ if ('undefined' !== typeof module) {
 /* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+" ";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -8435,9 +8435,9 @@ function matchText(node, delta) {
     // eslint-disable-next-line func-style
     var replacer = function replacer(collapse, match) {
       match = match.replace(/[^\u00a0]/g, ''); // \u00a0 is nbsp;
-      return match.length < 1 && collapse ? ' ' : match;
+      return match.length < 1 && collapse ? 'use strict' : match;
     };
-    text = text.replace(/\r\n/g, ' ').replace(/\n/g, ' ');
+    text = text.replace(/\r\n/g, 'use strict').replace(/\n/g, 'use strict');
     text = text.replace(/\s\s+/g, replacer.bind(replacer, true)); // collapse whitespace
     if (node.previousSibling == null && isLine(node.parentNode) || node.previousSibling != null && isLine(node.previousSibling)) {
       text = text.replace(/^\s+/, replacer.bind(replacer, false));

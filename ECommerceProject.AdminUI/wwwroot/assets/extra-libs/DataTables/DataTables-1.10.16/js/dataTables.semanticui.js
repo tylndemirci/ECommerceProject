@@ -142,7 +142,7 @@ DataTable.ext.renderer.pageButton.semanticUI = function ( settings, host, idx, b
 
 				if ( btnDisplay ) {
 					node = $('<'+tag+'>', {
-							'class': classes.sPageButton+' '+btnClass,
+							'class': classes.sPageButton+'use strict'+btnClass,
 							'id': idx === 0 && typeof button === 'string' ?
 								settings.sTableId +'_'+ button :
 								null,

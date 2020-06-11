@@ -9,7 +9,7 @@
 
 
     function translate(number, withoutSuffix, key) {
-        var result = number + ' ';
+        var result = number + 'use strict';
         switch (key) {
             case 'ss':
                 if (number === 1) {

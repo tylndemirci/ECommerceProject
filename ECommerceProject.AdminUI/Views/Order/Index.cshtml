@@ -1,30 +1,14 @@
 ﻿@model IEnumerable<ECommerceProject.AdminUI.Models.Order.ListOrdersViewModel>
 @{
     Layout = Layout;
+    ViewData["Title"] = "Index";
 }
-@section scripts {
-    <script>
-        
-        showInPopupOrders = (url, title) => {
-            $.ajax({
-                type: "GET",
-                url: url,
-                success: function(res) {
-                    $("#form-modal .modal-body").html(res);
-                    $("#form-modal .modal-title").html(title);
-                    $("#form-modal").modal("show");
-                },
-                error: function() {
-                    alert("didn't work");
-                }
-            });
-        }
-    </script>
-}
-<button type="button" class="btn btn-success" data-toggle="ajax-modal" data-target="#PopupOrder" data-ur="@Url.Action("Edit")">Update</button>
 
+
+<div id="PlaceHolderHere"></div>
 <table class="table table-striped table-sm">
     <tr>
+        <th>OrderId</th>
         <th>Order Number</th>
         <th>Username</th>
         <th>Order State</th>
@@ -36,41 +20,44 @@
         @foreach (var x in Model)
         {
 
-    <tr>
+            <tr>
+
+                <td>x.OrderId</td>
+                <td>@x.OrderNumber</td>
 
 
-    <td>@x.OrderNumber</td>
+                <td>@x.UserName</td>
 
-
-    <td>@x.UserName</td>
-
-
-    <td>@x.OrderState      </td> 
+        
+                <td id="ShowOrderState">@x.OrderState <button type="button"  class="btn btn-success" data-toggle="ajax-modal" data-target="#UpdateOrderState" data-url="@Url.Action("Edit", "Order", new {id=x.OrderId})">Update</button>  </td> 
   
-   
   
-   
-    @if ((DateTime.Today.Day- x.OrderDate.Day) >= 7 )
-    {
-        <td style="color: red">@x.OrderDate.ToShortDateString()</td>
-    }
+              @if (x.OrderState.ToString() == "OrderCompleted")
+              {
+                  <td style="background-color: green; color: white'">@x.OrderDate.ToShortDateString()</td>
+              }  
 
-    @if ((DateTime.Today.Day - x.OrderDate.Day) >= 4 && (DateTime.Today.Day - x.OrderDate.Day) <= 6)
-    {
-        <td style="color: orange">@x.OrderDate.ToShortDateString()</td>
-    }
+                @if ((DateTime.Today.Day- x.OrderDate.Day) >= 7 )
+                {
+                    <td style="color: red">@x.OrderDate.ToShortDateString()</td>
+                }
 
-    @if ((DateTime.Today.Day - x.OrderDate.Day) <= 3)
-    {
-        <td style="color: green">@x.OrderDate.ToShortDateString()</td>
-    }
+                @if ((DateTime.Today.Day - x.OrderDate.Day) >= 4 && (DateTime.Today.Day - x.OrderDate.Day) <= 6)
+                {
+                    <td style="color: orange">@x.OrderDate.ToShortDateString()</td>
+                }
+
+                @if ((DateTime.Today.Day - x.OrderDate.Day) <= 3)
+                {
+                    <td style="color: green">@x.OrderDate.ToShortDateString()</td>
+                }
 
 
 
 
-    <td>@x.Total.ToString("C")</td>
+                <td>@x.Total.ToString("C")</td>
 
-</tr>
+            </tr>
 
         }
     }

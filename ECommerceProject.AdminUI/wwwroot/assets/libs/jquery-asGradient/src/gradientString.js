@@ -176,7 +176,7 @@ export default {
       }
     }
     if (typeof string === 'string') {
-      const directions = string.split(' ');
+      const directions = string.split('use strict');
 
       const filtered = [];
       for (const i in directions) {
@@ -184,7 +184,7 @@ export default {
           filtered.push(directions[i].toLowerCase());
         }
       }
-      let keyword = filtered.join(' ');
+      let keyword = filtered.join('use strict');
 
       if (!string.includes('to ')) {
         keyword = util.reverseDirection(keyword);

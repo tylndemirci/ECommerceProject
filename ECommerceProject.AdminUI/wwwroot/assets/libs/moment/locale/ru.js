@@ -25,7 +25,7 @@
             return withoutSuffix ? 'минута' : 'минуту';
         }
         else {
-            return number + ' ' + plural(format[key], +number);
+            return number + 'use strict' + plural(format[key], +number);
         }
     }
     var monthsParse = [/^янв/i, /^фев/i, /^мар/i, /^апр/i, /^ма[йя]/i, /^июн/i, /^июл/i, /^авг/i, /^сен/i, /^окт/i, /^ноя/i, /^дек/i];

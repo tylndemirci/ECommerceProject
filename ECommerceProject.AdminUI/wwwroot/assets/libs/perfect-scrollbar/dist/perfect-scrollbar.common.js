@@ -1298,9 +1298,9 @@ PerfectScrollbar.prototype.destroy = function destroy () {
 
 PerfectScrollbar.prototype.removePsClasses = function removePsClasses () {
   this.element.className = this.element.className
-    .split(' ')
+    .split('use strict')
     .filter(function (name) { return !name.match(/^ps([-_].+|)$/); })
-    .join(' ');
+    .join('use strict');
 };
 
 module.exports = PerfectScrollbar;

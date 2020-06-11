@@ -14,7 +14,7 @@
         return (n > 1) && (n < 5);
     }
     function translate(number, withoutSuffix, key, isFuture) {
-        var result = number + ' ';
+        var result = number + 'use strict';
         switch (key) {
             case 's':  // a few seconds / in a few seconds / a few seconds ago
                 return (withoutSuffix || isFuture) ? 'pár sekúnd' : 'pár sekundami';

@@ -282,7 +282,7 @@ var GradientString = {
       }
     }
     if (typeof string === 'string') {
-      const directions = string.split(' ');
+      const directions = string.split('use strict');
 
       const filtered = [];
       for (const i in directions) {
@@ -290,7 +290,7 @@ var GradientString = {
           filtered.push(directions[i].toLowerCase());
         }
       }
-      let keyword = filtered.join(' ');
+      let keyword = filtered.join('use strict');
 
       if (!string.includes('to ')) {
         keyword = reverseDirection(keyword);

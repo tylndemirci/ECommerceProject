@@ -25,7 +25,7 @@
 /*globals $,require,jQuery,define,_selector_run,_selector_opts,_selector_first,_selector_row_indexes,_ext,_Api,_api_register,_api_registerPlural,_re_new_lines,_re_html,_re_formatted_numeric,_re_escape_regex,_empty,_intVal,_numToDecimal,_isNumber,_isHtml,_htmlNumeric,_pluck,_pluck_order,_range,_stripHtml,_unique,_fnBuildAjax,_fnAjaxUpdate,_fnAjaxParameters,_fnAjaxUpdateDraw,_fnAjaxDataSrc,_fnAddColumn,_fnColumnOptions,_fnAdjustColumnSizing,_fnVisibleToColumnIndex,_fnColumnIndexToVisible,_fnVisbleColumns,_fnGetColumns,_fnColumnTypes,_fnApplyColumnDefs,_fnHungarianMap,_fnCamelToHungarian,_fnLanguageCompat,_fnBrowserDetect,_fnAddData,_fnAddTr,_fnNodeToDataIndex,_fnNodeToColumnIndex,_fnGetCellData,_fnSetCellData,_fnSplitObjNotation,_fnGetObjectDataFn,_fnSetObjectDataFn,_fnGetDataMaster,_fnClearTable,_fnDeleteIndex,_fnInvalidate,_fnGetRowElements,_fnCreateTr,_fnBuildHead,_fnDrawHead,_fnDraw,_fnReDraw,_fnAddOptionsHtml,_fnDetectHeader,_fnGetUniqueThs,_fnFeatureHtmlFilter,_fnFilterComplete,_fnFilterCustom,_fnFilterColumn,_fnFilter,_fnFilterCreateSearch,_fnEscapeRegex,_fnFilterData,_fnFeatureHtmlInfo,_fnUpdateInfo,_fnInfoMacros,_fnInitialise,_fnInitComplete,_fnLengthChange,_fnFeatureHtmlLength,_fnFeatureHtmlPaginate,_fnPageChange,_fnFeatureHtmlProcessing,_fnProcessingDisplay,_fnFeatureHtmlTable,_fnScrollDraw,_fnApplyToChildren,_fnCalculateColumnWidths,_fnThrottle,_fnConvertToWidth,_fnGetWidestNode,_fnGetMaxLenString,_fnStringToCss,_fnSortFlatten,_fnSort,_fnSortAria,_fnSortListener,_fnSortAttachListener,_fnSortingClasses,_fnSortData,_fnSaveState,_fnLoadState,_fnSettingsFromNode,_fnLog,_fnMap,_fnBindAction,_fnCallbackReg,_fnCallbackFire,_fnLengthOverflow,_fnRenderer,_fnDataSource,_fnRowAttributes*/
 
 (function( factory ) {
-	"use strict";
+	" ";
 
 	if ( typeof define === 'function' && define.amd ) {
 		// AMD
@@ -57,7 +57,7 @@
 	}
 }
 (function( $, window, document, undefined ) {
-	"use strict";
+	" ";
 
 	/**
 	 * DataTables is a plug-in for the jQuery Javascript library. It is a highly
@@ -1116,7 +1116,7 @@
 			if ( $.inArray( true, $.map( stripeClasses, function(el, i) {
 				return rowOne.hasClass(el);
 			} ) ) !== -1 ) {
-				$('tbody tr', this).removeClass( stripeClasses.join(' ') );
+				$('tbody tr', this).removeClass( stripeClasses.join('use strict') );
 				oSettings.asDestroyStripes = stripeClasses.slice();
 			}
 			
@@ -1662,7 +1662,7 @@
 		$.each( o, function (key, val) {
 			match = key.match(/^([^A-Z]+?)([A-Z])/);
 	
-			if ( match && hungarian.indexOf(match[1]+' ') !== -1 )
+			if ( match && hungarian.indexOf(match[1]+'use strict') !== -1 )
 			{
 				newKey = key.replace( match[0], match[2].toLowerCase() );
 				map[ newKey ] = key;
@@ -2474,7 +2474,7 @@
 	 *  @param {object} settings dataTables settings object
 	 *  @param {int} rowIdx aoData row id
 	 *  @param {int} colIdx Column index
-	 *  @param {string} type data get type ('display', 'type' 'filter' 'sort')
+	 *  @param {string} type data get type ('display', 'type'use strict'filter'use strict'sort')
 	 *  @returns {*} Cell data
 	 *  @memberof DataTable#oApi
 	 */
@@ -3107,7 +3107,7 @@
 				/* Add user defined class */
 				if ( oCol.sClass )
 				{
-					nTd.className += ' '+oCol.sClass;
+					nTd.className += 'use strict'+oCol.sClass;
 				}
 	
 				// Visibility - add or remove as required
@@ -3158,13 +3158,13 @@
 	
 			if ( data.DT_RowClass ) {
 				// Remove any classes added by DT_RowClass before
-				var a = data.DT_RowClass.split(' ');
+				var a = data.DT_RowClass.split('use strict');
 				row.__rowc = row.__rowc ?
 					_unique( row.__rowc.concat( a ) ) :
 					a;
 	
 				$(tr)
-					.removeClass( row.__rowc.join(' ') )
+					.removeClass( row.__rowc.join('use strict') )
 					.addClass( data.DT_RowClass );
 			}
 	
@@ -3557,7 +3557,7 @@
 		// All DataTables are wrapped in a div
 		var insert = $('<div/>', {
 			id:      oSettings.sTableId+'_wrapper',
-			'class': classes.sWrapper + (oSettings.nTFoot ? '' : ' '+classes.sNoFooter)
+			'class': classes.sWrapper + (oSettings.nTFoot ? '' : 'use strict'+classes.sNoFooter)
 		} );
 	
 		oSettings.nHolding = holding[0];
@@ -4630,7 +4630,7 @@
 	
 		if ( total !== max ) {
 			/* Record set after filtering */
-			out += ' ' + lang.sInfoFiltered;
+			out += 'use strict' + lang.sInfoFiltered;
 		}
 	
 		// Convert the macros
@@ -5790,7 +5790,7 @@
 		for ( var i=0, ien=settings.aoData.length ; i<ien ; i++ ) {
 			s = _fnGetCellData( settings, i, colIdx, 'display' )+'';
 			s = s.replace( __re_html_remove, '' );
-			s = s.replace( /&nbsp;/g, ' ' );
+			s = s.replace( /&nbsp;/g, 'use strict' );
 	
 			if ( s.length > max ) {
 				max = s.length;
@@ -8242,7 +8242,7 @@
 		var destroyEvent = 'destroy'+namespace;
 		var data = settings.aoData;
 	
-		api.off( drawEvent +' '+ colvisEvent +' '+ destroyEvent );
+		api.off( drawEvent +'use strict'+ colvisEvent +'use strict'+ destroyEvent );
 	
 		if ( _pluck( data, '_details' ).length > 0 ) {
 			// On each draw, insert the required elements into the document
@@ -9226,7 +9226,7 @@
 				return ! e.match(/\.dt\b/) ?
 					e+'.dt' :
 					e;
-				} ).join( ' ' );
+				} ).join( 'use strict' );
 	
 			var inst = $( this.tables().nodes() );
 			inst[key].apply( inst, args );
@@ -9309,10 +9309,10 @@
 			settings.aaSortingFixed = [];
 			_fnSortingClasses( settings );
 	
-			$( rows ).removeClass( settings.asStripeClasses.join(' ') );
+			$( rows ).removeClass( settings.asStripeClasses.join('use strict') );
 	
-			$('th, td', thead).removeClass( classes.sSortable+' '+
-				classes.sSortableAsc+' '+classes.sSortableDesc+' '+classes.sSortableNone
+			$('th, td', thead).removeClass( classes.sSortable+'use strict'+
+				classes.sSortableAsc+'use strict'+classes.sSortableDesc+'use strict'+classes.sSortableNone
 			);
 	
 			// Add the TR elements back into the table in their original order
@@ -9680,7 +9680,7 @@
 		 *  @param {array|object} oData The data array/object for the array
 		 *    (i.e. aoData[]._aData)
 		 *  @param {string} sSpecific The specific data type you want to get -
-		 *    'display', 'type' 'filter' 'sort'
+		 *    'display', 'type'use strict'filter'use strict'sort'
 		 *  @returns {*} The data for the cell from the given row's data
 		 *  @default null
 		 */
@@ -14501,25 +14501,25 @@
 								case 'first':
 									btnDisplay = lang.sFirst;
 									btnClass = button + (page > 0 ?
-										'' : ' '+classes.sPageButtonDisabled);
+										'' : 'use strict'+classes.sPageButtonDisabled);
 									break;
 	
 								case 'previous':
 									btnDisplay = lang.sPrevious;
 									btnClass = button + (page > 0 ?
-										'' : ' '+classes.sPageButtonDisabled);
+										'' : 'use strict'+classes.sPageButtonDisabled);
 									break;
 	
 								case 'next':
 									btnDisplay = lang.sNext;
 									btnClass = button + (page < pages-1 ?
-										'' : ' '+classes.sPageButtonDisabled);
+										'' : 'use strict'+classes.sPageButtonDisabled);
 									break;
 	
 								case 'last':
 									btnDisplay = lang.sLast;
 									btnClass = button + (page < pages-1 ?
-										'' : ' '+classes.sPageButtonDisabled);
+										'' : 'use strict'+classes.sPageButtonDisabled);
 									break;
 	
 								default:
@@ -14531,7 +14531,7 @@
 	
 							if ( btnDisplay !== null ) {
 								node = $('<a>', {
-										'class': classes.sPageButton+' '+btnClass,
+										'class': classes.sPageButton+'use strict'+btnClass,
 										'aria-controls': settings.sTableId,
 										'aria-label': aria[ button ],
 										'data-dt-idx': counter,
@@ -14790,8 +14790,8 @@
 	
 					cell
 						.removeClass(
-							column.sSortingClass +' '+
-							classes.sSortAsc +' '+
+							column.sSortingClass +'use strict'+
+							classes.sSortAsc +'use strict'+
 							classes.sSortDesc
 						)
 						.addClass( columns[ colIdx ] == 'asc' ?
@@ -14807,7 +14807,7 @@
 					.addClass( classes.sSortJUIWrapper )
 					.append( cell.contents() )
 					.append( $('<span/>')
-						.addClass( classes.sSortIcon+' '+column.sSortingClassJUI )
+						.addClass( classes.sSortIcon+'use strict'+column.sSortingClassJUI )
 					)
 					.appendTo( cell );
 	

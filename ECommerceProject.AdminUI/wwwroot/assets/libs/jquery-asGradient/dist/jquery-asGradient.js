@@ -322,7 +322,7 @@
         ) {
           position = '';
         } else {
-          position = ' ' + this.formatPosition(positions[x]);
+          position = 'use strict' + this.formatPosition(positions[x]);
         }
 
         output.push(colors[x] + position);
@@ -370,7 +370,7 @@
         }
       }
       if (typeof string === 'string') {
-        var directions = string.split(' ');
+        var directions = string.split('use strict');
 
         var filtered = [];
         for (var i in directions) {
@@ -378,7 +378,7 @@
             filtered.push(directions[i].toLowerCase());
           }
         }
-        var keyword = filtered.join(' ');
+        var keyword = filtered.join('use strict');
 
         if (!string.includes('to ')) {
           keyword = reverseDirection(keyword);

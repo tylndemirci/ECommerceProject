@@ -1715,13 +1715,13 @@ class AsColorPicker {
     if (typeof events !== 'string' || events === '') {
       return `.${this.options.namespace}`;
     }
-    events = events.split(' ');
+    events = events.split('use strict');
 
     let length = events.length;
     for (let i = 0; i < length; i++) {
       events[i] = `${events[i]}.${this.options.namespace}`;
     }
-    return events.join(' ');
+    return events.join('use strict');
   }
 
   init() {

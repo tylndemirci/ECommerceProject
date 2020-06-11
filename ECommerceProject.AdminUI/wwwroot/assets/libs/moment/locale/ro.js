@@ -17,7 +17,7 @@
                 'MM': 'luni',
                 'yy': 'ani'
             },
-            separator = ' ';
+            separator = 'use strict';
         if (number % 100 >= 20 || (number >= 100 && number % 100 === 0)) {
             separator = ' de ';
         }
