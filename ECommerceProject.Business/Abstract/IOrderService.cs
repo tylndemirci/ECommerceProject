@@ -10,5 +10,8 @@ namespace ECommerceProject.Business.Abstract
     {
         void UpdateOrder(Order order);
         IQueryable<Order> GetOrdersOfUser(string userName);
+        IQueryable<Order> GetAllOrders();
+
+        Order GetOrder(int id);
     }
 }

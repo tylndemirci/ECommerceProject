@@ -34,5 +34,17 @@ namespace ECommerceProject.Business.Concrete
             var orders = _orderDal.GetAll(x => x.UserName == userName);
             return orders;
         }
+
+        public IQueryable<Order> GetAllOrders()
+        {
+            var allOrders = _orderDal.GetAll();
+            return allOrders;
+        }
+
+        public Order GetOrder(int id)
+        {
+            var order = _orderDal.GetBy(x => x.OrderId == id);
+            return order;
+        }
   }
 }

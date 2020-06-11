@@ -265,6 +265,7 @@ namespace ECommerceProject.WebUI.Controller
                     .Where(x => x.ProductName.Contains(searchFor))
                     .Skip(excludeRecords)
                     .Take(pageSize)
+                    
                     .Include(x => x.Category).Select(x => new ListCategoryProductsModel(x));
 
                 var resultd = new PagedResult<ListCategoryProductsModel>

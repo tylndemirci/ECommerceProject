@@ -91,20 +91,20 @@ namespace ECommerceProject.AdminUI.Controllers
                 product.ProductDetails = new List<ProductDetails>();
 
                 //creates detailLine for each detail submitted.
-                if (model.ProductDetailsTitle!=null)
+                if (model.ProductDetailsTitle != null)
                 {
-                    
-                
-                for (int i = 0; i < model.ProductDetailsTitle.Count; i++)
-                {
-                    var detailLine = new ProductDetails();
-                    //detailLine.Id = model.ProductDetailsId;
-                    detailLine.ProductId = product.ProductId;
-                    detailLine.ProductDetailTitle = model.ProductDetailsTitle[i];
-                    detailLine.ProductDetailDescription = model.ProductDetailsDescription[i];
 
-                    _productDetailsService.AddDetails(detailLine);
-                }
+
+                    for (int i = 0; i < model.ProductDetailsTitle.Count; i++)
+                    {
+                        var detailLine = new ProductDetails();
+                        //detailLine.Id = model.ProductDetailsId;
+                        detailLine.ProductId = product.ProductId;
+                        detailLine.ProductDetailTitle = model.ProductDetailsTitle[i];
+                        detailLine.ProductDetailDescription = model.ProductDetailsDescription[i];
+
+                        _productDetailsService.AddDetails(detailLine);
+                    }
                 }
 
 

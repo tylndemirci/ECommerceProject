@@ -50,6 +50,8 @@ namespace ECommerceProject.AdminUI
             services.AddTransient<ICategoryService, CategoryManager>();
             services.AddTransient<IProductDetailsDal, EfProductDetailsDal>();
             services.AddTransient<IProductDetailsService, ProductDetailsManager>();
+            services.AddTransient<IOrderDal, EfOrderDal>();
+            services.AddTransient<IOrderService, OrderManager>();
 
           
            
