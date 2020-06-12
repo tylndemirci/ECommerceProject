@@ -17,10 +17,12 @@ namespace ECommerceProject.AdminUI.Controllers
     public class OrderController : Controller
     {
         private readonly IOrderService _orderService;
+        private readonly IOrderLineService _orderLineService;
 
-        public OrderController(IOrderService orderService)
+        public OrderController(IOrderService orderService, IOrderLineService orderLineService)
         {
             _orderService = orderService;
+            _orderLineService = orderLineService;
         }
 
         public IActionResult Index()
@@ -28,6 +30,8 @@ namespace ECommerceProject.AdminUI.Controllers
             var orders = _orderService.GetAllOrders().Include(x => x.OrderLines)
                 .Select(x => new ListOrdersViewModel(x));
             return View(orders);
+
+
         }
 
        [HttpGet]
@@ -47,7 +51,21 @@ namespace ECommerceProject.AdminUI.Controllers
             order.OrderId = model.OrderId;
             order.OrderState = model.OrderState;
             _orderService.UpdateOrder(order);
+         
             return PartialView("_EditOrderPartialView", model);
+        }
+
+        public IActionResult ShowOrderLines(int id)
+        {
+
+            var orderLines = _orderLineService.GetOrderLines(id).Include(x=>x.Product).Select(x => new ShowOrderLinesViewModel(x));
+
+            return PartialView("_ShowOrderLines", orderLines);
+        }
+
+        public IActionResult OrderListInvoke()
+        {
+            return ViewComponent("OrderList");
         }
     }
 }

@@ -21,6 +21,9 @@ namespace ECommerceProject.Business.Concrete
         public void UpdateOrder(Order order)
         {
             var getOrder = _orderDal.GetBy(x => x.OrderId == order.OrderId);
+            getOrder.OrderId = order.OrderId;
+            getOrder.OrderState = order.OrderState;
+            
 
             if (getOrder != null)
             {
@@ -41,10 +44,19 @@ namespace ECommerceProject.Business.Concrete
             return allOrders;
         }
 
+
+
         public Order GetOrder(int id)
         {
             var order = _orderDal.GetBy(x => x.OrderId == id);
             return order;
         }
-  }
+
+        public IQueryable<OrderLine> GetOrderLines(int id)
+        {
+            var orderLines = _orderDal.GetBy(x => x.OrderId == id);
+            var returnModel = orderLines.OrderLines.Where(x=>x.OrderId==id);
+            return (IQueryable<OrderLine>)returnModel;
+        }
+    }
 }

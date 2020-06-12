@@ -16,15 +16,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form asp-action="Edit" asp-controller="Order" method="post">
+                <form asp-action="Edit" asp-controller="Order" aabbdd >
                     @Html.HiddenFor(x => x.OrderId)
-                    <div class="form-group">
-                        <select asp-for="OrderState" asp-items="Html.GetEnumSelectList<EnumOrderState>()">
+                    
+                        <select asp-for="OrderState" asp-items="Html.GetEnumSelectList<EnumOrderState>()" class="form-control">
                             <option selected="selected" value="">Please select</option>
                         </select>
                         @*@Html.DropDownListFor(x => x.OrderState, Model.EnumOrderStates, new { @class = "form-control" })*@
-                    </div>
-                    <button type="submit" value="Submit">bum</button>
+                  
                 </form>
             </div>
             <div class="modal-footer">

@@ -52,6 +52,8 @@ namespace ECommerceProject.AdminUI
             services.AddTransient<IProductDetailsService, ProductDetailsManager>();
             services.AddTransient<IOrderDal, EfOrderDal>();
             services.AddTransient<IOrderService, OrderManager>();
+            services.AddTransient<IOrderLineDal, EfOrderLineDal>();
+            services.AddTransient<IOrderLineService, OrderLineManager>();
 
           
            

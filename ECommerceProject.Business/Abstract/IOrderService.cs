@@ -12,6 +12,7 @@ namespace ECommerceProject.Business.Abstract
         IQueryable<Order> GetOrdersOfUser(string userName);
         IQueryable<Order> GetAllOrders();
 
+        IQueryable<OrderLine> GetOrderLines(int id);
         Order GetOrder(int id);
     }
 }
