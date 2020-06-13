@@ -163,6 +163,7 @@ namespace ECommerceProject.AdminUI.Controllers
                     ProductName = model.ProductName,
                     Description = model.Description,
                     ProductColor = model.ProductColor,
+                    IsFeatured = model.IsFeatured,
                     ImageUrl = model.ImageUrl ?? "productDefault.png",
 
                 };
