@@ -1,4 +1,8 @@
 ﻿@model ECommerceProject.AdminUI.Models.Product.ProductDetails.ProductDetailsModel
+@{
+    Layout = Layout;
+    ViewData["Title"] = "Edit Product Details";
+}
 @section scripts {
     <script>
         function myFunction() {
@@ -27,22 +31,22 @@
     @for (int i = 0; i < Model.ProductDetailTitles.Count; i++)
     {
         <div class="container">
-            
+
             <div class="row">
                 <div class="col">
                     @Html.HiddenFor(model => model.ProductDetailIds[i])
 
 
 
-                    @*<input type="text" value="@Model.ProductDetailTitles[i]" name="@Model.ProductDetailTitles[i]" class="form-control" />*@
-                    @Html.EditorFor(model => model.ProductDetailTitles[i], new {htmlAttributes = new {@class = "form-control"}})
-            <br>
+
+                    @Html.EditorFor(model => model.ProductDetailTitles[i], new { htmlAttributes = new { @class = "form-control" } })
+                    <br>
                 </div>
 
                 <div class="col-6">
 
-                    @*<input type="text" value="@Model.ProductDetailDescriptions[i]" name="@Model.ProductDetailDescriptions[i]" class="form-control" />*@
-                    @Html.EditorFor(model => model.ProductDetailDescriptions[i], new {htmlAttributes = new {@class = "form-control"}})
+
+                    @Html.EditorFor(model => model.ProductDetailDescriptions[i], new { htmlAttributes = new { @class = "form-control" } })
                 </div>
 
                 <div class="col">
@@ -54,8 +58,45 @@
         </div>
 
     }
+
     <div class="form-group" id="product-detail-row"></div>
-    <input type="button" onclick="myFunction()" href="#" value="Add Detail" class="btn btn-orange"/>
-    <button type="submit" value="Submit" class="btn btn-success">Save All Details</button>
-    <button asp-controller="Product" asp-action="Index" class="btn btn-danger">Turn to List</button>
+    <div class="row">
+        <div class="col-1">
+            
+        </div>
+        <div class="col-1">
+            
+        </div>
+        <div class="col-1">
+            
+        </div>
+    </div>
+    
+    <div class="container">
+
+        <div class="row">
+            <div class="col">
+
+                <button asp-controller="Product" asp-action="Index" class="btn btn-danger">Turn to List</button>
+
+
+
+
+                <br>
+            </div>
+
+            <div class="col-6">
+
+              
+            </div>
+
+            <div class="col-4">
+                
+                <input type="button" onclick="myFunction()" href="#" value="Add Detail" class="btn btn-orange" />
+                <button type="submit" value="Submit" class="btn btn-success">Save All Details</button>
+            </div>
+
+        </div>
+    </div>
+
 </form>

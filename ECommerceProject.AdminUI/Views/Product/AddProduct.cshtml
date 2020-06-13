@@ -1,6 +1,7 @@
 ﻿@model ECommerceProject.AdminUI.Models.Product.AddProductViewModel
 @{
-    ViewData["Title"] = "AddProduct";
+    ViewData["Title"] = "Add Product";
+    Layout = Layout;
 }
 @section scripts {
     <script>
@@ -13,7 +14,7 @@
    
 }
 
-<form asp-controller="Product" asp-action="AddProduct" method="post" enctype="multipart/form-data">
+<form asp-controller="Product" asp-action="AddProduct" method="post" enctype="multipart/form-data" class="m-5">
     <input asp-for="ProductId" hidden />
     <div class="form-group">
         <label asp-for="ProductName">Product Name</label>

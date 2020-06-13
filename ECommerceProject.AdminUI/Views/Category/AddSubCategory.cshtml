@@ -1,15 +1,23 @@
 ﻿@model ECommerceProject.AdminUI.Models.Category.AddCategoryViewModel
 @{
-    ViewData["Title"] = "AddSubCategory";
+    ViewData["Title"] = $"Add Sub Category For ID Number '{Model.ParentCategoryId}'";
 }
 
-<form class="form-group" method="post" asp-controller="Category" asp-action="AddSubCategory">
+
+<form asp-controller="Category" asp-action="AddSubCategory"method="post" class="m-5">
+
     <input asp-for="ParentCategoryId" hidden/>
     <input asp-for="CategoryId" hidden/>
-    <div class="form-control">
-        <label>Title</label>
-        <input asp-for="Title"/>
-    </div>
-    <button type="submit" value="submit">Submit</button>
-</form>
+    <div class="row">
+        <div class="form-group ">
+    <p>This page creates sub category.</p>
+  
+            <label asp-for="Title"></label>
+            <input asp-for="Title" class="form-control" />
+            <br />
+            <button asp-action="Index" asp-controller="Category" class="btn btn-secondary">Cancel</button>
+            <button type="submit" value="submit" class="btn btn-success">Submit</button>
+        </div>
 
+    </div>
+</form>

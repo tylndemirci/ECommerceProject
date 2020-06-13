@@ -13,8 +13,7 @@ namespace ECommerceProject.Entities.Concrete
         public Category ParentCategory { get; set; }
 
        
-
-        public string Title { get; set; }
+        [Required] public string Title { get; set; }
 
         public ICollection<Category> SubCategories { get; set; }
     }

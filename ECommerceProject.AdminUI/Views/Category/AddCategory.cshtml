@@ -3,12 +3,23 @@
     ViewData["Title"] = "AddCategory";
 }
 
-<form class="form-group" method="post">
-    <input asp-for="ParentCategoryId" hidden/>
-    <div class="form-control">
-        <label asp-for="Title"></label>
-        <input asp-for="Title"/>
-    </div>
-    <button type="submit" value="submit">Submit</button>
-</form>
+    <form method="post" class="m-5">
+
+
+        <input asp-for="ParentCategoryId" hidden />
+        <div class="row">
+            <div class="form-group ">
+        <p>This is only for main categories. To create a subcategory, first create a main category, then press "add sub category" button.</p>
+        
+                <label asp-for="Title"></label>
+
+
+                <input asp-for="Title" class="form-control" />
+                <br />
+                <button asp-action="Index" asp-controller="Category" class="btn btn-secondary">Cancel</button>
+                <button type="submit" value="submit" class="btn btn-success">Submit</button>
+            </div>
+
+        </div>
+    </form>
 

@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<ECommerceProject.AdminUI.Models.Category.AddCategoryViewModel>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Category List";
 }
-<a class="btn btn-sm btn-success" asp-controller="Category" asp-action="AddCategory">Add Category</a>
-<table class="table table-striped table-sm">
+<a class="btn btn-success" asp-controller="Category" asp-action="AddCategory">Add Category</a>
+<table class="table table-striped table-sm text-center font-weight-bold">
     <tr>
         <th>Category ID</th>
         <th>Category Name</th>
         <th>Sub Categories</th>
         <th>Parent Category</th>
-        <th>Is Deleted</th>
+       
         <th>Settings</th>
         
        
@@ -34,10 +34,14 @@
     }
     <td>@x.SubCategories</td>
     <td>@x.ParentCategory</td>
-    <td>@x.IsDeleted</td>
-    <td><a class="btn btn-sm btn-success" asp-controller="Category" asp-action="AddSubCategory" asp-route-id="@x.CategoryId">Add Sub Category</a></td>
-    <td><a class="btn btn-sm btn-success" asp-controller="Category" asp-action="UpdateCategory" asp-route-id="@x.CategoryId">Update Category</a></td>
-    <td><a class="btn btn-sm btn-danger" asp-controller="Category" asp-action="DeleteCategory" asp-route-id="@x.CategoryId">Delete</a></td>
+    
+    <td>
+        <a class="btn btn-success" asp-controller="Category" asp-action="UpdateCategory" asp-route-id="@x.CategoryId">Update Category</a>
+        <a class="btn btn-primary" asp-controller="Category" asp-action="AddSubCategory" asp-route-id="@x.CategoryId">Add Sub Category</a>
+        <a class="btn btn-danger" asp-controller="Category" asp-action="DeleteCategory" asp-route-id="@x.CategoryId">Delete</a>
+    </td>
+    
+    
 </tr>
 
         }

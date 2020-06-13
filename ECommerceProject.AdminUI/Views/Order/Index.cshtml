@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<ECommerceProject.AdminUI.Models.Order.ListOrdersViewModel>
 @{
-    Layout = Layout;
+   
     ViewData["Title"] = "Index";
+    Layout = Layout;
 }
 
 <div id="PlaceHolderHere"></div>
 <div id="OrderListContainer">
     @await Component.InvokeAsync("OrderList")
 </div>
- 

@@ -14,7 +14,7 @@ $(function () {
         });
     });
 
-    placeHolderElement.on("click", '[data-save="modal"]', function (event) {
+    placeHolderElement.on("click", 'button[data-save="modal"]', function (event) {
         event.preventDefault();
         var form = $(this).parents(".modal").find("form");
         var actionUrl = form.attr("action");
@@ -27,36 +27,3 @@ $(function () {
         });
     });
 }) 
-
-
-
-
-
-//jQueryAjaxPost = form => {
-//    try {
-//        $.ajax({
-//            type: 'POST',
-//            url: form.action,
-//            data: new FormData(form),
-//            contentType: false,
-//            processData: false,
-//            success: function (res) {
-//                if (res.isValid) {
-//                    $('#view-all').html(res.html)
-//                    $('#form-modal .modal-body').html('');
-//                    $('#form-modal .modal-title').html('');
-//                    $('#form-modal').modal('hide');
-//                }
-//                else
-//                    $('#form-modal .modal-body').html(res.html);
-//            },
-//            error: function (err) {
-//                console.log(err)
-//            }
-//        })
-//        //to prevent default form submit event
-//        return false;
-//    } catch (ex) {
-//        console.log(ex)
-//    }
-//}

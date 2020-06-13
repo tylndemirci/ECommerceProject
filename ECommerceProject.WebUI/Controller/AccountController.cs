@@ -51,7 +51,7 @@ namespace ECommerceProject.WebUI.Controller
 
         [HttpPost]
         [Route("/Account/Login")]
-        public async Task<IActionResult> Login(LoginModel model, string returnUrl)
+        public async Task<IActionResult> Login(LoginModel model, string? returnUrl)
         {
             _cartSessionHelper.GetCart("cart");
             if (ModelState.IsValid)
@@ -70,7 +70,7 @@ namespace ECommerceProject.WebUI.Controller
                 ModelState.AddModelError("", "Email or password is invalid");
             }
 
-            ViewBag.returnUrl = returnUrl;
+            ViewBag.returnUrl = returnUrl?? "/";
             return View(model);
         }
         [Route("/Account/Register")]
@@ -90,6 +90,7 @@ namespace ECommerceProject.WebUI.Controller
                 user.UserName = model.Email;
                 user.Name = model.Name;
                 user.Surname = model.Surname;
+                user.CreationDate = DateTime.Now;
 
                 var result = await _userManager.CreateAsync(user, model.Password);
 

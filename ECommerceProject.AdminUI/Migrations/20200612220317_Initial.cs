@@ -42,7 +42,8 @@ namespace ECommerceProject.AdminUI.Migrations
                     AccessFailedCount = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Surname = table.Column<string>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false)
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreationDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -57,7 +58,7 @@ namespace ECommerceProject.AdminUI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ParentCategoryId = table.Column<int>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    Title = table.Column<string>(nullable: true)
+                    Title = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -76,19 +77,19 @@ namespace ECommerceProject.AdminUI.Migrations
                 {
                     OrderId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderNumber = table.Column<string>(nullable: true),
+                    OrderNumber = table.Column<string>(nullable: false),
                     Total = table.Column<double>(nullable: false),
                     OrderDate = table.Column<DateTime>(nullable: false),
                     OrderState = table.Column<int>(nullable: false),
-                    UserName = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    Surname = table.Column<string>(nullable: true),
-                    Address = table.Column<string>(nullable: true),
-                    Country = table.Column<string>(nullable: true),
-                    City = table.Column<string>(nullable: true),
-                    District = table.Column<string>(nullable: true),
-                    AddressTitle = table.Column<string>(nullable: true),
-                    Phone = table.Column<string>(nullable: true)
+                    UserName = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Surname = table.Column<string>(nullable: false),
+                    Address = table.Column<string>(nullable: false),
+                    Country = table.Column<string>(nullable: false),
+                    City = table.Column<string>(nullable: false),
+                    District = table.Column<string>(nullable: false),
+                    AddressTitle = table.Column<string>(nullable: false),
+                    Phone = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -215,7 +216,7 @@ namespace ECommerceProject.AdminUI.Migrations
                     IsApproved = table.Column<bool>(nullable: false),
                     IsFeatured = table.Column<bool>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    ProductName = table.Column<string>(nullable: true),
+                    ProductName = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     ProductColor = table.Column<string>(nullable: true),
                     ImageUrl = table.Column<string>(nullable: true)
@@ -267,8 +268,8 @@ namespace ECommerceProject.AdminUI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductId = table.Column<int>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    ProductDetailTitle = table.Column<string>(nullable: true),
-                    ProductDetailDescription = table.Column<string>(nullable: true)
+                    ProductDetailTitle = table.Column<string>(nullable: false),
+                    ProductDetailDescription = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

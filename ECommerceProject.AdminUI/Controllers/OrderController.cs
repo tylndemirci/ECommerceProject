@@ -27,9 +27,9 @@ namespace ECommerceProject.AdminUI.Controllers
 
         public IActionResult Index()
         {
-            var orders = _orderService.GetAllOrders().Include(x => x.OrderLines)
-                .Select(x => new ListOrdersViewModel(x));
-            return View(orders);
+            //var orders = _orderService.GetAllOrders().Include(x => x.OrderLines)
+            //    .Select(x => new ListOrdersViewModel(x));
+            return View(/*orders*/);
 
 
         }

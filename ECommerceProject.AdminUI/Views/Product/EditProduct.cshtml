@@ -1,15 +1,19 @@
 ﻿@model ECommerceProject.AdminUI.Models.Product.UpdateProductViewModel
 @{
-    ViewData["Title"] = "EditProduct";
+    ViewData["Title"] = $"Update Product '{Model.ProductName}' ";
+    Layout = Layout;
 }
 @section scripts {
     <script src="~/lib/ckeditor/ckeditor.js"></script>
     <script>
         CKEDITOR.replace("Description");
     </script>
+    <script>
+
+    </script>
 }
 
-<form asp-controller="Product" asp-action="EditProduct" method="post" enctype="multipart/form-data">
+<form asp-controller="Product" asp-action="EditProduct" method="post" enctype="multipart/form-data" class="m-5">
     <input asp-for="ProductId" hidden />
     <input asp-for="ImageUrl" hidden />
     <div class="form-group">
@@ -28,6 +32,7 @@
         <label asp-for="ImageUrl">Image</label>
         @if (Model.ImageUrl!=null)
         {
+            
             <img src="~/productimages/@Model.ImageUrl" width="50"/>
         }
       
