@@ -151,7 +151,7 @@ namespace ECommerceProject.AdminUI.Controllers
 
             return View(user);
         }
-
+        //Enable the codes below in case you want email verification
         //public async Task<IActionResult> VerifyEmail(string userId, string code)
         //{
         //    var user = await _userManager.FindByIdAsync(userId);

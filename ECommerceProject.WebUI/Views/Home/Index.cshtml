@@ -12,17 +12,11 @@
         </div>
     </div>
 </div>
-
-
-
-            @await Component.InvokeAsync("HotDeals")
-
-
-
+@await Component.InvokeAsync("HotDeals")
 <div class="container">
     <div class="row">
         <div class="col-sm">
-            @await Component.InvokeAsync("OnSale")
+            @await Component.InvokeAsync("Featured")
         </div>
     </div>
 </div>
