@@ -1,14 +1,8 @@
-﻿using System;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Security.Cryptography.X509Certificates;
+﻿using System.Linq;
 using ECommerceProject.AdminUI.Models.Category;
 using ECommerceProject.Business.Abstract;
-using ECommerceProject.DataAccess.Abstract;
 using ECommerceProject.Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace ECommerceProject.AdminUI.Controllers
 {

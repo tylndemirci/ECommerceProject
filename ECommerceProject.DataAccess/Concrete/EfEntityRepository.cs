@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using ECommerceProject.DataAccess.Abstract;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,7 +26,7 @@ namespace ECommerceProject.DataAccess.Concrete
 
         public T GetBy(Expression<Func<T, bool>> filter)
         {
-            return _dbContext.Set<T>().SingleOrDefault(filter);
+            return _dbContext.Set<T>().FirstOrDefault(filter);
         }
 
         public void Add(T entity)

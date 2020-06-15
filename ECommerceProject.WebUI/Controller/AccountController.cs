@@ -1,22 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Net;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using ECommerceProject.Business.Abstract;
 using ECommerceProject.Entities;
 using ECommerceProject.WebUI.Helper;
-using ECommerceProject.WebUI.Models;
 using ECommerceProject.WebUI.Models.Identity;
 using ECommerceProject.WebUI.Models.MyAccount;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace ECommerceProject.WebUI.Controller
 {
@@ -320,10 +311,10 @@ namespace ECommerceProject.WebUI.Controller
         }
 
 
-        public IActionResult AccessDenied()
-        {
-            return View();
-        }
+        // public IActionResult AccessDenied()
+        // {
+        //     return View();
+        // }
 
 
     }

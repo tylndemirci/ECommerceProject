@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using ECommerceProject.Business.Abstract;
 using ECommerceProject.Entities.Concrete;
 using ECommerceProject.Entities.DomainModels;
-using Microsoft.VisualBasic.CompilerServices;
 
 namespace ECommerceProject.Business.Concrete
 {

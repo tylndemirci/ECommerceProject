@@ -18,9 +18,9 @@
             <th>Price</th>
             <th>Sub Category Name</th>
             <th>Image</th>
-            <th>Description</th>
+            @* <th>Description</th> *@
             <th>Options</th>
-            <th></th>
+           
 
         </tr>
 
@@ -36,8 +36,8 @@
         <td>@product.IsStock</td>
         <td @*id="priceOfProduct"*@>@product.Price.ToString("C")</td>
         <td>@product.CategoryName</td>
-        <td><img src="~/productimages/@product.ImageUrl" width="50" /></td>
-        <td>@Html.Raw(product.Description)</td>
+        <td><img src="~/productimages/@product.ImageUrl" width="50"  /></td>
+        @* <td>@Html.Raw(product.Description)</td> *@
         <td><a asp-controller="Product" asp-action="EditProduct" asp-route-id="@product.ProductId" class="btn btn-success">Edit</a>
             <a asp-controller="Product" asp-action="EditProductDetail" asp-route-productId="@product.ProductId" class="btn  btn-primary">Product Detail Options</a>
             <a asp-controller="Product" asp-action="DeleteProduct" asp-route-id="@product.ProductId" class="btn btn-danger">Delete</a></td>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ECommerceProject.DataAccess.Abstract;
+﻿using System.Linq;
 using ECommerceProject.Entities.Concrete;
 
 namespace ECommerceProject.Business.Abstract

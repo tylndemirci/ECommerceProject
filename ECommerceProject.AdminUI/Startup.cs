@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mime;
-using System.Threading.Tasks;
 using ECommerceProject.Business.Abstract;
 using ECommerceProject.Business.Concrete;
 using ECommerceProject.DataAccess;
@@ -11,7 +6,6 @@ using ECommerceProject.DataAccess.Concrete;
 using ECommerceProject.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

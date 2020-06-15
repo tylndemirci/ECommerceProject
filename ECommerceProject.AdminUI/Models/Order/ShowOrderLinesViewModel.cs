@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ECommerceProject.Entities.Concrete;
+﻿using ECommerceProject.Entities.Concrete;
 
 namespace ECommerceProject.AdminUI.Models.Order
 {

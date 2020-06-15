@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.NetworkInformation;
-using System.Text;
-
-namespace ECommerceProject.Business.Constants
+﻿namespace ECommerceProject.Business.Constants
 {
     public static class Messages
     {

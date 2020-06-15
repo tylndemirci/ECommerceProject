@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using ECommerceProject.AdminUI.Models.Product;
 using ECommerceProject.AdminUI.Models.Product.ProductDetails;
@@ -11,9 +8,7 @@ using ECommerceProject.Business.Abstract;
 using ECommerceProject.Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace ECommerceProject.AdminUI.Controllers
 {
@@ -164,6 +159,8 @@ namespace ECommerceProject.AdminUI.Controllers
                     Description = model.Description,
                     ProductColor = model.ProductColor,
                     IsFeatured = model.IsFeatured,
+                    IsApproved =  model.IsApproved,
+                    Count = model.Count,
                     ImageUrl = model.ImageUrl ?? "productDefault.png",
 
                 };

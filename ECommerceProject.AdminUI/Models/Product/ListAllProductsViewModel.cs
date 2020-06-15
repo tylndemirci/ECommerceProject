@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using ECommerceProject.AdminUI.Models.Category;
-
-namespace ECommerceProject.AdminUI.Models.Product
+﻿namespace ECommerceProject.AdminUI.Models.Product
 {
     public class ListAllProductsViewModel
     {
@@ -13,9 +10,9 @@ namespace ECommerceProject.AdminUI.Models.Product
             CategoryName = product.Category.Title;
             Count = product.Count;
             Price = product.Price;
-            IsStock = product.Count > 1 ? true : false;
-            IsApproved = false;
-            IsFeatured = false;
+            IsStock = product.Count > 1;
+            IsApproved = product.IsApproved;
+            IsFeatured = product.IsFeatured;
             ProductName = product.ProductName;
             Description = product.Description;
             ProductColor = product.ProductColor;

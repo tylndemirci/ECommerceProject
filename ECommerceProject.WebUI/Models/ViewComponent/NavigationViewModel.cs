@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ECommerceProject.Business.Concrete;
-using ECommerceProject.Entities.Concrete;
-using Microsoft.AspNetCore.Mvc.Rendering;
-
-namespace ECommerceProject.WebUI.Models.ViewComponent
+﻿namespace ECommerceProject.WebUI.Models.ViewComponent
 {
     public class NavigationViewModel
     {

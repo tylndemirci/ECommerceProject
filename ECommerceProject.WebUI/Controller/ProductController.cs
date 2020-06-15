@@ -1,23 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading;
-using System.Threading.Tasks;
-
 using cloudscribe.Pagination.Models;
 using ECommerceProject.Business.Abstract;
-using ECommerceProject.Entities.Concrete;
-using ECommerceProject.WebUI.Components.SearchBar;
 using ECommerceProject.WebUI.Models.Category;
 using ECommerceProject.WebUI.Models.Product;
-using ECommerceProject.WebUI.Models.ViewComponent;
 using ECommerceProject.WebUI.Models.ViewComponent.ProductFilter;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 
 
 namespace ECommerceProject.WebUI.Controller
@@ -34,7 +23,7 @@ namespace ECommerceProject.WebUI.Controller
             _categoryService = categoryService;
             _productDetailsService = productDetailsService;
         }
-        [Route("/ProductDetails")]
+        // [Route("/ProductDetails")]
         public IActionResult ProductDetails(int productId)
         {
             var subCategory = _categoryService.GetSubCategoryForProduct(productId);
@@ -75,12 +64,7 @@ namespace ECommerceProject.WebUI.Controller
 
             }
 
-
-
-
-
-            //var category = _categoryService.GetCategory(getProduct.CategoryId);
-
+            
             return View(setProduct);
             //todo return to home in case something occurs.
 

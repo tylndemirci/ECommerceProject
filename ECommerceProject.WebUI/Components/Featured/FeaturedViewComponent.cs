@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using ECommerceProject.Business.Abstract;
 using ECommerceProject.WebUI.Models.ViewComponent;
 using Microsoft.AspNetCore.Mvc;

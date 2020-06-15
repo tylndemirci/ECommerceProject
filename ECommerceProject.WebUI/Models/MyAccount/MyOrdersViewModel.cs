@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ECommerceProject.Core.Enums;
-using ECommerceProject.Entities.Concrete;
+﻿using System.Collections.Generic;
 
 namespace ECommerceProject.WebUI.Models.MyAccount
 {

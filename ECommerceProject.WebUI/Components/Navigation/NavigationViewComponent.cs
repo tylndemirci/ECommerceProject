@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ECommerceProject.AdminUI.Models.Category;
+﻿using System.Linq;
 using ECommerceProject.Business.Abstract;
-using ECommerceProject.Business.Concrete;
 using ECommerceProject.WebUI.Models.ViewComponent;
 using Microsoft.AspNetCore.Mvc;
 

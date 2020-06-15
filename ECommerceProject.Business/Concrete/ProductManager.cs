@@ -23,6 +23,14 @@ namespace ECommerceProject.Business.Concrete
            return getProduct;
        }
 
+       public IQueryable<Product> GetProductByCategoryId(int categoryId)
+       {
+           var getProduct = _productDal.GetAll(x => x.CategoryId == categoryId).Include(x=>x.Category);
+           
+           
+           return getProduct;
+       }
+
        public void AddProduct(Product product)
         {
            

@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using ECommerceProject.Business.Abstract;
-using ECommerceProject.Entities;
-using ECommerceProject.WebUI.Extensions;
+﻿using System.Security.Claims;
 using ECommerceProject.WebUI.Helper;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 
 namespace ECommerceProject.WebUI.Components.Cart
 {

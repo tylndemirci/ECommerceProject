@@ -1,19 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mime;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using ECommerceProject.Business.Abstract;
 using ECommerceProject.Core.Enums;
-using ECommerceProject.Entities;
 using ECommerceProject.Entities.Concrete;
 using ECommerceProject.Entities.DomainModels;
 using ECommerceProject.WebUI.Helper;
 using ECommerceProject.WebUI.Models.Order;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceProject.WebUI.Controller

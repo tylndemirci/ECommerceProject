@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ECommerceProject.WebUI.Models.Category
+﻿namespace ECommerceProject.WebUI.Models.Category
 {
     public class ListCategoryProductsModel
     {
@@ -30,7 +24,7 @@ namespace ECommerceProject.WebUI.Models.Category
         public int PageNumber { get; set; }
         public int TotalItems { get; set; }
         public int PageSize { get; set; }
-        public string Query { get; set; }
+        public string? Query { get; set; }
 
        
 

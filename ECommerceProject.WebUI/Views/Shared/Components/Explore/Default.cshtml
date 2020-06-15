@@ -1,0 +1,69 @@
+﻿@model IEnumerable<ECommerceProject.WebUI.Models.ViewComponent.NewProductsViewModel>
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+            <!-- section title -->
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h3 class="title">Explore Products</h3>
+                </div>
+            </div>
+            <!-- /section title -->
+            <!-- Products tab & slick -->
+
+            <div class="row">
+
+                <!-- tab -->
+
+
+                @foreach (var product in Model)
+                {
+                    <!-- product -->
+                    <div class="col-md-4 col-xs-6">
+                        <div class="product">
+                            <div class="product-img">
+                                <a asp-controller="Product" asp-action="ProductDetails" asp-route-productId="@product.ProductId">
+                                    <img src="~/productimages/@product.ImageUrl" width="100%" style="margin: auto" alt="">
+                                </a>
+                            </div>
+                            <div class="product-body">
+                                <p class="product-category">@product.CategoryName</p>
+                                <h3 class="product-name">
+                                    <a asp-controller="Product" asp-action="ProductDetails" asp-route-productId="@product.ProductId">@product.ProductName</a>
+                                </h3>
+                                <h4 class="product-price">  <a asp-controller="Product" asp-action="ProductDetails" asp-route-productId="@product.ProductId">@product.Price.ToString("C")</a></h4>
+
+                                <div class="product-btns">
+                                    <button class="add-to-wishlist">
+                                        <i class="fa fa-heart-o"></i><span class="tooltipp">Add to Wishlist</span>
+                                    </button>
+                                    <button class="add-to-compare">
+                                        <i class="fa fa-exchange"></i><span class="tooltipp">Add to Compare</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="add-to-cart">
+
+                                <a asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@product.ProductId" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /product -->
+                }
+
+
+                <!-- /tab -->
+
+            </div>
+
+            <!-- Products tab & slick -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->

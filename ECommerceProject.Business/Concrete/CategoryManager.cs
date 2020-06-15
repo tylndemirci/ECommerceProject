@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
+﻿using System.Linq;
 using ECommerceProject.Business.Abstract;
-using ECommerceProject.DataAccess;
 using ECommerceProject.DataAccess.Abstract;
 using ECommerceProject.Entities.Concrete;
 using Microsoft.EntityFrameworkCore;

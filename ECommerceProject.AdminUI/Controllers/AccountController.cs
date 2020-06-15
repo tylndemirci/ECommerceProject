@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿#nullable enable
 using System.Threading.Tasks;
 using ECommerceProject.AdminUI.Models.Identity;
 using ECommerceProject.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceProject.AdminUI.Controllers
 {
@@ -18,7 +15,7 @@ namespace ECommerceProject.AdminUI.Controllers
         private readonly IPasswordHasher<ApplicationUser> _passwordHasher;
         private readonly IPasswordValidator<ApplicationUser> _passwordValidator;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, 
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
             IPasswordHasher<ApplicationUser> passwordHasher, IPasswordValidator<ApplicationUser> passwordValidator)
         {
             _userManager = userManager;
@@ -35,7 +32,7 @@ namespace ECommerceProject.AdminUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginModel model, string returnUrl)
+        public async Task<IActionResult> Login(LoginModel model, string? returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -50,13 +47,15 @@ namespace ECommerceProject.AdminUI.Controllers
                         return Redirect(returnUrl ?? "/");
                     }
                 }
+
                 ModelState.AddModelError("", "Email or password is invalid");
             }
 
-            ViewBag.returnUrl = returnUrl;
+            ViewBag.returnUrl = returnUrl ?? "/";
             return View(model);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -86,9 +85,11 @@ namespace ECommerceProject.AdminUI.Controllers
                     }
                 }
             }
+
             return View(model);
         }
 
+        [HttpGet]
         public async Task<IActionResult> UpdateUser(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
@@ -102,14 +103,15 @@ namespace ECommerceProject.AdminUI.Controllers
             }
         }
 
+        [HttpPost]
         public async Task<IActionResult> UpdateUser(string id, string password, string email)
         {
             var user = await _userManager.FindByIdAsync(id);
-            if (user!=null)
+            if (user != null)
             {
                 user.Email = email;
 
-                IdentityResult validPass =null;
+                IdentityResult validPass = null;
 
                 if (!string.IsNullOrEmpty(password))
                 {
@@ -129,11 +131,10 @@ namespace ECommerceProject.AdminUI.Controllers
 
                 if (validPass.Succeeded)
                 {
-                    
                     var result = await _userManager.UpdateAsync(user);
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Index");
+                        return RedirectToAction("Index", "AdminPage");
                     }
                     else
                     {
@@ -176,11 +177,9 @@ namespace ECommerceProject.AdminUI.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult AccessDenied()
-        {
-            return View();
-        }
-
-
+        // public IActionResult AccessDenied()
+        // {
+        //     return View();
+        // }
     }
 }

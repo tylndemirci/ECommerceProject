@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using ECommerceProject.AdminUI.Models.Order;
 using ECommerceProject.Business.Abstract;
-using ECommerceProject.Core.Enums;
 using ECommerceProject.Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceProject.AdminUI.Controllers

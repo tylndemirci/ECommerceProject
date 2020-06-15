@@ -472,8 +472,6 @@ textarea.input {
 .header-search form .input-select {
   margin-right: -4px;
   border-radius: 40px 0px 0px 40px;
-    width: 100px;
-   
 }
 
 .header-search form .input {
@@ -1164,7 +1162,8 @@ textarea.input {
 }
 
 .products-slick .product.slick-slide {
-  margin: 15px;
+  margin: 15px; 
+  
 }
 
 .products-tabs>.tab-pane {
@@ -1240,6 +1239,7 @@ textarea.input {
 
 #price-slider {
   margin-bottom: 15px;
+  position: relative;
 }
 
 .noUi-target {

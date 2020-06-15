@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
+﻿using System.Linq;
 using ECommerceProject.Business.Abstract;
 using ECommerceProject.DataAccess.Abstract;
 using ECommerceProject.Entities.Concrete;
-using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceProject.Business.Concrete
 {

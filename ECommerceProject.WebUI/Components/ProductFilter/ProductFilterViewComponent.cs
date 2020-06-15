@@ -2,8 +2,6 @@
 using ECommerceProject.Business.Abstract;
 using ECommerceProject.WebUI.Models.ViewComponent.ProductFilter;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceProject.WebUI.Components.ProductFilter
 {
