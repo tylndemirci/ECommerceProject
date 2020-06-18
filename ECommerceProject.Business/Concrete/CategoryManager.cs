@@ -67,6 +67,7 @@ namespace ECommerceProject.Business.Concrete
         //todo: make it generic
         public void DeleteCategoryTree(int categoryId)
         {
+            //i++ yaparak dene
             var deleting = _categoryDal.GetBy(p => p.Id == categoryId);
             var deletingSubs = _categoryDal.GetAll().Where(p => p.ParentCategoryId == deleting.Id);
             if (deletingSubs.Any())

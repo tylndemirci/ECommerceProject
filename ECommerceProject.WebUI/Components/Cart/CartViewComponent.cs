@@ -22,8 +22,8 @@ namespace ECommerceProject.WebUI.Components.Cart
             var cart = _cartSessionHelper.GetCart("cart");
             
             var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            return View();
+ 
+            return View(cart);
 
 
 

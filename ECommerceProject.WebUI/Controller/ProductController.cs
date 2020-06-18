@@ -2,6 +2,7 @@
 using System.Linq;
 using cloudscribe.Pagination.Models;
 using ECommerceProject.Business.Abstract;
+using ECommerceProject.WebUI.Arge;
 using ECommerceProject.WebUI.Models.Category;
 using ECommerceProject.WebUI.Models.Product;
 using ECommerceProject.WebUI.Models.ViewComponent.ProductFilter;
@@ -23,6 +24,7 @@ namespace ECommerceProject.WebUI.Controller
             _categoryService = categoryService;
             _productDetailsService = productDetailsService;
         }
+
         // [Route("/ProductDetails")]
         public IActionResult ProductDetails(int productId)
         {
@@ -49,7 +51,6 @@ namespace ECommerceProject.WebUI.Controller
                 Description = getProduct.Description,
                 ProductColor = getProduct.ProductColor,
                 ImageUrl = getProduct.ImageUrl
-
             };
 
             var getDetails = _productDetailsService.GetAllDetails(productId).Where(x => x.IsDeleted == false);
@@ -58,16 +59,13 @@ namespace ECommerceProject.WebUI.Controller
             setProduct.ProductDetailsDescription = new List<string>();
             foreach (var detail in getDetails)
             {
-
                 setProduct.ProductDetailsTitle.Add(detail.ProductDetailTitle);
                 setProduct.ProductDetailsDescription.Add(detail.ProductDetailDescription);
-
             }
 
-            
+
             return View(setProduct);
             //todo return to home in case something occurs.
-
         }
 
         //[Route("/Products-{pageIndex}-{categoryId}")]
@@ -82,24 +80,25 @@ namespace ECommerceProject.WebUI.Controller
 
             if (model.SearchCategoryId != 0)
             {
-                
                 //model.CategoryId = model.SearchCategoryId;
                 ViewData["CategoryId"] = model.SearchCategoryId;
             }
 
-            if (model.SearchCategoryId==0 && model.CategoryId!=0)
+            if (model.SearchCategoryId == 0 && model.CategoryId != 0)
             {
                 var getCategory = _categoryService.GetCategory(model.CategoryId);
-                if (getCategory.ParentCategoryId!=null)
+                if (getCategory.ParentCategoryId != null)
                 {
                     model.SearchCategoryId = model.CategoryId;
                 }
             }
+
             ViewData["MaxPrice"] = model.Max;
-            if (model.Min > model.Max && (decimal)model.Max == 0)
+            if (model.Min > model.Max && (decimal) model.Max == 0)
             {
                 model.Max = _productService.ListProduct().Select(x => x.Price).Max();
             }
+
             ViewData["MinPrice"] = model.Min;
             ViewData["SearchCategoryName"] = model.SearchCategoryName;
 
@@ -130,21 +129,23 @@ namespace ECommerceProject.WebUI.Controller
                 if (model.Min >= 0 && model.Max > 0)
                 {
                     var products = _productService.ListProduct()
-                        .Where(x =>x.Category.ParentCategoryId == model.CategoryId && x.Price >= model.Min && x.Price <= model.Max)
+                        .Where(x => x.Category.ParentCategoryId == model.CategoryId && x.Price >= model.Min && x.Price <= model.Max)
                         .Skip(excludeRecords)
                         .Take(pageSize)
                         .Include(x => x.Category).Select(x => new ListCategoryProductsModel(x));
-                    var resultd = new PagedResult<ListCategoryProductsModel>
-                    {
-                        Data = products.ToList(),
-                        TotalItems = _productService
-                            .ListProduct().Count(x => x.Category.ParentCategoryId == model.CategoryId  && x.Price >= model.Min && x.Price <= model.Max),
-                        PageNumber = pageIndex,
-                        PageSize = pageSize
-                    };
-                   //0 0 1000
+                    var resultd = new PaginationClass<ListCategoryProductsModel>(products.ToList(),
+                        _productService.ListProduct().Count(x => x.Category.ParentCategoryId == model.CategoryId && x.Price >= model.Min && x.Price <= model.Max), pageIndex, pageSize)
+                        .ReturnPagedResult(); // {
+                    //     Data = products.ToList(),
+                    //     TotalItems = _productService
+                    //         .ListProduct().Count(x => x.Category.ParentCategoryId == model.CategoryId  && x.Price >= model.Min && x.Price <= model.Max),
+                    //     PageNumber = pageIndex,
+                    //     PageSize = pageSize
+                    // };
+                    //0 0 1000
                     return View(resultd);
                 }
+
                 if (model.Min >= 0)
                 {
                     var products = _productService.ListProduct()
@@ -163,13 +164,11 @@ namespace ECommerceProject.WebUI.Controller
                     //ok / main
                     return View(resultd);
                 }
-
             }
 
 
-            if (model.SearchCategoryId != 0 && model.Min >=0 || model.Max<= 0)
+            if (model.SearchCategoryId != 0 && model.Min >= 0 || model.Max <= 0)
             {
-
                 if (model.Min >= 0 && model.Max > 0)
                 {
                     var products = _productService.ListProduct()
@@ -185,9 +184,10 @@ namespace ECommerceProject.WebUI.Controller
                         PageNumber = pageIndex,
                         PageSize = pageSize
                     };
-                  //android 0 1000
+                    //android 0 1000
                     return View(resultd);
                 }
+
                 if (model.Min >= 0)
                 {
                     var products = _productService.ListProduct()
@@ -207,9 +207,9 @@ namespace ECommerceProject.WebUI.Controller
                     return View(resultd);
                 }
             }
+
             return RedirectToAction("Index", "Home");
         }
-
 
 
         public IActionResult Search(ProductFilterViewModel model, string searchFor, int pageIndex = 1)
@@ -235,10 +235,11 @@ namespace ECommerceProject.WebUI.Controller
             }
 
             ViewData["MaxPrice"] = model.Max;
-            if (model.Min > model.Max && (decimal)model.Max == 0)
+            if (model.Min > model.Max && (decimal) model.Max == 0)
             {
                 model.Max = _productService.ListProduct().Select(x => x.Price).Max();
             }
+
             ViewData["MinPrice"] = model.Min;
             ViewData["SearchCategoryName"] = model.SearchCategoryName;
 
@@ -249,7 +250,6 @@ namespace ECommerceProject.WebUI.Controller
                     .Where(x => x.ProductName.Contains(searchFor))
                     .Skip(excludeRecords)
                     .Take(pageSize)
-                    
                     .Include(x => x.Category).Select(x => new ListCategoryProductsModel(x));
 
                 var resultd = new PagedResult<ListCategoryProductsModel>
@@ -284,6 +284,7 @@ namespace ECommerceProject.WebUI.Controller
                     //0 0 1000
                     return View(resultd);
                 }
+
                 if (model.Min >= 0)
                 {
                     var products = _productService.ListProduct()
@@ -295,20 +296,18 @@ namespace ECommerceProject.WebUI.Controller
                     {
                         Data = products.ToList(),
                         TotalItems = _productService
-                            .ListProduct().Count(x => x.ProductName.Contains(searchFor) &&  x.Price >= model.Min),
+                            .ListProduct().Count(x => x.ProductName.Contains(searchFor) && x.Price >= model.Min),
                         PageNumber = pageIndex,
                         PageSize = pageSize
                     };
                     //main
                     return View(resultd);
                 }
-
             }
 
 
             if (model.SearchCategoryId != 0 && model.Min >= 0 || model.Max <= 0)
             {
-
                 if (model.Min >= 0 && model.Max > 0)
                 {
                     var products = _productService.ListProduct()
@@ -324,9 +323,10 @@ namespace ECommerceProject.WebUI.Controller
                         PageNumber = pageIndex,
                         PageSize = pageSize
                     };
-                   //android 0 1000
+                    //android 0 1000
                     return View(resultd);
                 }
+
                 if (model.Min >= 0)
                 {
                     var products = _productService.ListProduct()
@@ -338,7 +338,7 @@ namespace ECommerceProject.WebUI.Controller
                     {
                         Data = products.ToList(),
                         TotalItems = _productService
-                            .ListProduct().Count(x =>x.ProductName.Contains(searchFor) && x.CategoryId == model.CategoryId && x.Price >= model.Min),
+                            .ListProduct().Count(x => x.ProductName.Contains(searchFor) && x.CategoryId == model.CategoryId && x.Price >= model.Min),
                         PageNumber = pageIndex,
                         PageSize = pageSize
                     };
@@ -346,9 +346,8 @@ namespace ECommerceProject.WebUI.Controller
                     return View(resultd);
                 }
             }
+
             return RedirectToAction("Index", "Home");
-
-
         }
     }
 }
