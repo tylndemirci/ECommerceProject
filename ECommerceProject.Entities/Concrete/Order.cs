@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace ECommerceProject.Entities.Concrete
 {
@@ -14,7 +15,7 @@ namespace ECommerceProject.Entities.Concrete
         [Required] public DateTime OrderDate { get; set; }
 
         [Required] public EnumOrderState OrderState { get; set; }
-        [Required] public string UserName { get; set; }
+        [Required] public string? UserName { get; set; }
 
         [Required] public string Name { get; set; }
         [Required] public string Surname { get; set; }

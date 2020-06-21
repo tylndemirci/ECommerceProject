@@ -6,6 +6,7 @@ namespace ECommerceProject.Business.Abstract
     public interface IOrderService
     {
         void UpdateOrder(Order order);
+        void CreateOrder(Order order);
         IQueryable<Order> GetOrdersOfUser(string userName);
         IQueryable<Order> GetAllOrders();
 

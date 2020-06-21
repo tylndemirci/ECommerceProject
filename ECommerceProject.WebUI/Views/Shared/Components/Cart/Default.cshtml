@@ -1,34 +1,38 @@
-﻿@model ECommerceProject.Entities.DomainModels.Cart
+﻿@model ECommerceProject.WebUI.Models.Cart.CartModel
  <!-- Cart -->
 <div class="dropdown">
     <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
         <i class="fa fa-shopping-cart"></i>
         <span asp-controller="Cart" asp-action="Checkout">Your Cart</span>
-        <div class="qty">@Model.TotalProductQuantity()</div>
+        <div class="qty">@Model.TotalProductQuantity</div>
     </a>
     <div class="cart-dropdown">
         <div class="cart-list">
-            @foreach (var product in Model.CartLines)
+            @if (Model != null)
             {
-            <div class="product-widget">
-                <div class="product-img">
-                    <img src="./img/product01.png" alt="">
-                </div>
-                <div class="product-body">
-                    <h3 class="product-name"><a href="#">@product.Product.ProductName</a></h3>
-                    <h4 class="product-price"><span class="qty">@product.Quantity</span>@product.Product.Price * @product.Quantity</h4>
-                </div>
-                @* <button class="delete" asp-controller="Cart" asp-action="RemoveFromCart"><i class="fa fa-close"></i></button> *@
-            </div>
-                    }
-                </div>
+                @for (int i = 0; i < Model.ProductName.Count; i++)
+                {
+                    <div class="product-widget">
+                        <div class="product-img">
+                            <img src="@Model.ImageUrl[i]" alt="">
+                        </div>
+                        <div class="product-body">
+                            <h3 class="product-name"><a href="#">@Model.ProductName[i]</a></h3>
+                            <h4 class="product-price"><span class="qty">@Model.Quantity[i]</span>@(Model.Price[i] * @Model.Quantity[i])</h4>
+                        </div>
+                        @* <button class="delete" asp-controller="Cart" asp-action="RemoveFromCart"><i class="fa fa-close"></i></button> *@
+                    </div>
+                }
+            }
+
+        </div>
                 <div class="cart-summary">
-                    <small>3 Item(s) selected</small>
-                    <h5>SUBTOTAL: $2940.00</h5>
+                    <small>@Model.TotalProductQuantity Item(s) selected</small>
+                    <h5>SUBTOTAL: @Model.TotalPrice₺</h5>
                 </div>
                 <div class="cart-btns">
-                    <a href="#">View Cart</a>
-                    <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+                    @* <a href="#">View Cart</a> *@
+                    <a asp-controller="Cart" asp-action="Checkout">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
         </div>

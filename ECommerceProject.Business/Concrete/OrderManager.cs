@@ -28,6 +28,27 @@ namespace ECommerceProject.Business.Concrete
             }
 
         }
+        
+        public void CreateOrder(Order order)
+        {
+            var returnOrder= new Order();
+            returnOrder.Address = order.Address;
+            returnOrder.City = order.City;
+            returnOrder.Country = order.Country;
+            returnOrder.District = order.District;
+            returnOrder.Name = order.Name;
+            returnOrder.Phone = order.Phone;
+            returnOrder.Surname = order.Surname;
+            returnOrder.Total = order.Total;
+            returnOrder.AddressTitle = order.AddressTitle;
+            returnOrder.OrderDate = order.OrderDate;
+            returnOrder.OrderLines = order.OrderLines;
+            returnOrder.OrderNumber = order.OrderNumber;
+            returnOrder.OrderState = order.OrderState;
+            returnOrder.UserName = order.UserName;
+            _orderDal.Add(order);
+
+        }
 
         public IQueryable<Order> GetOrdersOfUser(string userName)
         {

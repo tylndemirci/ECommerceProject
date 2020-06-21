@@ -1,4 +1,5 @@
 ﻿@model ECommerceProject.WebUI.Models.Order.OrderDetailsModel
+<form asp-action="Checkout" method="post">
 <!-- BREADCRUMB -->
     <div id="breadcrumb" class="section">
         <!-- container -->
@@ -55,19 +56,19 @@
                         <div class="form-group">
                             <input class="input" asp-for="Phone" type="tel" placeholder="Phone Number">
                         </div>
-                        <div class="form-group">
-                            <div class="input-checkbox">
-                                <input type="checkbox" id="create-account">
-                                <label for="create-account">
-                                    <span></span>
-                                    Create Account?
-                                </label>
-                                <div class="caption">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-                                    <input class="input" type="password" name="password" placeholder="Enter Your Password">
-                                </div>
-                            </div>
-                        </div>
+                        @* <div class="form-group"> *@
+                        @*     <div class="input-checkbox"> *@
+                        @*         <input type="checkbox" id="create-account"> *@
+                        @*         <label for="create-account"> *@
+                        @*             <span></span> *@
+                        @*             Create Account? *@
+                        @*         </label> *@
+                        @*         <div class="caption"> *@
+                        @*             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p> *@
+                        @*             <input class="input" type="password" name="password" placeholder="Enter Your Password"> *@
+                        @*         </div> *@
+                        @*     </div> *@
+                        @* </div> *@
                     </div>
                     <!-- /Billing Details -->
                     <!-- Shiping Details -->
@@ -84,6 +85,7 @@
                             <div class="caption">
                                 <div class="form-group">
                                     <input class="input" asp-for="Name" placeholder="First Name">
+                                   @Html.HiddenFor((x=>x.UserId));
                                 </div>
                                 <div class="form-group">
                                     <input class="input" asp-for="Surname" placeholder="Last Name">
@@ -104,7 +106,7 @@
                                     <input class="input" asp-for="AddressTitle" placeholder="Address Title">
                                 </div>
                                 <div class="form-group">
-                                    <input class="input" asp-for="Phone" type="tel" placeholder="Phone Number">
+                                    <input class="input" asp-for="Phone" type="number" placeholder="Phone Number">
                                 </div>
                             </div>
                         </div>
@@ -121,6 +123,7 @@
                 <div class="col-md-5 order-details">
                     <div class="section-title text-center">
                         <h3 class="title">Your Order</h3>
+                        <div class="text-danger" asp-validation-summary="All"></div>
                     </div>
                     <div class="order-summary">
                         <div class="order-col">
@@ -128,14 +131,17 @@
                             <div><strong>TOTAL</strong></div>
                         </div>
                         <div class="order-products">
-                            <div class="order-col">
-                                <div>@Model.UserName</div>
-                                <div>$980.00</div>
-                            </div>
-                            <div class="order-col">
-                                <div>2x Product Name Goes Here</div>
-                                <div>$980.00</div>
-                            </div>
+                        </div>
+                            
+                                @for (int i = 0; i < Model.ProductName.Count; i++)
+                                {
+                                    <div class="order-col">
+                                     <div>@Model.ProductName[i]</div>
+                                        <div>@(Model.Price[i] * @Model.Quantity[i])₺</div>
+                                        </div>
+                                  
+                                }
+<div>
                         </div>
                         <div class="order-col">
                             <div>Shiping</div>
@@ -143,7 +149,7 @@
                         </div>
                         <div class="order-col">
                             <div><strong>TOTAL</strong></div>
-                            <div><strong class="order-total">$2940.00</strong></div>
+                            <div><strong class="order-total">@Model.TotalPrice₺</strong></div>
                         </div>
                     </div>
                     <div class="payment-method">
@@ -185,15 +191,15 @@
                             I've read and accept the <a href="#">terms & conditions</a>
                         </label>
                     </div>
-                    <a href="#" class="primary-btn order-submit">Place order</a>
+                    <button type="submit" value="Submit" class="primary-btn order-submit">Place order</button>
                 </div>
                 <!-- /Order Details -->
             </div>
             <!-- /row -->
         </div>
         <!-- /container -->
-    </div>
+         </div>
     <!-- /SECTION -->
 
-
+</form>
  

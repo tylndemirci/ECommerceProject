@@ -14,7 +14,7 @@ namespace ECommerceProject.Entities.Concrete
         
         public int Count { get; set; }
         [Column(TypeName = "decimal(18,2)")]
-        public double Price { get; set; }
+        [Required] public double Price { get; set; }
         public bool IsStock { get; set; }
         public bool IsApproved { get; set; }
         public bool IsFeatured { get; set; } 
@@ -23,7 +23,7 @@ namespace ECommerceProject.Entities.Concrete
         [Required] public string ProductName { get; set; }
         public string Description { get; set; }
         public string ProductColor { get; set; }
-        public string ImageUrl { get; set; }
+        [Required]  public string ImageUrl { get; set; }
         
        
     }

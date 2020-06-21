@@ -70,7 +70,22 @@ namespace ECommerceProject.WebUI.Controller
         [Authorize]
         public IActionResult Checkout()
         {
-            return View();
+            var cart = _cartSessionHelper.GetCart("cart");
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            cart.UserId = userId;
+            var returnModel = new OrderDetailsModel();
+            
+            foreach (var cartLine in cart.CartLines)
+            {
+                returnModel.ProductName.Add(cartLine.Product.ProductName);
+                returnModel.Price.Add(cartLine.Product.Price);
+                returnModel.Quantity.Add(cartLine.Quantity);
+               
+            }
+            returnModel.TotalProductQuantity = cart.TotalProductQuantity();
+            returnModel.TotalPrice = cart.TotalPrice();
+            returnModel.UserId = userId;
+            return View(returnModel);
         }
 
         [HttpPost]
@@ -89,9 +104,18 @@ namespace ECommerceProject.WebUI.Controller
             {
                 SaveOrder(cart, model);
                 _cartSessionHelper.Clear();
-                return View("Completed");
+                return RedirectToAction("Completed");
 
             }
+            foreach (var cartLine in cart.CartLines)
+            {
+                model.ProductName.Add(cartLine.Product.ProductName);
+                model.Price.Add(cartLine.Product.Price);
+                model.Quantity.Add(cartLine.Quantity);
+               
+            }
+            model.TotalProductQuantity = cart.TotalProductQuantity();
+            model.TotalPrice = cart.TotalPrice();
             return View(model);
         }
 
@@ -111,7 +135,7 @@ namespace ECommerceProject.WebUI.Controller
             order.City = model.City;
             order.District = model.District;
             order.Phone = model.Phone;
-            
+
 
             order.OrderLines = new List<OrderLine>();
 
@@ -125,8 +149,13 @@ namespace ECommerceProject.WebUI.Controller
                     order.OrderLines.Add(orderLine);
             }
 
-            _orderService.UpdateOrder(order);
+            _orderService.CreateOrder(order);
 
+        }
+
+        public IActionResult Completed()
+        {
+            return View();
         }
 
 
