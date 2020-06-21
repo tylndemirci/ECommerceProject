@@ -751,4 +751,11 @@
     <None Include="wwwroot\dist\js\waves.js" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Pages\AdminAccount\AdminLogin.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

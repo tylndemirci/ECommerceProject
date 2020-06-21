@@ -6,11 +6,13 @@ using ECommerceProject.Entities;
 using ECommerceProject.WebUI.Helper;
 using ECommerceProject.WebUI.Models.Identity;
 using ECommerceProject.WebUI.Models.MyAccount;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceProject.WebUI.Controller
 {
+    [Authorize]
     [Route("/Account")]
     public class AccountController : Microsoft.AspNetCore.Mvc.Controller
     {
@@ -34,14 +36,16 @@ namespace ECommerceProject.WebUI.Controller
         }
 
         [Route("/Account/Login")]
-        public IActionResult Login(string returnUrl)
+        [AllowAnonymous]
+        public IActionResult Login(string? returnUrl)
         {
-            ViewBag.returnUrl = returnUrl;
+            ViewBag.returnUrl = returnUrl ?? "/" ;
             return View();
         }
 
         [HttpPost]
         [Route("/Account/Login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginModel model, string? returnUrl)
         {
             _cartSessionHelper.GetCart("cart");
@@ -64,7 +68,9 @@ namespace ECommerceProject.WebUI.Controller
             ViewBag.returnUrl = returnUrl?? "/";
             return View(model);
         }
+        [HttpGet]
         [Route("/Account/Register")]
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View();
@@ -72,6 +78,7 @@ namespace ECommerceProject.WebUI.Controller
 
         [HttpPost]
         [Route("/Account/Register")]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterModel model)
         {
             if (ModelState.IsValid)
@@ -102,13 +109,12 @@ namespace ECommerceProject.WebUI.Controller
 
         [HttpGet]
         [Route("/ChangeMyPassword")]
-        public async Task<IActionResult> ChangeMyPassword(/*string id*/)
+        public async Task<IActionResult> ChangeMyPassword()
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
-                //var userId = user.Result.Id;
-                //    var returnuser = await _userManager.FindByIdAsync(userId);
+            
 
                 var returnModel = new ChangePasswordViewModel();
                 returnModel.Id = user.Id;
@@ -127,9 +133,6 @@ namespace ECommerceProject.WebUI.Controller
             var user = await _userManager.FindByIdAsync(model.Id);
             if (user != null)
             {
-                //user.Email = model.Email;
-
-
                 if (!string.IsNullOrEmpty(model.OldPassword))
                 {
                     var validatePass = await _passwordValidator.ValidateAsync(_userManager, user, model.OldPassword);

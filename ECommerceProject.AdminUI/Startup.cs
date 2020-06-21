@@ -4,6 +4,7 @@ using ECommerceProject.DataAccess;
 using ECommerceProject.DataAccess.Abstract;
 using ECommerceProject.DataAccess.Concrete;
 using ECommerceProject.Entities;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -30,14 +31,15 @@ namespace ECommerceProject.AdminUI
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")
                 ,builder => builder.MigrationsAssembly("ECommerceProject.AdminUI")));
             
-
-            services.AddIdentity<ApplicationUser, IdentityRole>(config =>
+            services.AddIdentity<ApplicationUser, IdentityRole>(opt =>
                 {
-                    config.SignIn.RequireConfirmedEmail = false;
-                    
-                }).AddEntityFrameworkStores<ECommerceProjectContext>()
+
+                })
+                .AddEntityFrameworkStores<ECommerceProjectContext>()
                 .AddDefaultTokenProviders();
-            //services.ConfigureApplicationCookie(opt => opt.LoginPath = "/Member/Login");
+            
+            
+
             services.AddTransient<IProductDal, EfProductDal>();
             services.AddTransient<IProductService, ProductManager>();
             services.AddTransient<ICategoryDal, EfCategoryDal>();
@@ -50,10 +52,15 @@ namespace ECommerceProject.AdminUI
             services.AddTransient<IOrderLineService, OrderLineManager>();
 
           
-           
-            
+            services.PostConfigure<CookieAuthenticationOptions>(IdentityConstants.ApplicationScheme,
+                opt =>
+                {
+                    opt.LoginPath = "/AdminAccount/AdminLogin";
+                });
 
             services.AddControllersWithViews();
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,11 +74,13 @@ namespace ECommerceProject.AdminUI
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting();
-
+            app.UseRouting(); 
+            app.UseSession();
+            
             app.UseAuthentication();
 
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {

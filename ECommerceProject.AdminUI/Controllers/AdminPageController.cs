@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using ECommerceProject.Business.Abstract;
 using ECommerceProject.Core.Enums;
 using Microsoft.AspNetCore.Identity;
 using ECommerceProject.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ECommerceProject.AdminUI.Controllers
 {
-    
+    [Authorize]
     public class AdminPageController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -24,6 +26,7 @@ namespace ECommerceProject.AdminUI.Controllers
             _orderLineService = orderLineService;
         }
 
+        
         public IActionResult Index()
         {
            var enumOrderStates = Enum.GetValues(typeof(EnumOrderState)).Cast<EnumOrderState>().Select(v =>
