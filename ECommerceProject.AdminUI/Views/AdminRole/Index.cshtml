@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole>
+
+<a class="btn btn-primary m-1" asp-controller="AdminRole" asp-action="CreateRole">Add Product</a>
+    <table class="table-striped table table-sm text-center font-weight-bold">
+        <tr>
+            <th>Role ID</th>
+            <th>Role Name</th>
+            <th>Options</th>
+           
+
+        </tr>
+
+        @foreach (var role in Model)
+        { 
+    <tr>
+        <td>@role.Id</td>
+        <td>@role.Name</td>
+        @* <td><a asp-controller="Product" asp-action="EditProduct" asp-route-id="@product.ProductId" class="btn btn-success">Edit</a> *@
+        @*     <a asp-controller="Product" asp-action="EditProductDetail" asp-route-productId="@product.ProductId" class="btn  btn-primary">Product Detail Options</a> *@
+        @*     <a asp-controller="Product" asp-action="DeleteProduct" asp-route-id="@product.ProductId" class="btn btn-danger">Delete</a></td> *@
+        @* <td></td> *@
+
+    </tr>
+        }
+    </table>
