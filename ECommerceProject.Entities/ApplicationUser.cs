@@ -8,6 +8,8 @@ namespace ECommerceProject.Entities
     {
         [Required]public string Name { get; set; }
         [Required] public string Surname { get; set; }
+
+        public virtual IdentityRole RoleName { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime CreationDate { get; set; }  
     }

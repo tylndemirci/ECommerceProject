@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
 using ECommerceProject.Business.Abstract;
@@ -9,8 +9,9 @@ using ECommerceProject.WebUI.Models.MyAccount;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+ using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace ECommerceProject.WebUI.Controller
+ namespace ECommerceProject.WebUI.Controller
 {
     [Authorize]
     [Route("/Account")]
@@ -34,6 +35,7 @@ namespace ECommerceProject.WebUI.Controller
             _cartSessionHelper = cartSessionHelper;
             _orderService = orderService;
         }
+        
 
         [Route("/Account/Login")]
         [AllowAnonymous]
@@ -89,11 +91,27 @@ namespace ECommerceProject.WebUI.Controller
                 user.Name = model.Name;
                 user.Surname = model.Surname;
                 user.CreationDate = DateTime.Now;
+                
 
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
+                    var currentUser = _userManager.Users.FirstOrDefault(u => u.UserName == user.UserName);
+
+                    if (currentUser != null)
+                    {
+                        result = await _userManager.AddToRoleAsync(currentUser, "User");
+                        
+                        if (!result.Succeeded)
+                        {
+                            foreach (var error in result.Errors)
+                            {
+                                ModelState.AddModelError("", error.Description);
+                            }
+                        }
+                    }
+                    
                     return RedirectToAction("Login", "Account");
                 }
                 else

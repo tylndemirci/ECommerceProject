@@ -1,0 +1,49 @@
+﻿@* @model IEnumerable<ECommerceProject.AdminUI.Models.AdminRole.ViewUsersViewModel> *@
+@* *@
+@* <div class="modal" tabindex="-1" role="dialog" id="UpdateOrderState"> *@
+@*     <div class="modal-dialog" role="document"> *@
+@*         <div class="modal-content"> *@
+@*             <div class="modal-header"> *@
+@*                 <h5 class="modal-title">@Model.Select(x=>x.RoleName)</h5> *@
+@*                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"> *@
+@*                     <span aria-hidden="true">&times;</span> *@
+@*                 </button> *@
+@*             </div> *@
+@*             <div class="modal-body"> *@
+@*                 <form> *@
+@*                     <table class="table table-hover"> *@
+@*                         <thead> *@
+@*                         <tr> *@
+@*                             <th>User Name</th> *@
+@*                             <th>Options</th> *@
+@*                         </tr> *@
+@*                         </thead> *@
+@*                         <tbody> *@
+@* *@
+@*                         @foreach (var user in Model) *@
+@*                         { *@
+@*                             <tr> *@
+@*                                 @Html.HiddenFor(x => user.UserId) *@
+@* *@
+@*                                 <td>@user.UserName</td> *@
+@* *@
+@*                                 <td> <select asp-for="" asp-items="Html.GetEnumSelectList<EnumOrderState>()" class="form-control"> *@
+@*                                     <option selected="selected" value="">Please select</option> *@
+@*                                 </select></td> *@
+@* *@
+@*                             </tr> *@
+@* *@
+@*                         } *@
+@*                         *@
+@*                         </tbody> *@
+@*                         *@
+@*                     </table> *@
+@*                 </form> *@
+@*             </div> *@
+@*             <div class="modal-footer"> *@
+@*                 <button type="button" class="btn btn-primary" data-save="modal">Save changes</button> *@
+@*                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@

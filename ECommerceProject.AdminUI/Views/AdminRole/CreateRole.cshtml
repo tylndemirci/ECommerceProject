@@ -1,14 +1,15 @@
-﻿@model Microsoft.AspNetCore.Identity.IdentityRole
+﻿@model ECommerceProject.AdminUI.Models.AdminRole.CreateAdminRoleModel
 
 
-<div class="container">
-    <div class="row">
+
         <div class="form-control">
             <form asp-action="CreateRole" asp-controller="AdminRole" method="post">
-                @Html.TextBoxFor(x => x.Name)
-                <button type="submit" value="Submit" class="btn btn-succes">Create Role</button>
+                <div class="form-group">
+                    @Html.LabelFor(x=>x.RoleName)
+                    @Html.TextBoxFor(x => x.RoleName)
+                    @Html.ValidationMessageFor(x=>x.RoleName,null,new {@class="text-danger"})
+                </div>
+                <button type="submit" value="Submit" class="btn btn-success">Create Role</button>
                 <a asp-action="Index" asp-controller="AdminRole" class="btn btn-secondary">Return</a>
-              </form>
+            </form>
         </div>
-    </div>
-</div>

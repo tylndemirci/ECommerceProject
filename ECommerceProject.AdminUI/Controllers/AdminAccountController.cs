@@ -26,7 +26,7 @@ namespace ECommerceProject.AdminUI.Controllers
         }
 
 
-        public async Task<IActionResult> AdminLogin(string? returnUrl)
+        public IActionResult AdminLogin(string? returnUrl)
         {
 
             ViewBag.returnUrl = returnUrl ?? "/" ;

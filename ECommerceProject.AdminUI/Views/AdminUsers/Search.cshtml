@@ -1,0 +1,36 @@
+﻿@model cloudscribe.Pagination.Models.PagedResult<ECommerceProject.AdminUI.Models.AdminRole.ViewUsersViewModel>
+@{
+    ViewData["Controller"] = "AdminUsers";
+    ViewData["Action"] = "Search";
+}
+<div class="container">
+
+
+                @await Component.InvokeAsync("SearchForUsers")
+
+
+
+                <table class="table table-sm table-striped text-center font-weight-bold">
+                    <thead>
+                    <tr>
+                        <th>User Name</th>
+                        <th>Role Name</th>
+                        <th>Options</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var user in Model.Data)
+                    {
+                        <tr>
+                            <td>@user.UserName</td>
+                            <td>@user.RoleName</td>
+                            @* <td><button type="button" class="btn btn-success" data-toggle="ajax-modal" data-target="#UpdateUserRoleState" data-url="@Url.Action("ViewUsers", "AdminRole", new {roleId = role.Id})">Change Role</button></td> *@
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+                 <partial name="_PaginationPartial" view-data="ViewData" model="Model"/>
+</div>
+
+
+
