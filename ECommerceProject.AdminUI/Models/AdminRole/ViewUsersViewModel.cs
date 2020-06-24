@@ -13,7 +13,6 @@ namespace ECommerceProject.AdminUI.Models.AdminRole
         {
             UserId = user.Id;
             UserName = user.UserName;
-            RoleName = user.RoleName.Name;
             Roles = roles.Select(x => new SelectListItem(x.Name, x.Id.ToString(), false, false));
         }
         
@@ -27,7 +26,12 @@ namespace ECommerceProject.AdminUI.Models.AdminRole
         {
             UserId = user.Id;
             UserName = user.UserName;
-            RoleName = user.RoleName.Name ?? "Nope";
+           
+        }
+
+        public ViewUsersViewModel()
+        {
+            
         }
         
         

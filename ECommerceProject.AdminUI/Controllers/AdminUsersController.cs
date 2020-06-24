@@ -6,6 +6,7 @@ using ECommerceProject.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 
 namespace ECommerceProject.AdminUI.Controllers
 {
@@ -20,18 +21,36 @@ namespace ECommerceProject.AdminUI.Controllers
             _roleManager = roleManager;
         }
 
-        private static int pageSize = 2;
-
+        private static int pageSize = 100;
         [HttpGet]
         public IActionResult Search(int pageIndex = 1)
         {
             int excludeRecords = (pageSize * pageIndex) - pageSize;
-            var users = _userManager.Users.Include(x=>x.RoleName).Skip(excludeRecords)
-                .Take(pageSize).Select(x=> new ViewUsersViewModel(x));
+            var users = _userManager.Users.Include(x=>x.Role);
+           var model = new ViewUsersViewModel();
+           foreach (var user in users)
+           {
+               string listForRole = "No Role";
+               var role =  _userManager.GetRolesAsync(user).Result;
+                model.UserId = user.Id;
+                model.UserName = user.Name;
+                
+                foreach (var rol in role)
+                {
+                    listForRole = rol;
+                }
+
+                model.RoleName = listForRole;
+
+
+            }
+
+           var returning = users.Skip(excludeRecords)
+                .Take(pageSize).Select(x => model);
             var returnModel = new PagedResult<ViewUsersViewModel>
             {
-                Data = users.ToList(),
-                TotalItems = users.Count(),
+                Data = returning.ToList(),
+                TotalItems = returning.Count(),
                 PageNumber = pageIndex,
                 PageSize = pageSize
             };
@@ -48,7 +67,7 @@ namespace ECommerceProject.AdminUI.Controllers
 
             if (userName!=null && roleName == null )    
             {
-                var users = _userManager.Users.Where(x=>x.UserName.Contains(userName)).Include(x=>x.RoleName).Skip(excludeRecords)
+                var users = _userManager.Users.Where(x=>x.UserName.Contains(userName)).Skip(excludeRecords)
                     .Take(pageSize).Select(x => new ViewUsersViewModel(x));
                 var returnModel = new PagedResult<ViewUsersViewModel>
                 {
@@ -91,8 +110,8 @@ namespace ECommerceProject.AdminUI.Controllers
                 return View(returnModel);
             }
 
-            var usersReturning = _userManager.Users.Skip(excludeRecords)
-                .Take(pageSize).Include(x=>_userManager.GetRolesAsync(x)).Select(x => new ViewUsersViewModel(x));
+            var usersReturning = _userManager.Users.Include(x=>x.Role).Skip(excludeRecords)
+                .Take(pageSize).Select(x => new ViewUsersViewModel(x));
             var returningModel = new PagedResult<ViewUsersViewModel>
             {
                 Data = usersReturning.ToList(),

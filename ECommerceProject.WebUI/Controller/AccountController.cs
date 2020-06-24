@@ -24,6 +24,7 @@ using Microsoft.AspNetCore.Mvc;
         private readonly IPasswordValidator<ApplicationUser> _passwordValidator;
         private readonly ICartSessionHelper _cartSessionHelper;
         private readonly IOrderService _orderService;
+       
 
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
             IPasswordHasher<ApplicationUser> passwordHasher, IPasswordValidator<ApplicationUser> passwordValidator, ICartSessionHelper cartSessionHelper, IOrderService orderService)
@@ -34,6 +35,7 @@ using Microsoft.AspNetCore.Mvc;
             _passwordValidator = passwordValidator;
             _cartSessionHelper = cartSessionHelper;
             _orderService = orderService;
+            
         }
         
 
