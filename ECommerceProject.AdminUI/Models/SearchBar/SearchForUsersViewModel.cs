@@ -14,6 +14,11 @@ namespace ECommerceProject.AdminUI.Models.SearchBar
 
         }
 
+        public SearchForUsersViewModel()
+        {
+            
+        }
+
       
         
         public string UserName { get; set; }

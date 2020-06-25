@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using ECommerceProject.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,6 +14,7 @@ namespace ECommerceProject.AdminUI.Models.AdminRole
         {
             UserId = user.Id;
             UserName = user.UserName;
+            RoleName = user.Role;
             Roles = roles.Select(x => new SelectListItem(x.Name, x.Id.ToString(), false, false));
         }
         
@@ -26,6 +28,7 @@ namespace ECommerceProject.AdminUI.Models.AdminRole
         {
             UserId = user.Id;
             UserName = user.UserName;
+            RoleName = user.Role;
            
         }
 

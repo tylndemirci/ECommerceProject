@@ -104,6 +104,8 @@ using Microsoft.AspNetCore.Mvc;
                     if (currentUser != null)
                     {
                         result = await _userManager.AddToRoleAsync(currentUser, "User");
+                        user.Role = "User";
+                        await _userManager.UpdateAsync(currentUser);
                         
                         if (!result.Succeeded)
                         {
