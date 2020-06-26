@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using ECommerceProject.AdminUI.Models.SearchBar;
-using ECommerceProject.Entities;
+﻿using ECommerceProject.AdminUI.Models.SearchBar;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 

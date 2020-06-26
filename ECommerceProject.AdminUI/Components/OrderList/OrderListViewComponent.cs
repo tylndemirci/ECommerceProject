@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using ECommerceProject.AdminUI.Models.Order;
 using ECommerceProject.Business.Abstract;
 using Microsoft.AspNetCore.Mvc;
@@ -12,12 +9,10 @@ namespace ECommerceProject.AdminUI.Components.OrderList
     public class OrderListViewComponent: ViewComponent
     {
         private readonly IOrderService _orderService;
-        private readonly IOrderLineService _orderLineService;
 
-        public OrderListViewComponent(IOrderService orderService, IOrderLineService orderLineService)
+        public OrderListViewComponent(IOrderService orderService)
         {
             _orderService = orderService;
-            _orderLineService = orderLineService;
         }
         public IViewComponentResult Invoke()
         {

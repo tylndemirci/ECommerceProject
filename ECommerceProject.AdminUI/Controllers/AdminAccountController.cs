@@ -1,6 +1,4 @@
-﻿#nullable enable
-using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using ECommerceProject.AdminUI.Models.Identity;
 using ECommerceProject.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -13,20 +11,17 @@ namespace ECommerceProject.AdminUI.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly IPasswordHasher<ApplicationUser> _passwordHasher;
-        private readonly IPasswordValidator<ApplicationUser> _passwordValidator;
 
-        public AdminAccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
-            IPasswordHasher<ApplicationUser> passwordHasher, IPasswordValidator<ApplicationUser> passwordValidator)
+
+        public AdminAccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _passwordHasher = passwordHasher;
-            _passwordValidator = passwordValidator;
+
         }
 
 
-        public IActionResult AdminLogin(string? returnUrl)
+        public IActionResult AdminLogin(string returnUrl)
         {
 
             ViewBag.returnUrl = returnUrl ?? "/" ;
@@ -34,7 +29,7 @@ namespace ECommerceProject.AdminUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AdminLogin(AdminLoginModel model, string? returnUrl)
+        public async Task<IActionResult> AdminLogin(AdminLoginModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {

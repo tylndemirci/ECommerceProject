@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using cloudscribe.Pagination.Models;
 using ECommerceProject.AdminUI.Models.AdminRole;
 using ECommerceProject.AdminUI.Models.SearchBar;
 using ECommerceProject.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
 
 namespace ECommerceProject.AdminUI.Controllers
 {
+    
     public class AdminUsersController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -23,12 +20,11 @@ namespace ECommerceProject.AdminUI.Controllers
             _roleManager = roleManager;
         }
 
-        private static int pageSize = 10;
-
+        
         [HttpGet]
         public IActionResult Search(int pageIndex = 1)
         {
-            pageSize = 50;
+           int pageSize = 2;
             int excludeRecords = (pageSize * pageIndex) - pageSize;
             var usersReturning = _userManager.Users.Skip(excludeRecords).Take(pageSize);
             foreach (var user in usersReturning)
@@ -42,16 +38,22 @@ namespace ECommerceProject.AdminUI.Controllers
             var returningModel = new PagedResult<ViewUsersViewModel>
             {
                 Data = returningFor.ToList(),
-                TotalItems = returningFor.Count(),
+                TotalItems = _userManager.Users.Count(),
                 PageNumber = pageIndex,
                 PageSize = pageSize
             };
             return View(returningModel);
         }
-
+        
         [HttpPost]
         public IActionResult Search(SearchForUsersViewModel retModel, int pageIndex = 1)
         {
+            var roleName = _roleManager.Roles.FirstOrDefault(x => x.Id == retModel.RoleName);
+            ViewData["q"] = retModel.UserName;
+            ViewData["UserName"] = retModel.UserName;
+            
+            ViewData["RoleName"] = roleName;
+            var pageSize = 2;
             int excludeRecords = (pageSize * pageIndex) - pageSize;
             if (retModel.UserName != null && retModel.RoleName == null)
             {
@@ -67,7 +69,7 @@ namespace ECommerceProject.AdminUI.Controllers
                 var returnModel = new PagedResult<ViewUsersViewModel>
                 {
                     Data = returnFor.ToList(),
-                    TotalItems = returnFor.Count(),
+                    TotalItems = _userManager.Users.Count(x => x.UserName.Contains(retModel.UserName)),
                     PageNumber = pageIndex,
                     PageSize = pageSize
                 };
@@ -77,7 +79,7 @@ namespace ECommerceProject.AdminUI.Controllers
 
             if (retModel.UserName == null && retModel.RoleName != null)
             {
-                var roleName = _roleManager.Roles.FirstOrDefault(x => x.Id == retModel.RoleName);
+                
                 var users = _userManager.GetUsersInRoleAsync(roleName.Name).Result.Skip(excludeRecords).Take(pageSize);
                 foreach (var user in users)
                 {
@@ -90,7 +92,7 @@ namespace ECommerceProject.AdminUI.Controllers
                 var returnModel = new PagedResult<ViewUsersViewModel>
                 {
                     Data = returnFor.ToList(),
-                    TotalItems = returnFor.Count(),
+                    TotalItems = _userManager.GetUsersInRoleAsync(roleName.Name).Result.Count(),
                     PageNumber = pageIndex,
                     PageSize = pageSize
                 };
@@ -99,7 +101,7 @@ namespace ECommerceProject.AdminUI.Controllers
 
             if (retModel.UserName != null && retModel.RoleName != null)
             {
-                var roleName = _roleManager.Roles.FirstOrDefault(x => x.Id == retModel.RoleName);
+               
                 var users = _userManager.GetUsersInRoleAsync(roleName.Name).Result.Where(x => x.UserName.Contains(retModel.UserName)).Skip(excludeRecords).Take(pageSize);
                 foreach (var user in users)
                 {
@@ -112,13 +114,13 @@ namespace ECommerceProject.AdminUI.Controllers
                 var returnModel = new PagedResult<ViewUsersViewModel>
                 {
                     Data = returnFor.ToList(),
-                    TotalItems = returnFor.Count(),
+                    TotalItems = _userManager.GetUsersInRoleAsync(roleName.Name).Result.Count(x => x.UserName.Contains(retModel.UserName)),
                     PageNumber = pageIndex,
                     PageSize = pageSize
                 };
                 return View(returnModel);
             }
-
+            pageSize = 2;
             var usersReturning = _userManager.Users.Skip(excludeRecords).Take(pageSize);
             foreach (var user in usersReturning)
             {
@@ -131,11 +133,17 @@ namespace ECommerceProject.AdminUI.Controllers
             var returningModel = new PagedResult<ViewUsersViewModel>
             {
                 Data = returningFor.ToList(),
-                TotalItems = returningFor.Count(),
+                TotalItems = _userManager.Users.Count(),
                 PageNumber = pageIndex,
-                PageSize = pageSize
+                PageSize = pageSize,
             };
             return View(returningModel);
+        }
+
+        [HttpGet]
+        public IActionResult ChangeRole()
+        {
+            return View();
         }
     }
 }

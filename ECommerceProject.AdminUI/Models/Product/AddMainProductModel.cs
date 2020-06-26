@@ -1,38 +1,34 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ECommerceProject.AdminUI.Models.Product
 {
-    public class AddProductViewModel
+    public class AddMainProductModel
     {
-        public AddProductViewModel(Entities.Concrete.Product product)
+        public AddMainProductModel(Entities.Concrete.Product product)
         {
-            ProductId = product.ProductId;
             CategoryId = product.CategoryId;
-            CategoryName = product.Category.Title;
             Price = product.Price;
             ProductName = product.ProductName;
             ImageUrl = product.ImageUrl;
         }
 
-        public AddProductViewModel()
+        public AddMainProductModel()
         {
         }
 
-        public AddProductViewModel(IQueryable<Entities.Concrete.Category> categories)
+        public AddMainProductModel(IQueryable<Entities.Concrete.Category> categories)
         {
             Categories = categories.Select(x => new SelectListItem(x.Title, x.Id.ToString(), false, false));
         }
 
-
-        public int ProductId { get; set; }
-        public int CategoryId { get; set; }
-        public int ProductDetailsId { get; set; }
-        public double Price { get; set; }
-        public string ProductName { get; set; }
-        public string ImageUrl { get; set; }
-        public string CategoryName { get; set; }
+        
+      [Required]  public int CategoryId { get; set; }
+      [Required]   public double Price { get; set; }
+      [Required]   public string ProductName { get; set; }
+      [Required]   public string ImageUrl { get; set; }
         public List<string> ProductDetailsTitle { get; set; }
         public List<string> ProductDetailsDescription { get; set; }
         public IEnumerable<SelectListItem> Categories { get; set; }

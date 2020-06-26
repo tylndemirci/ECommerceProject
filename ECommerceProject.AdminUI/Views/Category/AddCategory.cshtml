@@ -1,12 +1,9 @@
-﻿@model ECommerceProject.AdminUI.Models.Category.AddCategoryViewModel
+﻿@model ECommerceProject.AdminUI.Models.Category.AddMainCategoryModel
 @{
     ViewData["Title"] = "AddCategory";
 }
 
     <form method="post" class="m-5">
-
-
-        <input asp-for="ParentCategoryId" hidden />
         <div class="row">
             <div class="form-group ">
         <p>This is only for main categories. To create a subcategory, first create a main category, then press "add sub category" button.</p>
@@ -15,6 +12,7 @@
 
 
                 <input asp-for="Title" class="form-control" />
+                @Html.ValidationMessageFor(x=>x.Title)
                 <br />
                 <button asp-action="Index" asp-controller="Category" class="btn btn-secondary">Cancel</button>
                 <button type="submit" value="submit" class="btn btn-success">Submit</button>

@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.Linq;
 using ECommerceProject.AdminUI.Models.Order;
 using ECommerceProject.Business.Abstract;
 using ECommerceProject.Entities.Concrete;

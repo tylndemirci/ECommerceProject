@@ -27,18 +27,14 @@ namespace ECommerceProject.AdminUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ECommerceProjectContext>(options => 
+            services.AddDbContext<ECommerceProjectContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")
-                ,builder => builder.MigrationsAssembly("ECommerceProject.AdminUI")));
-            
-            services.AddIdentity<ApplicationUser, IdentityRole>(opt =>
-                {
+                    , builder => builder.MigrationsAssembly("ECommerceProject.AdminUI")));
 
-                })
+            services.AddIdentity<ApplicationUser, IdentityRole>(opt => { })
                 .AddEntityFrameworkStores<ECommerceProjectContext>()
                 .AddDefaultTokenProviders();
-            
-            
+
 
             services.AddTransient<IProductDal, EfProductDal>();
             services.AddTransient<IProductService, ProductManager>();
@@ -51,14 +47,12 @@ namespace ECommerceProject.AdminUI
             services.AddTransient<IOrderLineDal, EfOrderLineDal>();
             services.AddTransient<IOrderLineService, OrderLineManager>();
 
-          
+
             services.PostConfigure<CookieAuthenticationOptions>(IdentityConstants.ApplicationScheme,
-                opt =>
-                {
-                    opt.LoginPath = "/AdminAccount/AdminLogin";
-                });
+                opt => { opt.LoginPath = "/AdminAccount/AdminLogin"; });
 
             services.AddControllersWithViews();
+            services.AddCloudscribePagination();
             services.AddMemoryCache();
             services.AddSession();
         }
@@ -70,13 +64,13 @@ namespace ECommerceProject.AdminUI
             {
                 app.UseDeveloperExceptionPage();
             }
-           
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting(); 
+            app.UseRouting();
             app.UseSession();
-            
+
             app.UseAuthentication();
 
             app.UseAuthorization();
@@ -84,9 +78,12 @@ namespace ECommerceProject.AdminUI
 
             app.UseEndpoints(endpoints =>
             {
+               
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=AdminPage}/{action=Index}/{id?}");
+                
+                
             });
         }
     }

@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using ECommerceProject.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceProject.AdminUI.Infrastructure
 {
@@ -12,15 +10,13 @@ namespace ECommerceProject.AdminUI.Infrastructure
     public class AdminPanelUserRoleHelper : TagHelper
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AdminPanelUserRoleHelper(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public AdminPanelUserRoleHelper(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
-            _roleManager = roleManager;
         }
 
-        [HtmlAttributeName("user-role")] private string User { get; set; }
+        [HtmlAttributeName("user-role")] private static string User => null;
 
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {

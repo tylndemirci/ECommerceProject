@@ -1,14 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.Linq;
 using ECommerceProject.AdminUI.Models.Category;
 using ECommerceProject.Business.Abstract;
 using ECommerceProject.Entities.Concrete;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceProject.AdminUI.Controllers
 {
-    [Authorize]
+    // [Authorize]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
@@ -42,15 +40,12 @@ namespace ECommerceProject.AdminUI.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult AddCategory(AddCategoryViewModel model)
+        public IActionResult AddCategory(AddMainCategoryModel model)
         {
-            _categoryService.AddCategory(new Category()
+            if (!ModelState.IsValid) return View(model);
+                _categoryService.AddCategory(new Category()
             {
-                Id = model.CategoryId,
                 Title = model.Title,
-             
-                
-
             });
             return RedirectToAction("Index");
         }

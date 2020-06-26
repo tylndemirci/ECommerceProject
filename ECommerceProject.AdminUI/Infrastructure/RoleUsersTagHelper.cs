@@ -18,7 +18,7 @@ namespace ECommerceProject.AdminUI.Infrastructure
             _roleManager = roleManager;
         }
 
-        [HtmlAttributeName("identity-role")] private string Role { get; set; }
+        [HtmlAttributeName("identity-role")] private static string Role => null;
 
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {

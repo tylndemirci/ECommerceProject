@@ -41,14 +41,14 @@ namespace ECommerceProject.AdminUI.Controllers
         public IActionResult AddProduct()
         {
 
-            var returnModel = new AddProductViewModel(_categoryService.GetAllWithSubNames());
+            var returnModel = new AddMainProductModel(_categoryService.GetAllWithSubNames());
             return View(returnModel);
 
 
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddProduct(AddProductViewModel model, IFormFile file)
+        public async Task<IActionResult> AddProduct(AddMainProductModel model, IFormFile file)
         {
 
 
@@ -72,11 +72,9 @@ namespace ECommerceProject.AdminUI.Controllers
 
                 var product = new Product()
                 {
-                    ProductId = model.ProductId,
                     CategoryId = model.CategoryId,
                     Price = model.Price,
                     ProductName = model.ProductName,
-                    ProductColor = model.ProductColor,
                     ImageUrl = model.ImageUrl ?? "productDefault.png"
 
                 };
@@ -93,7 +91,6 @@ namespace ECommerceProject.AdminUI.Controllers
                     for (int i = 0; i < model.ProductDetailsTitle.Count; i++)
                     {
                         var detailLine = new ProductDetails();
-                        //detailLine.Id = model.ProductDetailsId;
                         detailLine.ProductId = product.ProductId;
                         detailLine.ProductDetailTitle = model.ProductDetailsTitle[i];
                         detailLine.ProductDetailDescription = model.ProductDetailsDescription[i];
@@ -113,6 +110,7 @@ namespace ECommerceProject.AdminUI.Controllers
             }
             else
             {
+                var errors = ModelState.Select(x => x.Value.Errors).Where(x => x.Count > 0).ToList();
                 return View(model);
             }
         }
