@@ -36,7 +36,13 @@ namespace ECommerceProject.Business.Concrete
            
             if (product!=null)
             {
-                _productDal.Add(product);
+                _productDal.Add(new Product
+                {
+                    ProductName = product.ProductName,
+                    Price = product.Price,
+                    ImageUrl = product.ImageUrl,
+                    CategoryId = product.CategoryId
+                });
             }
         }
 

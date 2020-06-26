@@ -78,16 +78,10 @@ namespace ECommerceProject.AdminUI.Controllers
                     ImageUrl = model.ImageUrl ?? "productDefault.png"
 
                 };
-
-                _productService.AddProduct(product);
-
                 product.ProductDetails = new List<ProductDetails>();
-
                 //creates detailLine for each detail submitted.
                 if (model.ProductDetailsTitle != null)
                 {
-
-
                     for (int i = 0; i < model.ProductDetailsTitle.Count; i++)
                     {
                         var detailLine = new ProductDetails();
@@ -98,14 +92,7 @@ namespace ECommerceProject.AdminUI.Controllers
                         _productDetailsService.AddDetails(detailLine);
                     }
                 }
-
-
-
-
-                _productService.UpdateProduct(product);
-
-
-
+                _productService.AddProduct(product);
                 return RedirectToAction("Index");
             }
             else
