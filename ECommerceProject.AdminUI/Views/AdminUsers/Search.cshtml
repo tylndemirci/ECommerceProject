@@ -7,7 +7,7 @@
 <div class="container">
 
 
-    @await Component.InvokeAsync("SearchForUsers",new  {UserName= ViewData["UserName"], RoleName = ViewData["RoleName"]})
+    @await Component.InvokeAsync("SearchForUsers", new {UserName = ViewData["searchFor"], RoleName = ViewData["RoleName"]})
 
 
     <table class="table table-sm table-striped text-center font-weight-bold">
@@ -34,12 +34,17 @@
         <cs-pager cs-paging-pagenumber="@Model.PageNumber"
                   cs-paging-totalitems="@Model.TotalItems"
                   cs-paging-pagesize="@Model.PageSize"
-                  asp-route-UserName="@ViewData["UserName"]"
-                  asp-route-RoleName="@ViewData["RoleName"]"
                   cs-pagenumber-param="pageIndex"
+                  asp-route-UserName="@ViewData["searchFor"]"
+                  asp-route-RoleName="@ViewData["RoleName"]"
+                  cs-preserve-ambient-querystring="true"
                   asp-controller=@ViewData["Controller"]
-                  asp-action=@ViewData["Action"]>
-
+                  asp-action=@ViewData["Action"]
+                  cs-pager-li-current-class="page-item active"
+                  cs-pager-li-other-class="page-item"
+                  cs-pager-li-non-active-class="page-item disabled"
+                  cs-pager-link-current-class="page-link"
+                  cs-pager-link-other-class="page-link">
         </cs-pager>
 
     </div>

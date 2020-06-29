@@ -7,10 +7,13 @@
 
     <div class="row">
         <div class="col-sm">
-         @Html.TextBoxFor(x => x.UserName,  new {placeholder = "Username", @class = "form-control"})
+           
+           
+            @Html.TextBoxFor(x => x.UserName, new {placeholder = "Username", @class = "form-control", value="@ViewData['searchFor']"})
         </div>
         <div class="col-sm">
-           @Html.DropDownListFor(x => x.RoleName, Model.Roles, "Select a Role", new {@class = "form-control"}) 
+            <input name="searchRole" id="searchRole" value="@ViewData["RoleName"]" hidden/>
+            @Html.DropDownListFor(x => x.RoleName, Model.Roles, "Select a Role", new {@class = "form-control"})
         </div>
         <div class="col-lg-2">
             <button type="submit" value="Submit" class="btn btn-secondary">Search For User</button> 

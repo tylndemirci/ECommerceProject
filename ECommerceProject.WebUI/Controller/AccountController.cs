@@ -24,10 +24,11 @@ using Microsoft.AspNetCore.Mvc;
         private readonly IPasswordValidator<ApplicationUser> _passwordValidator;
         private readonly ICartSessionHelper _cartSessionHelper;
         private readonly IOrderService _orderService;
+        private readonly RoleManager<IdentityRole> _roleManager;
        
 
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
-            IPasswordHasher<ApplicationUser> passwordHasher, IPasswordValidator<ApplicationUser> passwordValidator, ICartSessionHelper cartSessionHelper, IOrderService orderService)
+            IPasswordHasher<ApplicationUser> passwordHasher, IPasswordValidator<ApplicationUser> passwordValidator, ICartSessionHelper cartSessionHelper, IOrderService orderService, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -35,7 +36,7 @@ using Microsoft.AspNetCore.Mvc;
             _passwordValidator = passwordValidator;
             _cartSessionHelper = cartSessionHelper;
             _orderService = orderService;
-            
+            _roleManager = roleManager;
         }
         
 
@@ -93,7 +94,7 @@ using Microsoft.AspNetCore.Mvc;
                 user.Name = model.Name;
                 user.Surname = model.Surname;
                 user.CreationDate = DateTime.Now;
-                
+                user.Role = "User";
 
                 var result = await _userManager.CreateAsync(user, model.Password);
 
@@ -104,7 +105,7 @@ using Microsoft.AspNetCore.Mvc;
                     if (currentUser != null)
                     {
                         result = await _userManager.AddToRoleAsync(currentUser, "User");
-                        user.Role = "User";
+                        
                         await _userManager.UpdateAsync(currentUser);
                         
                         if (!result.Succeeded)

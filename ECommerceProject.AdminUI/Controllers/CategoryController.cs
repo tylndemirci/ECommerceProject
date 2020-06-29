@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceProject.AdminUI.Controllers
 {
-    // [Authorize]
+   
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;

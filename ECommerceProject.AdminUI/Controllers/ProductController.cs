@@ -8,6 +8,7 @@ using ECommerceProject.Business.Abstract;
 using ECommerceProject.Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceProject.AdminUI.Controllers
@@ -97,6 +98,7 @@ namespace ECommerceProject.AdminUI.Controllers
             }
             else
             {
+                model.Categories  = _categoryService.ListCategories().Select(x => new SelectListItem(x.Title, x.Id.ToString(), false, false));
                 var errors = ModelState.Select(x => x.Value.Errors).Where(x => x.Count > 0).ToList();
                 return View(model);
             }

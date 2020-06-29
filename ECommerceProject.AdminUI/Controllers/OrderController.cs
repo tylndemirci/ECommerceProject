@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceProject.AdminUI.Controllers
 {
-    [Authorize]
+    
     public class OrderController : Controller
     {
         private readonly IOrderService _orderService;
