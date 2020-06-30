@@ -6,6 +6,8 @@
     Layout = Layout;
 }
 @section scripts{
+    <script src="~/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="~/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
     <script>
     $(function () {
         var placeHolderElement = $("#PlaceHolderHere");
@@ -14,17 +16,17 @@
             var decodeUrl = decodeURIComponent(url);
             $.get(decodeUrl).done(function (data) {
                 placeHolderElement.html(data);
-                placeHolderElement.find(".modal").modal("show");
+                placeHolderElement.find(".modal").modal('show');
             });
         });
     
         placeHolderElement.on("click", 'button[data-save="modal"]', function (event) {
             event.preventDefault();
-            var form = $(this).parents(".modal").find("form");
+            var form = $(this).parents(".modal").find('form');
             var actionUrl = form.attr("action");
             var sendData = form.serialize();
             $.post(actionUrl, sendData).done(function (data) {
-                placeHolderElement.find(".modal").modal("hide");
+                placeHolderElement.find(".modal").modal('hide');
                 $.get("/AdminUsers/ChangeRole", function (result) {
                     $("#UpdateUserRole").html(result); 
                 });

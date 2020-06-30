@@ -25,10 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Home\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\assets\extra-libs\DataTables\DataTables-1.10.16\js\dataTables.bootstrap.js" />
     <None Include="wwwroot\assets\extra-libs\DataTables\DataTables-1.10.16\js\dataTables.bootstrap.min.js" />
     <None Include="wwwroot\assets\extra-libs\DataTables\DataTables-1.10.16\js\dataTables.bootstrap4.js" />

@@ -176,7 +176,9 @@ namespace ECommerceProject.AdminUI.Controllers
             var user = _userManager.FindByIdAsync(model.UserId).Result;
             if (user != null)
             {
-                _userManager.UpdateAsync(user);
+                var roleForUser = _userManager.GetRolesAsync(user).Result.FirstOrDefault();
+                _userManager.RemoveFromRoleAsync(user, roleForUser);
+                _userManager.AddToRoleAsync(user, model.RoleName);
                 var usersReturning = _memoryCache.Get("UsersWithRole") as List<ApplicationUser>;
                 var oldUserRecord = usersReturning.FirstOrDefault(x => x.Id == model.UserId);
                 var oldUserIndex = usersReturning.FindIndex(x => x.Id == model.UserId);
