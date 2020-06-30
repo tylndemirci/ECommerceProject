@@ -30,7 +30,7 @@ namespace ECommerceProject.AdminUI.Models.Product
         [Required] public int CategoryId { get; set; }
         [Required] public double Price { get; set; }
         [Required] public string ProductName { get; set; }
-        [Required] public string ImageUrl { get; set; }
+        public string ImageUrl { get; set; }
         public List<string> ProductDetailsTitle { get; set; }
         public List<string> ProductDetailsDescription { get; set; }
         public IEnumerable<SelectListItem> Categories { get; set; }

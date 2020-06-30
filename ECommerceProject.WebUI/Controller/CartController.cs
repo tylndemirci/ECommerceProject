@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using ECommerceProject.Business.Abstract;
 using ECommerceProject.Core.Enums;
+using ECommerceProject.DataAccess.Abstract;
 using ECommerceProject.Entities.Concrete;
 using ECommerceProject.Entities.DomainModels;
 using ECommerceProject.WebUI.Helper;
@@ -18,15 +19,17 @@ namespace ECommerceProject.WebUI.Controller
         private readonly ICartSessionHelper _cartSessionHelper;
         private readonly IProductService _productService;
         private readonly IOrderService _orderService;
+        private readonly IOrderLineDal _orderLineDal;
         
         
 
-        public CartController(ICartService cartService, ICartSessionHelper cartSessionHelper, IProductService productService, IOrderService orderService)
+        public CartController(ICartService cartService, ICartSessionHelper cartSessionHelper, IProductService productService, IOrderService orderService, IOrderLineDal orderLineDal)
         {
             _cartService = cartService;
             _cartSessionHelper = cartSessionHelper;
             _productService = productService;
             _orderService = orderService;
+            _orderLineDal = orderLineDal;
         }
         //todo add tempdata
         public IActionResult AddToCart(int productId)
@@ -147,6 +150,7 @@ namespace ECommerceProject.WebUI.Controller
                     orderLine.Price = product.Product.Price;
                     orderLine.ProductId = product.Product.ProductId;
                     order.OrderLines.Add(orderLine);
+                    _orderLineDal.AddWithoutSave(orderLine);
             }
 
             _orderService.CreateOrder(order);

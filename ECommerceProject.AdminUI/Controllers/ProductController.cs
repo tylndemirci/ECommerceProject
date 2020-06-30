@@ -52,11 +52,9 @@ namespace ECommerceProject.AdminUI.Controllers
         public async Task<IActionResult> AddProduct(AddMainProductModel model, IFormFile file)
         {
 
-
+          
             if (ModelState.IsValid)
             {
-
-
                 if (file != null)
                 {
                     if (file.FileName.EndsWith("jpg") || file.FileName.EndsWith("png"))
@@ -70,6 +68,8 @@ namespace ECommerceProject.AdminUI.Controllers
                         model.ImageUrl = file.FileName;
                     }
                 }
+
+                
 
                 var product = new Product()
                 {

@@ -11,6 +11,7 @@ namespace ECommerceProject.DataAccess.Abstract
         T GetBy(Expression<Func<T, bool>> filter);
         
         void Add(T entity);
+        void AddWithoutSave(T entity);
         void Update(T entity);
         void UpdateWithoutSave(T entity);
         void Delete(T entity);

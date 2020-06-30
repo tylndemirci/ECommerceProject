@@ -46,6 +46,7 @@ namespace ECommerceProject.WebUI
             services.AddTransient<ICartSessionHelper, CartSessionHelper>();
             services.AddTransient<IOrderService, OrderManager>();
             services.AddTransient<IOrderDal, EfOrderDal>();
+            services.AddTransient<IOrderLineDal, EfOrderLineDal>();
             services.AddTransient<IProductDetailsDal, EfProductDetailsDal>();
             services.AddTransient<IProductDetailsService, ProductDetailsManager>();
 

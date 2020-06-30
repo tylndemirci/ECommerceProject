@@ -6,5 +6,6 @@ namespace ECommerceProject.Business.Abstract
   public  interface IOrderLineService
   {
       IQueryable<OrderLine> GetOrderLines(int id);
+   
   }
 }

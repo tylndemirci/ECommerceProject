@@ -35,6 +35,12 @@ namespace ECommerceProject.DataAccess.Concrete
             addedEntity.State = EntityState.Added;
             _dbContext.SaveChanges();
         }
+         public void AddWithoutSave(T entity)
+         {
+             var addedEntity = _dbContext.Entry(entity);
+              addedEntity.State = EntityState.Added;
+                  
+         }
 
         public void Update(T entity)
         {

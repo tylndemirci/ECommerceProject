@@ -28,7 +28,7 @@
         </div>
                 <div class="cart-summary">
                     <small>@Model.TotalProductQuantity Item(s) selected</small>
-                    <h5>SUBTOTAL: @Model.TotalPrice₺</h5>
+                    <h5>SUBTOTAL: @Model.TotalPrice.ToString("C")₺</h5>
                 </div>
                 <div class="cart-btns">
                     @* <a href="#">View Cart</a> *@
