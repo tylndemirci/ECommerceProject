@@ -3,7 +3,37 @@
     ViewData["Controller"] = "AdminUsers";
     ViewData["Action"] = "Search";
     ViewData["Model"] = Model;
+    Layout = Layout;
 }
+@section scripts{
+    <script>
+    $(function () {
+        var placeHolderElement = $("#PlaceHolderHere");
+        $('button[data-toggle="ajax-modal"]').click(function (event) {
+            var url = $(this).data("url");
+            var decodeUrl = decodeURIComponent(url);
+            $.get(decodeUrl).done(function (data) {
+                placeHolderElement.html(data);
+                placeHolderElement.find(".modal").modal("show");
+            });
+        });
+    
+        placeHolderElement.on("click", 'button[data-save="modal"]', function (event) {
+            event.preventDefault();
+            var form = $(this).parents(".modal").find("form");
+            var actionUrl = form.attr("action");
+            var sendData = form.serialize();
+            $.post(actionUrl, sendData).done(function (data) {
+                placeHolderElement.find(".modal").modal("hide");
+                $.get("/AdminUsers/ChangeRole", function (result) {
+                    $("#UpdateUserRole").html(result); 
+                });
+            });
+        });
+    }) 
+    </script>
+}
+<div id="PlaceHolderHere"></div>
 <div class="container">
 
 
@@ -24,7 +54,7 @@
             <tr>
                 <td>@user.UserName</td>
                 <td>@user.RoleName</td>
-                @* <td><button type="button" class="btn btn-success" data-toggle="ajax-modal" data-target="#UpdateUserRoleState" data-url="@Url.Action("ViewUsers", "AdminRole", new {roleId = role.Id})">Change Role</button></td> *@
+                <td id="UpdateUserRole" ><button type="button" class="btn btn-success" data-toggle="ajax-modal" data-target="#UpdateUserRole" data-url="@Url.Action("ChangeRole", "AdminUsers", new {id=user.UserId})">Update Role</button> </td>
             </tr>
         }
         </tbody>
@@ -46,12 +76,5 @@
                   cs-pager-link-current-class="page-link"
                   cs-pager-link-other-class="page-link">
         </cs-pager>
-
     </div>
-    @* <div> *@
-    @*      $1$<span class="store-qty">Showing Model.TotalItems products in total</span>#1# *@
-    @*       *@
-    @*    <partial name="_PaginationPartial" view-data="ViewData" model="Model"/> *@
-    @*   *@
-    @*  </div> *@
 </div>

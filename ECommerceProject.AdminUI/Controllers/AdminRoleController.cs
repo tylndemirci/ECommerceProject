@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using ECommerceProject.AdminUI.Models.AdminRole;
+using ECommerceProject.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,11 +11,12 @@ namespace ECommerceProject.AdminUI.Controllers
     public class AdminRoleController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AdminRoleController(RoleManager<IdentityRole> roleManager)
+        public AdminRoleController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             _roleManager = roleManager;
-           
+            _userManager = userManager;
         }
 
         public IActionResult Index()

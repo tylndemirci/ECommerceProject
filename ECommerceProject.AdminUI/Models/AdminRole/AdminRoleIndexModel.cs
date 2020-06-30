@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Collections.Generic;
+using ECommerceProject.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace ECommerceProject.AdminUI.Models.AdminRole
 {
@@ -17,6 +19,7 @@ namespace ECommerceProject.AdminUI.Models.AdminRole
 
         public string Id { get; set; }
         public string Name { get; set; }
+        public string Users { get; set; }
 
   
     }

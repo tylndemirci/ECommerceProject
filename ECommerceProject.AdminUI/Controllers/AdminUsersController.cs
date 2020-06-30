@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using cloudscribe.Pagination.Models;
 using ECommerceProject.AdminUI.Models.AdminRole;
@@ -23,6 +24,12 @@ namespace ECommerceProject.AdminUI.Controllers
             _roleManager = roleManager;
             _memoryCache = memoryCache;
         }
+
+        public MemoryCacheEntryOptions defaultExpiry = new MemoryCacheEntryOptions
+        {
+            AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(5),
+            Priority = CacheItemPriority.Normal
+        };
 
         // [HttpGet]
         // public IActionResult Search(int pageIndex = 1)
@@ -60,7 +67,7 @@ namespace ECommerceProject.AdminUI.Controllers
             ViewData["searchFor"] = retModel.UserName;
             
             ViewData["RoleName"] = retModel.RoleName;
-            var pageSize = 1;
+            var pageSize = 10;
             int excludeRecords = (pageSize * pageIndex) - pageSize;
             if (retModel.UserName != null && retModel.RoleName == null)
             {
@@ -142,7 +149,7 @@ namespace ECommerceProject.AdminUI.Controllers
                 };
                 return View(returnModel);
             }
-            pageSize = 20;
+            
             List<ApplicationUser> usersReturning;
             if (!_memoryCache.TryGetValue("UsersWithRole", out usersReturning))
             {
@@ -168,9 +175,29 @@ namespace ECommerceProject.AdminUI.Controllers
         }
 
         [HttpGet]
-        public IActionResult ChangeRole()
+        public IActionResult ChangeRole(string id)
         {
-            return View();
+            var user = _userManager.FindByIdAsync(id).Result;
+            var roles = _roleManager.Roles;
+            
+            var returnModel = new ViewUsersViewModel(user,roles);
+            return PartialView("_UpdateUserRoleState", returnModel);
+        }
+
+        [HttpPost]
+        public IActionResult ChangeRole(ViewUsersViewModel model)
+        {
+            var user = _userManager.FindByIdAsync(model.UserId).Result;
+            if (user!=null)
+            {
+                _userManager.UpdateAsync(user);
+                var usersReturning = _memoryCache.Get("UsersWithRole") as List<ApplicationUser>;
+                var oldUserRecord = usersReturning.FirstOrDefault(x => x.Id == model.UserId);
+                var oldUserIndex = usersReturning.FindIndex(x => x.Id == model.UserId);
+                usersReturning.Remove(oldUserRecord);
+                usersReturning.Insert(oldUserIndex, user);
+            }
+            return PartialView("_UpdateUserRoleState", model);
         }
     }
 }
