@@ -65,24 +65,21 @@ namespace ECommerceProject.AdminUI.Controllers
         {
             var roleName = _roleManager.Roles.FirstOrDefault(x => x.Id == retModel.RoleName);
             ViewData["searchFor"] = retModel.UserName;
-            
+
             ViewData["RoleName"] = retModel.RoleName;
             var pageSize = 10;
             int excludeRecords = (pageSize * pageIndex) - pageSize;
             if (retModel.UserName != null && retModel.RoleName == null)
             {
-                List<ApplicationUser> users; 
-                if (!_memoryCache.TryGetValue("UsersWithRole", out users))
-                {
-                    _memoryCache.Set("UsersWithRole", _userManager.Users.Where(x => x.UserName.Contains(retModel.UserName)).ToList());
-                }
+                List<ApplicationUser> users;
+                _memoryCache.Set("UsersWithRole", _userManager.Users.Where(x => x.UserName.Contains(retModel.UserName)).ToList());
                 users = _memoryCache.Get("UsersWithRole") as List<ApplicationUser>;
                 foreach (var user in users)
                 {
                     var role = _userManager.GetRolesAsync(user).Result;
                     user.Role = role.FirstOrDefault();
                 }
-               
+
                 var returnFor = users.Skip(excludeRecords).Take(pageSize).Select(x =>
                     new ViewUsersViewModel(x));
                 var returnModel = new PagedResult<ViewUsersViewModel>
@@ -98,12 +95,8 @@ namespace ECommerceProject.AdminUI.Controllers
 
             if (retModel.UserName == null && retModel.RoleName != null)
             {
-                
-                List<ApplicationUser> users; 
-                if (!_memoryCache.TryGetValue("UsersWithRole", out users))
-                {
-                    _memoryCache.Set("UsersWithRole", _userManager.GetUsersInRoleAsync(roleName.Name).Result.ToList());
-                }
+                List<ApplicationUser> users;
+                _memoryCache.Set("UsersWithRole", _userManager.GetUsersInRoleAsync(roleName.Name).Result.ToList());
                 users = _memoryCache.Get("UsersWithRole") as List<ApplicationUser>;
                 foreach (var user in users)
                 {
@@ -125,12 +118,8 @@ namespace ECommerceProject.AdminUI.Controllers
 
             if (retModel.UserName != null && retModel.RoleName != null)
             {
-                
-                List<ApplicationUser> users; 
-                if (!_memoryCache.TryGetValue("UsersWithRole", out users))
-                {
-                    _memoryCache.Set("UsersWithRole", _userManager.GetUsersInRoleAsync(roleName.Name).Result.Where(x => x.UserName.Contains(retModel.UserName)).ToList());
-                }
+                List<ApplicationUser> users;
+                _memoryCache.Set("UsersWithRole", _userManager.GetUsersInRoleAsync(roleName.Name).Result.Where(x => x.UserName.Contains(retModel.UserName)).ToList());
                 users = _memoryCache.Get("UsersWithRole") as List<ApplicationUser>;
                 foreach (var user in users)
                 {
@@ -149,19 +138,16 @@ namespace ECommerceProject.AdminUI.Controllers
                 };
                 return View(returnModel);
             }
-            
+
             List<ApplicationUser> usersReturning;
-            if (!_memoryCache.TryGetValue("UsersWithRole", out usersReturning))
-            {
-                _memoryCache.Set("UsersWithRole", _userManager.Users.ToList());
-            }
+            _memoryCache.Set("UsersWithRole", _userManager.Users.ToList());
             usersReturning = _memoryCache.Get("UsersWithRole") as List<ApplicationUser>;
             foreach (var user in usersReturning)
             {
                 var role = _userManager.GetRolesAsync(user).Result;
                 user.Role = role.FirstOrDefault();
             }
-            
+
             var returningFor = usersReturning.Skip(excludeRecords).Take(pageSize).Select(x =>
                 new ViewUsersViewModel(x));
             var returningModel = new PagedResult<ViewUsersViewModel>
@@ -179,8 +165,8 @@ namespace ECommerceProject.AdminUI.Controllers
         {
             var user = _userManager.FindByIdAsync(id).Result;
             var roles = _roleManager.Roles;
-            
-            var returnModel = new ViewUsersViewModel(user,roles);
+
+            var returnModel = new ViewUsersViewModel(user, roles);
             return PartialView("_UpdateUserRoleState", returnModel);
         }
 
@@ -188,7 +174,7 @@ namespace ECommerceProject.AdminUI.Controllers
         public IActionResult ChangeRole(ViewUsersViewModel model)
         {
             var user = _userManager.FindByIdAsync(model.UserId).Result;
-            if (user!=null)
+            if (user != null)
             {
                 _userManager.UpdateAsync(user);
                 var usersReturning = _memoryCache.Get("UsersWithRole") as List<ApplicationUser>;
@@ -197,6 +183,7 @@ namespace ECommerceProject.AdminUI.Controllers
                 usersReturning.Remove(oldUserRecord);
                 usersReturning.Insert(oldUserIndex, user);
             }
+
             return PartialView("_UpdateUserRoleState", model);
         }
     }
