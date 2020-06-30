@@ -16,13 +16,13 @@
 //
 //     placeHolderElement.on("click", 'button[data-save="modal"]', function (event) {
 //         event.preventDefault();
-//         var form = $(this).parents(".modal").find("form");
+//         var form = $(this).parents(".modal").find('form');
 //         var actionUrl = form.attr("action");
 //         var sendData = form.serialize();
 //         $.post(actionUrl, sendData).done(function (data) {
-//             placeHolderElement.find(".modal").modal("hide");
-//             $.get("/Order/OrderListInvoke", function (result) {
-//                 $("#OrderListContainer").html(result); 
+//             $("#PlaceHolderHere").modal('hide');
+//             $.get("/AdminUsers/Search", function (result) {
+//                 $("#UserListContainer").html(result);
 //             });
 //         });
 //     });

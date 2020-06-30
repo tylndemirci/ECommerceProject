@@ -20,28 +20,27 @@
             });
         });
     
-        placeHolderElement.on("click", 'button[data-save="modal"]', function (event) {
-            event.preventDefault();
-            var form = $(this).parents(".modal").find('form');
-            var actionUrl = form.attr("action");
-            var sendData = form.serialize();
-            $.post(actionUrl, sendData).done(function (data) {
-                placeHolderElement.find(".modal").modal('hide');
-                $.get("/AdminUsers/ChangeRole", function (result) {
-                    $("#UpdateUserRole").html(result); 
-                });
+         placeHolderElement.on("click", 'button[data-save="modal"]', function (event) {
+         event.preventDefault();
+         var form = $(this).parents(".modal").find('form');
+         var actionUrl = form.attr("action");
+         var sendData = form.serialize();
+         $.post(actionUrl, sendData).done(function (data) {
+         placeHolderElement.find(".modal").modal('hide');
+         $('body').load('@Url.Action("Search","AdminUsers")');
+              
             });
         });
     }) 
     </script>
 }
 <div id="PlaceHolderHere"></div>
+<div id="UserListContainer">
 <div class="container">
 
 
     @await Component.InvokeAsync("SearchForUsers", new {UserName = ViewData["searchFor"], RoleName = ViewData["RoleName"]})
-
-
+    
     <table class="table table-sm table-striped text-center font-weight-bold">
         <thead>
         <tr>
@@ -55,7 +54,7 @@
         {
             <tr>
                 <td>@user.UserName</td>
-                <td>@user.RoleName</td>
+                <td id="RoleName">@user.RoleName</td>
                 <td id="UpdateUserRole" ><button type="button" class="btn btn-success" data-toggle="ajax-modal" data-target="#UpdateUserRole" data-url="@Url.Action("ChangeRole", "AdminUsers", new {id=user.UserId})">Update Role</button> </td>
             </tr>
         }
@@ -79,4 +78,5 @@
                   cs-pager-link-other-class="page-link">
         </cs-pager>
     </div>
+</div>
 </div>

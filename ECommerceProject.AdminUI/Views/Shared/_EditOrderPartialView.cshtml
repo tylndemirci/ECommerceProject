@@ -12,7 +12,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form asp-action="Edit" asp-controller="Order" aabbdd >
+                <form asp-action="Edit" asp-controller="Order">
                     @Html.HiddenFor(x => x.OrderId)
                     
                         <select asp-for="OrderState" asp-items="Html.GetEnumSelectList<EnumOrderState>()" class="form-control">

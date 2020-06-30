@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using cloudscribe.Pagination.Models;
 using ECommerceProject.AdminUI.Models.AdminRole;
 using ECommerceProject.AdminUI.Models.SearchBar;
@@ -31,36 +32,6 @@ namespace ECommerceProject.AdminUI.Controllers
             Priority = CacheItemPriority.Normal
         };
 
-        // [HttpGet]
-        // public IActionResult Search(int pageIndex = 1)
-        // {
-        //    int pageSize = 2;
-        //     int excludeRecords = (pageSize * pageIndex) - pageSize;
-        //     List<ApplicationUser> usersReturning;
-        //     if (!_memoryCache.TryGetValue("UsersWithRole", out usersReturning))
-        //     {
-        //         _memoryCache.Set("UsersWithRole", _userManager.Users.ToList());
-        //     }
-        //     usersReturning = _memoryCache.Get("UsersWithRole") as List<ApplicationUser>;
-        //     foreach (var user in usersReturning)
-        //     {
-        //         var role = _userManager.GetRolesAsync(user).Result;
-        //         user.Role = role.FirstOrDefault();
-        //     }
-        //
-        //     var returningFor = usersReturning.Skip(excludeRecords).Take(pageSize).Select(x =>
-        //         new ViewUsersViewModel(x));
-        //     var returningModel = new PagedResult<ViewUsersViewModel>
-        //     {
-        //         Data = returningFor.ToList(),
-        //         TotalItems = _userManager.Users.Count(),
-        //         PageNumber = pageIndex,
-        //         PageSize = pageSize
-        //     };
-        //     return View(returningModel);
-        // }
-        //
-        // [HttpPost]
         public IActionResult Search(SearchForUsersViewModel retModel, int pageIndex = 1)
         {
             var roleName = _roleManager.Roles.FirstOrDefault(x => x.Id == retModel.RoleName);
@@ -171,14 +142,28 @@ namespace ECommerceProject.AdminUI.Controllers
         }
 
         [HttpPost]
-        public IActionResult ChangeRole(ViewUsersViewModel model)
+        public async Task<IActionResult> ChangeRole(ViewUsersViewModel model)
         {
             var user = _userManager.FindByIdAsync(model.UserId).Result;
             if (user != null)
             {
-                var roleForUser = _userManager.GetRolesAsync(user).Result.FirstOrDefault();
-                _userManager.RemoveFromRoleAsync(user, roleForUser);
-                _userManager.AddToRoleAsync(user, model.RoleName);
+                var rolesForUser = _userManager.GetRolesAsync(user).Result;
+                if (rolesForUser.Count > 0)
+                {
+                    await _userManager.RemoveFromRolesAsync(user, rolesForUser);
+                }
+
+                var newRoleForUser = _roleManager.FindByIdAsync(model.RoleName).Result;
+                var result = await _userManager.AddToRoleAsync(user, newRoleForUser.Name);
+                if (!result.Succeeded)
+                {
+                    foreach (var errors in result.Errors)
+                    {
+                        ModelState.AddModelError("", errors.Description);
+                    }
+                }
+
+                await _userManager.UpdateAsync(user);
                 var usersReturning = _memoryCache.Get("UsersWithRole") as List<ApplicationUser>;
                 var oldUserRecord = usersReturning.FirstOrDefault(x => x.Id == model.UserId);
                 var oldUserIndex = usersReturning.FindIndex(x => x.Id == model.UserId);
@@ -186,7 +171,8 @@ namespace ECommerceProject.AdminUI.Controllers
                 usersReturning.Insert(oldUserIndex, user);
             }
 
-            return PartialView("_UpdateUserRoleState", model);
+            return RedirectToAction("Search");
         }
+        
     }
 }
