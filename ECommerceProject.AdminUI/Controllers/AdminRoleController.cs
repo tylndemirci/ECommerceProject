@@ -62,13 +62,12 @@ namespace ECommerceProject.AdminUI.Controllers
             return View(model);
         }
 
-        public IActionResult UsersInRole(string id, int pageIndex = 1)
+        public IActionResult UsersInRole(string id)
         {
-            var pageSize = 6;
-            int excludeRecords = (pageSize * pageIndex) - pageSize;
+           
             var role = _roleManager.FindByIdAsync(id);
             var users = _userManager.GetUsersInRoleAsync(role.Result.Name);
-            var returnModel = users.Result.ToList().Skip(excludeRecords).Take(pageSize).Select(x =>
+            var returnModel = users.Result.Select(x =>
                 new ViewUsersViewModel(x));
             return PartialView("_UsersInRolePartial", returnModel);
             
