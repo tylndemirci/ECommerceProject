@@ -779,6 +779,10 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
+    <Content Update="Views\Shared\_UsersInRolePartial.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

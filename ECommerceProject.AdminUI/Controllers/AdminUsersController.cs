@@ -163,7 +163,14 @@ namespace ECommerceProject.AdminUI.Controllers
                     }
                 }
 
-                await _userManager.UpdateAsync(user);
+                result = await _userManager.UpdateAsync(user);
+                if (!result.Succeeded)
+                {
+                    foreach (var errors in result.Errors)
+                    {
+                        ModelState.AddModelError("", errors.Description);
+                    }
+                }
                 var usersReturning = _memoryCache.Get("UsersWithRole") as List<ApplicationUser>;
                 var oldUserRecord = usersReturning.FirstOrDefault(x => x.Id == model.UserId);
                 var oldUserIndex = usersReturning.FindIndex(x => x.Id == model.UserId);

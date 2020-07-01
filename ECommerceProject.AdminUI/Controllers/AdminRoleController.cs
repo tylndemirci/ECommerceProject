@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using cloudscribe.Pagination.Models;
 using ECommerceProject.AdminUI.Models.AdminRole;
 using ECommerceProject.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -59,6 +60,18 @@ namespace ECommerceProject.AdminUI.Controllers
             }
 
             return View(model);
+        }
+
+        public IActionResult UsersInRole(string id, int pageIndex = 1)
+        {
+            var pageSize = 6;
+            int excludeRecords = (pageSize * pageIndex) - pageSize;
+            var role = _roleManager.FindByIdAsync(id);
+            var users = _userManager.GetUsersInRoleAsync(role.Result.Name);
+            var returnModel = users.Result.ToList().Skip(excludeRecords).Take(pageSize).Select(x =>
+                new ViewUsersViewModel(x));
+            return PartialView("_UsersInRolePartial", returnModel);
+            
         }
     }
 }
