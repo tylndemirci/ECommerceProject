@@ -76,7 +76,6 @@ namespace ECommerceProject.AdminUI.Controllers
 
         public IActionResult DeleteCategory(int id)
         {
-
             _categoryService.DeleteCategoryTree(id);
 
             return RedirectToAction("Index");

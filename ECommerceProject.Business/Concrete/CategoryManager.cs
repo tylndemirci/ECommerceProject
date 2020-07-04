@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using ECommerceProject.Business.Abstract;
 using ECommerceProject.DataAccess.Abstract;
 using ECommerceProject.Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace ECommerceProject.Business.Concrete
 {
@@ -34,7 +36,7 @@ namespace ECommerceProject.Business.Concrete
 
         public IQueryable<Category> GetSubCategories(int categoryId)
         {
-            var subCategories = _categoryDal.GetAll().Where(x=>x.ParentCategoryId.ToString()!=null);
+            var subCategories = _categoryDal.GetAll().Where(x => x.ParentCategoryId.ToString() != null);
             var returnModel = subCategories.Where(x => x.ParentCategoryId == categoryId);
             return returnModel;
         }
@@ -67,65 +69,38 @@ namespace ECommerceProject.Business.Concrete
         //todo: make it generic
         public void DeleteCategoryTree(int categoryId)
         {
-            //i++ yaparak dene
-            var deleting = _categoryDal.GetBy(p => p.Id == categoryId);
-            var deletingSubs = _categoryDal.GetAll().Where(p => p.ParentCategoryId == deleting.Id);
-            if (deletingSubs.Any())
+            var firstCat = _categoryDal.GetBy(x => x.Id == categoryId);
+            var secCat = _categoryDal.GetAll().Where(x => x.ParentCategoryId == firstCat.Id);
+            if (firstCat != null)
             {
-                foreach (var deletingSub in deletingSubs)
+                firstCat.IsDeleted = true;
+                _categoryDal.UpdateWithoutSave(firstCat);
+
+                var listCat = new List<Category>();
+                var i = -1;
+                while (i < listCat.Count)
                 {
-                    deletingSub.IsDeleted = true;
-                    _categoryDal.UpdateWithoutSave(deletingSub);
-                    var deletingSubsSubs = _categoryDal.GetAll().Where(s => s.ParentCategoryId == deletingSub.Id);
-                    if (deletingSubsSubs.Any())
+                    foreach (var category in secCat.ToList())
                     {
-                        foreach (var deletingSubsSub in deletingSubsSubs)
-                        {
-                            deletingSubsSub.IsDeleted = true;
-                            _categoryDal.UpdateWithoutSave(deletingSubsSub);
-                            var deletingSubsSubsSubs =
-                                _categoryDal.GetAll().Where(a => a.ParentCategoryId == deletingSubsSub.Id);
-                            if (deletingSubsSubsSubs.Any())
-                            {
-                                foreach (var deletingSubsSubsSub in deletingSubsSubsSubs)
-                                {
-                                    deletingSubsSubsSub.IsDeleted = true;
-                                    _categoryDal.UpdateWithoutSave(deletingSubsSubsSub);
-                                    var deletingSubsSubsSubsSubs = _categoryDal.GetAll()
-                                        .Where(k => k.ParentCategoryId == deletingSubsSubsSub.Id);
-                                    if (deletingSubsSubsSubsSubs.Any())
-                                    {
-                                        foreach (var deletingSubsSubsSubsSub in deletingSubsSubsSubsSubs)
-                                        {
-                                            deletingSubsSubsSubsSub.IsDeleted = true;
-                                            _categoryDal.UpdateWithoutSave(deletingSubsSubsSubsSub);
-                                        }
-                                    }
-
-                                }
-                            }
-                        }
+                        category.IsDeleted = true;
+                        _categoryDal.UpdateWithoutSave(category);
+                        listCat.Add(category);
                     }
-
+                   
+                    if (listCat.Count>0)
+                    {
+                        firstCat = _categoryDal.GetBy(x => x.Id == listCat[i].Id);
+                    }
+                    
+                    secCat = _categoryDal.GetAll().Where(x => x.ParentCategoryId == firstCat.Id);
+                    
                 }
 
-                
-
-
+                _categoryDal.Update(firstCat);
             }
-
-           
-
-            deleting.IsDeleted = true;
-           
-            _categoryDal.Update(deleting);
-
-          
         }
 
-       
 
-   
         public IQueryable<Category> ListCategories()
         {
             return _categoryDal.GetAll()
@@ -133,7 +108,5 @@ namespace ECommerceProject.Business.Concrete
                     .Include(x => x.ParentCategory)
                 ;
         }
-
-       
     }
 }
