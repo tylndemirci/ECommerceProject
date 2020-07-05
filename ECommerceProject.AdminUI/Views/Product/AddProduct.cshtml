@@ -5,6 +5,7 @@
 }
 
 @section scripts {
+  
     <script>
         function myFunction() {
 
@@ -12,47 +13,70 @@
         }
     </script>
 
+    <script>
+   function pageSlideNext(){
+         $('#firstPage').fadeOut('fast', function(){
+          $('#secondPage').fadeTo("fast", 1);
+         })}
+    </script>
+    <script>
+    function pageSlidePrevious(){
+             $('#secondPage').fadeOut('fast', function(){
+              $('#firstPage').fadeTo("fast", 1);
+             })}
+        </script>
+    
+    
 
 }
 
 <form asp-controller="Product" asp-action="AddProduct" method="post" enctype="multipart/form-data" class="m-5">
-    <div class="form-group">
-        <label asp-for="ProductName">Product Name</label>
-         @Html.TextBoxFor(x=>x.ProductName,new {placeholder="Product Name", @class = "form-control"} )
-        @Html.ValidationMessageFor(m => m.ProductName)
+    <div id="firstPage">
+        <div class="form-group">
+           
+            <label asp-for="ProductName">Product Name</label>
+            @Html.TextBoxFor(x => x.ProductName, new {placeholder = "Product Name", @class = "form-control"})
+            @Html.ValidationMessageFor(m => m.ProductName)
+        </div>
+        <div class="form-group">
+            <label asp-for="CategoryId">Category Name</label>
+            @Html.DropDownListFor(x => x.CategoryId, Model.Categories, "Select a Category", new {@class = "form-control"})
+            @Html.ValidationMessageFor(m => m.CategoryId)
+        </div>
+        <div class="form-group">
+            <label asp-for="Price">Price</label>
+            @Html.TextBoxFor(x => x.Price, new {placeholder = "Price", type = "number", @class = "form-control"}) Dollar(s)
+            @Html.ValidationMessageFor(m => m.Price)
+        </div>
+        <div class="form-group">
+            <label asp-for="ImageUrl">Image</label>
+            <input type="file" name="file" id="file" asp-for="ImageUrl" class="form-control-file"/>
+            @Html.ValidationMessageFor(m => m.ImageUrl)
+        </div>
+       
+        <a onclick="pageSlideNext()" class="btn btn-warning">Next</a>
     </div>
-    <div class="form-group">
-        <label asp-for="CategoryId">Category Name</label>
-        @Html.DropDownListFor(x => x.CategoryId, Model.Categories, "Select a Category", new {@class = "form-control"})
-        @Html.ValidationMessageFor(m => m.CategoryId)
-    </div>
-    <div class="form-group">
-        <label asp-for="Price">Price</label>
-        @Html.TextBoxFor(x=>x.Price,new {placeholder="Price",type="number", @class = "form-control"} ) Dollar(s)
-        @Html.ValidationMessageFor(m => m.Price)
-    </div>
-    <div class="form-group">
-        <label asp-for="ImageUrl">Image</label>
-         <input type="file" name="file" id="file" asp-for="ImageUrl" class="form-control-file"/>
-        @Html.ValidationMessageFor(m => m.ImageUrl)
-    </div>
-
-
-    <div class="container">
-        <div class="row">
-            <div class="form-group" id="product-detail-row">
-
+    <div id="secondPage" style="opacity: 0;">
+        <div class="container">
+            <div class="row">
+                <div class="form-group" id="product-detail-row">
+        
+                </div>
             </div>
         </div>
-
-
+        <input type="button" onclick="myFunction()" href="#" value="Add Detail"/>
+         <a onclick="pageSlidePrevious()" class="btn btn-primary">Previous</a>
     </div>
+    @* <div id="thirdPage"> *@
+    @*     Description *@
+    @*     Count *@
+    @* </div> *@
 
-
-    <input type="button" onclick="myFunction()" href="#" value="Add Detail"/>
-
-
+    <br/>
+    *Boş Bırakılamaz.
+    <br/>
+    
     <div class="form-group">
-        <button class="btn btn-sm btn-success">Submit</button>
+        <button class="btn btn-success">Submit</button>
     </div>
 </form>

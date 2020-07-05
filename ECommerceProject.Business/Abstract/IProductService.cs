@@ -9,6 +9,7 @@ namespace ECommerceProject.Business.Abstract
 
        IQueryable<Product> GetProductByCategoryId(int categoryId);
        void AddProduct(Product product);
+       Product AddProductReturn(Product product);
        void UpdateProduct(Product product);
        void DeleteProduct(int productId);
        IQueryable<Product> ListProduct();

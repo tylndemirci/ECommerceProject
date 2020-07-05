@@ -73,6 +73,7 @@ namespace ECommerceProject.AdminUI.Controllers
 
                 var product = new Product()
                 {
+                   
                     CategoryId = model.CategoryId,
                     Price = model.Price,
                     ProductName = model.ProductName,
@@ -80,20 +81,24 @@ namespace ECommerceProject.AdminUI.Controllers
 
                 };
                 product.ProductDetails = new List<ProductDetails>();
+              var returnProduct =  _productService.AddProductReturn(product);
+               
                 //creates detailLine for each detail submitted.
                 if (model.ProductDetailsTitle != null)
                 {
+                    
                     for (int i = 0; i < model.ProductDetailsTitle.Count; i++)
                     {
                         var detailLine = new ProductDetails();
-                        detailLine.ProductId = product.ProductId;
+                        detailLine.ProductId = returnProduct.ProductId;
                         detailLine.ProductDetailTitle = model.ProductDetailsTitle[i];
                         detailLine.ProductDetailDescription = model.ProductDetailsDescription[i];
-
                         _productDetailsService.AddDetails(detailLine);
+                        
                     }
+                  
                 }
-                _productService.AddProduct(product);
+                
                 return RedirectToAction("Index");
             }
             else

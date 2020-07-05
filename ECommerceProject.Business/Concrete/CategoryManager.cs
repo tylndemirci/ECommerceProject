@@ -65,8 +65,7 @@ namespace ECommerceProject.Business.Concrete
             _categoryDal.Update(category);
         }
 
-
-        //todo: make it generic
+        
         public void DeleteCategoryTree(int categoryId)
         {
             var firstCat = _categoryDal.GetBy(x => x.Id == categoryId);
@@ -76,10 +75,9 @@ namespace ECommerceProject.Business.Concrete
                 firstCat.IsDeleted = true;
                 _categoryDal.UpdateWithoutSave(firstCat);
                 var listCat = new List<Category>();
-                var c = 0;
+
                 for (int i = 0; i <= listCat.Count; i++)
                 {
-                   
                     if (secCat.Any())
                     {
                         foreach (var category in secCat.ToList())
@@ -89,14 +87,12 @@ namespace ECommerceProject.Business.Concrete
                             listCat.Add(category);
                         }
                     }
+
                     if (i < listCat.Count)
-                        {
-                            firstCat = _categoryDal.GetBy(x => x.Id == listCat[i].Id);
-                            secCat = _categoryDal.GetAll().Where(x => x.ParentCategoryId == firstCat.Id);
-                        }
-                    
-                    c++;
-                 
+                    {
+                        firstCat = _categoryDal.GetBy(x => x.Id == listCat[i].Id);
+                        secCat = _categoryDal.GetAll().Where(x => x.ParentCategoryId == firstCat.Id);
+                    }
                 }
 
                 _categoryDal.Update(firstCat);

@@ -46,7 +46,22 @@ namespace ECommerceProject.Business.Concrete
             }
         }
 
-        public void UpdateProduct(Product product)
+       public Product AddProductReturn(Product product)
+       {
+           var returnProduct = new Product
+               {
+                   ProductName = product.ProductName,
+                   Price = product.Price,
+                   ImageUrl = product.ImageUrl,
+                   CategoryId = product.CategoryId
+               };
+               _productDal.Add(returnProduct);
+               return returnProduct;
+          
+
+       }
+
+       public void UpdateProduct(Product product)
         {
             var getProduct = _productDal.GetBy(x=>x.ProductId==product.ProductId);
             
