@@ -75,25 +75,28 @@ namespace ECommerceProject.Business.Concrete
             {
                 firstCat.IsDeleted = true;
                 _categoryDal.UpdateWithoutSave(firstCat);
-
                 var listCat = new List<Category>();
-                var i = -1;
-                while (i < listCat.Count)
+                var c = 0;
+                for (int i = 0; i <= listCat.Count; i++)
                 {
-                    foreach (var category in secCat.ToList())
-                    {
-                        category.IsDeleted = true;
-                        _categoryDal.UpdateWithoutSave(category);
-                        listCat.Add(category);
-                    }
                    
-                    if (listCat.Count>0)
+                    if (secCat.Any())
                     {
-                        firstCat = _categoryDal.GetBy(x => x.Id == listCat[i].Id);
+                        foreach (var category in secCat.ToList())
+                        {
+                            category.IsDeleted = true;
+                            _categoryDal.UpdateWithoutSave(category);
+                            listCat.Add(category);
+                        }
                     }
+                    if (i < listCat.Count)
+                        {
+                            firstCat = _categoryDal.GetBy(x => x.Id == listCat[i].Id);
+                            secCat = _categoryDal.GetAll().Where(x => x.ParentCategoryId == firstCat.Id);
+                        }
                     
-                    secCat = _categoryDal.GetAll().Where(x => x.ParentCategoryId == firstCat.Id);
-                    
+                    c++;
+                 
                 }
 
                 _categoryDal.Update(firstCat);
