@@ -62,6 +62,29 @@ namespace ECommerceProject.AdminUI.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteRole(string id)
+        {
+            var role = _roleManager.FindByIdAsync(id).Result;
+            if (role != null)
+            {
+              var result =  await _roleManager.DeleteAsync(role);
+              if (result.Succeeded)
+              {
+                  TempData["message"] = $"{role.Name} was deleted.";
+                  return RedirectToAction("Index");
+              }
+              else
+              {
+                  foreach (var error in result.Errors)
+                  {
+                      ModelState.AddModelError("", error.Description);
+                  }
+              }
+            }
+            return RedirectToAction("Index");
+        }
+
         public IActionResult UsersInRole(string id)
         {
            
