@@ -62,7 +62,7 @@ namespace ECommerceProject.AdminUI.Controllers
             return View(model);
         }
 
-        [HttpPost]
+        
         public async Task<IActionResult> DeleteRole(string id)
         {
             var role = _roleManager.FindByIdAsync(id).Result;
@@ -82,6 +82,7 @@ namespace ECommerceProject.AdminUI.Controllers
                   }
               }
             }
+            TempData["messageError"] = $"Something went wrong.";
             return RedirectToAction("Index");
         }
 

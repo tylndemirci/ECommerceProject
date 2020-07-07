@@ -245,6 +245,13 @@
                 @TempData["message"]
             </div>
         }
+         @if (TempData["messageError"] != null)
+                {
+                    <div class="alert alert-danger">
+                        @TempData["messageError"]
+                    </div>
+                }
+
 
     </div>
 
